@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <!--  -->
+           <record id="object0" model="import_sage_customers.import_sage_customers">
+             <field name="name_bbdd">Object 0</field>
+             <field name="server">0</field>
+             <field name="port">0</field>
+             <field name="description">Servidor Sage Murano</field>
+           </record>
+        <!--  -->
+    </data>
+</odoo>
