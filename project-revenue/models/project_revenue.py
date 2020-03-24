@@ -6,5 +6,3 @@ class project_revenue(models.Model):
     _name = 'project_revenue.project_revenue'
     _description = 'project_revenue'
     _inherit = 'project.project'
-
-    name = fields.Char()
