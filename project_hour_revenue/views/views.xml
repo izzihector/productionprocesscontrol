@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <!--  Project inherited form -->
+        <!--        <record id="project_view_kanban" model="ir.ui.view">-->
+        <!--            <field name="model">project.project</field>-->
+        <!--            <field name="inherit_id" ref="base.project_view_kanban"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="name" position="after">-->
+        <!--                    <field name="name"></field>-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--        <record id="view_project_kanban_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">project.project.inherit</field>-->
+        <!--            <field name="model">project.project</field>-->
+        <!--            <field name="inherit_id" ref="base.view_project_kanban"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="name" position="after">-->
+        <!--                    <field name="name" />-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!--        <record id="view_project_kanban_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">project.project.inherit</field>-->
+        <!--            <field name="model">project.project</field>-->
+        <!--            <field name="mode">primary</field>-->
+        <!--            <field name="inherit_id" ref="project.view_project_kanban"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="name" position="after">-->
+        <!--                    <field name="name"></field>-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <!--                <xpath expr="//kanban[1]/templates[1]/t[1]/div[1]/div[1]/span[1]/field[@name='is_favorite']" position="before">-->
+
+
+        <record id="project_project_view_form_simplified_inherit_proyect_type" model="ir.ui.view">
+            <field name="name">project.project.view.form.simplified.inherit.proyect_type</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="type_project"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="project_project_view_form_inherit_timesheet" model="ir.ui.view">
+            <field name="name">project.project.view.form.inherit.proyect_type</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <field name="allow_timesheets" position="after">
+                    <field name="type_project"/>
+                </field>
+            </field>
+        </record>
+
+
+        <!--
+
+
+                COMENTAMOS EL BLOQUE DE ABAJO - SE ENCARGA DE AÑADIR LAS HORAS QUE TIENE EL PROYECTO RESTANTES DE PRODUCCION PERO  CARGA MUCHO EL LISTADO DE PROYECTOS Y SE HACE LENTISIMO
+
+        -->
+
+
+        <!--        <record id="view_project_kanban_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">project.project.kanban.inherit.total</field>-->
+        <!--            <field name="model">project.project</field>-->
+        <!--            <field name="inherit_id" ref="project.view_project_kanban"/>-->
+        <!--            <field name="priority">10</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">-->
+        <!--                    <tree class="oe_right" style="width:45px !important;" decoration-info="horas_restantes_produccion&gt;0"  decoration-danger="horas_restantes_produccion&lt;0">-->
+        <!--                        <span style="background-color:#42a2b8; color:#fff; padding-left:5px; padding-right:5px;"><field name="horas_restantes_produccion" /></span>-->
+        <!--                    </tree>-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <!--
+
+        FIN BLOQUE
+
+        -->
+
+
+    </data>
+</odoo>
