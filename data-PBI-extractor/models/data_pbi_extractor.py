@@ -25,8 +25,9 @@ class DataPbiExtractor(models.Model):
         with open("analitica_tickets_" + date_time + ".csv", mode='w') as file:
             writer = csv.writer(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # create a row contains heading of each column
+            # Proyecto y Tarea
             writer.writerow(
-                ['id', 'Nombre ticket', 'Empresa', 'Descripción', 'Horas dedicadas', 'Equipo', 'Fecha Creacion'])
+                ['id', 'Nombre ticket', 'Empresa', 'Id Cliente', 'Descripción', 'Horas dedicadas', 'Equipo', 'Tarea', 'Proyecto', 'Fecha Creacion'])
 
             HT = self.env['helpdesk.ticket']
             tickets = HT.search([])
@@ -34,11 +35,14 @@ class DataPbiExtractor(models.Model):
             # fetch products and write respective data.
             for ticket in tickets:
                 totalHorasImputadas = 0
-                accountAnalityc = ticket.timesheet_ids
-                if accountAnalityc:
-                    for account in accountAnalityc:
+                partes_horas = ticket.timesheet_ids
+                tarea = ticket.task_id.name
+                if tarea == False:
+                    tarea = ""
+                proyecto = ticket.project_id.name
+                if partes_horas:
+                    for account in partes_horas:
                         totalHorasImputadas = totalHorasImputadas + account.unit_amount
-
                 name = ticket.name
                 id = ticket.id
                 partner = ticket.partner_name
@@ -46,11 +50,14 @@ class DataPbiExtractor(models.Model):
                 # Checkeamos si es compañia o no para ir a extraer el nombre correcto
                 if ticket.partner_id.is_company == False:
                     partner = ticket.partner_id.parent_id.name
+                    id_cliente = ticket.partner_id.parent_id.id
 
                 descripcion = ticket.description
+                if descripcion == False:
+                    descripcion = ""
                 fecha_creacion = ticket.create_date
                 equipo = ticket.team_id
-                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name,
+                writer.writerow([id, name, partner, id_cliente, descripcion, totalHorasImputadas, equipo.name, tarea, proyecto,
                                  fecha_creacion.strftime("%m/%d/%Y")])
 
         files = open(filename, 'rb').read()
