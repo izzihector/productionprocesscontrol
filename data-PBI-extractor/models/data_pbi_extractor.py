@@ -45,7 +45,7 @@ class DataPbiExtractor(models.Model):
                 descripcion = ticket.description
                 fecha_creacion = ticket.create_date
                 equipo = ticket.team_id
-                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name, fecha_creacion[:10]])
+                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name, fecha_creacion.strftime("%m/%d/%Y")])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
