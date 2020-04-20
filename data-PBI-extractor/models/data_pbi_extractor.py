@@ -42,10 +42,16 @@ class DataPbiExtractor(models.Model):
                 name = ticket.name
                 id = ticket.id
                 partner = ticket.partner_name
+
+                # Checkeamos si es compañia o no para ir a extraer el nombre correcto
+                if ticket.partner_id.is_company == False:
+                    partner = ticket.partner_id.parent_id.name
+
                 descripcion = ticket.description
                 fecha_creacion = ticket.create_date
                 equipo = ticket.team_id
-                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name, fecha_creacion.strftime("%m/%d/%Y")])
+                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name,
+                                 fecha_creacion.strftime("%m/%d/%Y")])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
