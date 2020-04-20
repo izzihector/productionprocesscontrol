@@ -64,7 +64,7 @@ class DataPbiExtractor(models.Model):
                 totalHorasTexto = totalHorasTexto.replace('.', ',')
 
                 writer.writerow([id, name, partner, id_cliente, descripcion, totalHorasTexto, equipo.name, tarea, proyecto,
-                                 fecha_creacion.strftime("%m/%d/%Y")])
+                                 fecha_creacion.strftime("%d/%m/%Y")])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
