@@ -18,7 +18,7 @@ class DataPbiExtractor(models.Model):
     def get_tickets_analityc(self):
         now = datetime.now()  # current date and time
 
-        date_time = now.strftime("%m_%d_%Y")
+        date_time = now.strftime("%m_%d_%Y_%H_%M_%S")
 
         filename = "analitica_tickets_" + date_time + ".csv"
 
