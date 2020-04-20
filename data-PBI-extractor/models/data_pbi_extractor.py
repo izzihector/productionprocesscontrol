@@ -26,7 +26,7 @@ class DataPbiExtractor(models.Model):
             writer = csv.writer(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             # create a row contains heading of each column
             writer.writerow(
-                ['id', 'Nombre ticket', 'Empresa', 'Descripción', 'Horas dedicadas', 'Equipo'])
+                ['id', 'Nombre ticket', 'Empresa', 'Descripción', 'Horas dedicadas', 'Equipo', 'Fecha Creacion'])
 
             HT = self.env['helpdesk.ticket']
             tickets = HT.search([])
@@ -43,8 +43,9 @@ class DataPbiExtractor(models.Model):
                 id = ticket.id
                 partner = ticket.partner_name
                 descripcion = ticket.description
+                fecha_creacion = ticket.create_date
                 equipo = ticket.team_id
-                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name])
+                writer.writerow([id, name, partner, descripcion, totalHorasImputadas, equipo.name, fecha_creacion])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
