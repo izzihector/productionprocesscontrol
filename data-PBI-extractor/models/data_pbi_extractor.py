@@ -4,7 +4,9 @@ from odoo import models, fields, api
 import base64
 import csv
 from datetime import datetime
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class DataPbiExtractor(models.Model):
     _name = "data.pbi.extractor"
@@ -57,7 +59,11 @@ class DataPbiExtractor(models.Model):
                     descripcion = ""
                 fecha_creacion = ticket.create_date
                 equipo = ticket.team_id
-                writer.writerow([id, name, partner, id_cliente, descripcion, totalHorasImputadas, equipo.name, tarea, proyecto,
+                totalHorasTexto = str(totalHorasImputadas)
+                _logger.info(totalHorasTexto)
+                totalHorasTexto = totalHorasTexto.replace('.', ',')
+
+                writer.writerow([id, name, partner, id_cliente, descripcion, totalHorasTexto, equipo.name, tarea, proyecto,
                                  fecha_creacion.strftime("%m/%d/%Y")])
 
         files = open(filename, 'rb').read()
