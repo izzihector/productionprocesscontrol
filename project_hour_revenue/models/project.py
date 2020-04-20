@@ -27,7 +27,7 @@ class Project(models.Model):
     type_project = fields.Selection(
         [('1', 'Mantenimiento'), ('2', 'Pack horas'), ('3', 'Proyecto cerrado')],
         string='Tipo de proyecto',
-        required=True
+        required=False
     )
 
     #
