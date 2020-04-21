@@ -8,6 +8,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class DataPbiExtractor(models.Model):
     _name = "data.pbi.extractor"
 
@@ -79,7 +80,15 @@ class DataPbiExtractor(models.Model):
                                     total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
 
                 total_horas_contratadas = total_quantity_for_project
+
+                totalHorasContratadas = str(total_horas_contratadas)
+                totalHorasContratadas = totalHorasContratadas.replace('.', ',')
+
                 total_horas_imputadas = total_worked_hours
+
+                totalHorasImputadas = str(total_horas_imputadas)
+                totalHorasImputadas = totalHorasImputadas.replace('.', ',')
+
 
                 if total_quantity_for_project == 0:
                     alert_percentil_no_profitable = 1000
@@ -88,8 +97,8 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
-                writer.writerow([project_id, project_name, total_horas_contratadas, total_horas_imputadas, alert_percentil_no_profitable])
-
+                writer.writerow([project_id, project_name, totalHorasContratadas, totalHorasImputadas,
+                                 alert_percentil_no_profitable])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
@@ -97,8 +106,8 @@ class DataPbiExtractor(models.Model):
         content = base64.encodestring(files)
 
         return self.write(
-            {'file_name_project_horas_vendidas_vs_realizadas': filename, 'file_binary_project_horas_vendidas_vs_realizadas': content, 'name': filename, 'model': 'PBI: Proyectos'})
-
+            {'file_name_project_horas_vendidas_vs_realizadas': filename,
+             'file_binary_project_horas_vendidas_vs_realizadas': content, 'name': filename, 'model': 'PBI: Proyectos'})
 
     @api.multi
     def get_tickets_analityc(self):
@@ -113,7 +122,8 @@ class DataPbiExtractor(models.Model):
             # create a row contains heading of each column
             # Proyecto y Tarea
             writer.writerow(
-                ['id', 'Nombre ticket', 'Empresa', 'Id Cliente', 'Descripción', 'Horas dedicadas', 'Equipo', 'Tarea', 'Proyecto', 'Fecha Creacion'])
+                ['id', 'Nombre ticket', 'Empresa', 'Id Cliente', 'Descripción', 'Horas dedicadas', 'Equipo', 'Tarea',
+                 'Proyecto', 'Fecha Creacion'])
 
             HT = self.env['helpdesk.ticket']
             tickets = HT.search([])
@@ -147,8 +157,9 @@ class DataPbiExtractor(models.Model):
                 totalHorasTexto = str(totalHorasImputadas)
                 totalHorasTexto = totalHorasTexto.replace('.', ',')
 
-                writer.writerow([id, name, partner, id_cliente, descripcion, totalHorasTexto, equipo.name, tarea, proyecto,
-                                 fecha_creacion.strftime("%d/%m/%Y")])
+                writer.writerow(
+                    [id, name, partner, id_cliente, descripcion, totalHorasTexto, equipo.name, tarea, proyecto,
+                     fecha_creacion.strftime("%d/%m/%Y")])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
