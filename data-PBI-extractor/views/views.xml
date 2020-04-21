@@ -35,6 +35,18 @@
                                 <field name="file_binary" filename="file_name" readonly="1"/>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <h2>Analítica de proyectos</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">
+                                <button name="get_informe_horas_vendidas_imputadas_analityc" string="Obtener informe de proyecto por horas vendidas vs realizadas" type="object" class="oe_highlight" style="margin-bottom:10px;"/>
+                                <field name="file_name_project_horas_vendidas_vs_realizadas" invisible="1"/>
+                                <field name="file_binary_project_horas_vendidas_vs_realizadas" filename="file_name_project_horas_vendidas_vs_realizadas" readonly="1"/>
+                            </div>
+                        </div>
 <!--                        </div>-->
                     </sheet>
                 </form>
