@@ -50,6 +50,7 @@ class DataPbiExtractor(models.Model):
                 partner = ticket.partner_name
 
                 # Checkeamos si es compañia o no para ir a extraer el nombre correcto
+                id_cliente = ticket.partner_id.id
                 if ticket.partner_id.is_company == False:
                     partner = ticket.partner_id.parent_id.name
                     id_cliente = ticket.partner_id.parent_id.id
