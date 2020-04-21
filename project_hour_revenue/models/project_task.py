@@ -60,8 +60,6 @@ class ProjectTask(models.Model):
 
                 # Asignamos a la tarea
 
-        return res
-
 #                 if horas_restantes_produccion <= 0:
 #                     project['hour_color_for_limit'] = "color:"
 #         return super(ProjectTask, self).fields_view_get(view_id=None, view_type='form', toolbar=False, submenu=False)
