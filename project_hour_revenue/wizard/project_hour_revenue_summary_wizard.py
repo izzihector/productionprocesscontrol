@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-import sys
-
-if sys.__stdin__.isatty():
-    import pdb;
-
-    pdb.set_trace()
-
 from datetime import datetime, timedelta
-
 from odoo import models, fields, api
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
