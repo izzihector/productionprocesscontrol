@@ -34,7 +34,7 @@ class DataPbiExtractor(models.Model):
             # create a row contains heading of each column
             # Proyecto y Tarea
             writer.writerow(
-                ['Id proyecto', 'Proyecto', 'Horas vendidas', 'Horas imputadas', '% Alerta'])
+                ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable', 'Horas vendidas', 'Horas imputadas', '% Alerta'])
 
             PP = self.env['project.project']
             SSL = self.env['sale.subscription.line']
@@ -49,6 +49,11 @@ class DataPbiExtractor(models.Model):
                 project_id = project.id
                 project_name = project.name
                 alert_percentil_no_profitable = 0
+                nombre_cliente = project.partner_id.name
+                codigo_cliente = project.partner_id.id
+                tipo_proyecto = project.type_project
+                responsable = project.user_id.name
+                unidades_vendidas = 0
 
                 # Primero visitamos las tareas para obtener las horas imputadas y si estas tareas
                 # tienen lineas de venta, las recogemos con el fin de ir acumulando
@@ -97,7 +102,7 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
-                writer.writerow([project_id, project_name, totalHorasContratadas, totalHorasImputadas,
+                writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable, totalHorasContratadas, totalHorasImputadas,
                                  alert_percentil_no_profitable])
 
         files = open(filename, 'rb').read()
@@ -123,7 +128,7 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['id', 'Nombre ticket', 'Empresa', 'Id Cliente', 'Descripción', 'Horas dedicadas', 'Equipo', 'Tarea',
-                 'Proyecto', 'Fecha Creacion'])
+                 'Proyecto', 'Fecha Creacion', 'Comercial'])
 
             HT = self.env['helpdesk.ticket']
             tickets = HT.search([])
@@ -131,6 +136,7 @@ class DataPbiExtractor(models.Model):
             # fetch products and write respective data.
             for ticket in tickets:
                 totalHorasImputadas = 0
+                comercial = ticket.partner_id.user_id.name
                 partes_horas = ticket.timesheet_ids
                 tarea = ticket.task_id.name
                 if tarea == False:
@@ -159,7 +165,7 @@ class DataPbiExtractor(models.Model):
 
                 writer.writerow(
                     [id, name, partner, id_cliente, descripcion, totalHorasTexto, equipo.name, tarea, proyecto,
-                     fecha_creacion.strftime("%d/%m/%Y")])
+                     fecha_creacion.strftime("%d/%m/%Y"), comercial])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
