@@ -25,7 +25,7 @@ class Project(models.Model):
         required=False)
 
     type_project = fields.Selection(
-        [('1', 'Mantenimiento'), ('2', 'Pack horas'), ('3', 'Proyecto cerrado')],
+        [('1', 'Mantenimiento'), ('2', 'Pack horas'), ('3', 'Proyecto cerrado'), ('4', 'Horas Facturables')],
         string='Tipo de proyecto',
         required=False
     )
