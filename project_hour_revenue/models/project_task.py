@@ -50,8 +50,7 @@ class ProjectTask(models.Model):
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
                         horas_restantes_produccion = total_quantity_for_project - total_worked_hours
-
-                        task['horas_restantes_produccion_proyecto'] = horas_restantes_produccion
+            self.horas_restantes_produccion_proyecto = horas_restantes_produccion
 
                 # Queda comentado ya que no atacamos al proyecto
                 # project['total_horas_contratadas'] = total_quantity_for_project
