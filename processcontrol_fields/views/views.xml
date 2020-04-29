@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+
+        <record id="account_invoice_view_form_inherit_nfs" model="ir.ui.view">
+            <field name="name">account.invoice.view.form.inherit.nfs</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="numero_factura_sage"/>
+                  </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_view_form_inherit_nfs" model="ir.ui.view">
+            <field name="name">sale.order.view.form.inherit.nfs</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">31</field>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                    <field name="numero_factura_sage"/>
+                  </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>
