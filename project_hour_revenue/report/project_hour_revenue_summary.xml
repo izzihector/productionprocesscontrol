@@ -44,12 +44,12 @@
                                         <span t-esc="project['total_horas_imputadas']"/>
                                     </td>
                                     <td>
-                                        <span t-if="project['is_closed_project'] == True">
-                                            Si
-                                        </span>
-                                        <span t-if="project['is_closed_project'] != False">
-                                            No
-                                        </span>
+<!--                                        <span t-if="project['is_closed_project'] == True">-->
+<!--                                            Si-->
+<!--                                        </span>-->
+<!--                                        <span t-if="project['is_closed_project'] != False">-->
+<!--                                            No-->
+<!--                                        </span>-->
                                     </td>
                                     <td>
                                         <span t-esc="project['alert_percentil_no_profitable']"/>%

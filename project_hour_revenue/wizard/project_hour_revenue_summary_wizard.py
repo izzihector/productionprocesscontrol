@@ -96,7 +96,7 @@ class ProjectHourRevenueReportView(models.AbstractModel):
             #     ])
 
             for project in projects:
-                project['is_closed_project'] = False
+                # project['is_closed_project'] = False
                 horas_proyecto_cerrado = 0
                 is_closed_project = 0
                 total_quantity_for_project = 0
@@ -117,7 +117,7 @@ class ProjectHourRevenueReportView(models.AbstractModel):
                             for sale_line in sales_lines:
                                 if sale_line.horas_reales > 0:
                                     is_closed_project = 1
-                                    project['is_closed_project'] = True
+                                    # project['is_closed_project'] = True
                                     horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
                                 total_quantity_line = sale_line['product_uom_qty']
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
