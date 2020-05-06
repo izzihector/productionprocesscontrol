@@ -10,7 +10,6 @@ class ProjectHourRevenueReportWizard(models.TransientModel):
 
     date_start = fields.Date(string='Start Date', required=True, default=fields.Date.today)
     date_end = fields.Date(string='End Date', required=True, default=fields.Date.today)
-    # user_id = fields.Many2one('res.users', string='Responsable', required=False, auto_join=True)inspection_id = fields.Many2one('comodel_name='qc.inspection', string="Inspection", ondelet="cascade")
     id_responsable = fields.Many2one('res.users', string='Worker')
     departamento = fields.Selection(
         [('Sistemas', 'Sistemas'), ('Software', 'Software')],
@@ -45,6 +44,7 @@ class ProjectHourRevenueReportView(models.AbstractModel):
         date_end = data['form']['date_end']
         id_responsable = data['form']['id_responsable']
         departamento = data['form']['departamento']
+
 
         PP = self.env['project.project']
         PT = self.env['project.task']
@@ -96,6 +96,9 @@ class ProjectHourRevenueReportView(models.AbstractModel):
             #     ])
 
             for project in projects:
+                project['is_closed_project'] = False
+                horas_proyecto_cerrado = 0
+                is_closed_project = 0
                 total_quantity_for_project = 0
                 total_worked_hours = 0
                 tasks = project.task_ids
@@ -112,6 +115,10 @@ class ProjectHourRevenueReportView(models.AbstractModel):
                         if sales_lines:
                             # obtenemos el total de cantidad por linea en el pedido
                             for sale_line in sales_lines:
+                                if sale_line.horas_reales > 0:
+                                    is_closed_project = 1
+                                    project['is_closed_project'] = True
+                                    horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
                                 total_quantity_line = sale_line['product_uom_qty']
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
@@ -131,6 +138,10 @@ class ProjectHourRevenueReportView(models.AbstractModel):
                                     total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
 
                 project['total_horas_contratadas'] = total_quantity_for_project
+
+                if is_closed_project == 1:
+                    project['total_horas_contratadas'] = horas_proyecto_cerrado
+
                 project['total_horas_imputadas'] = total_worked_hours
 
                 if total_quantity_for_project == 0:

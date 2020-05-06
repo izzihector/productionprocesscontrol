@@ -29,3 +29,7 @@ class Project(models.Model):
         string='Tipo de proyecto',
         required=False
     )
+
+    is_closed_project = fields.Boolean(
+        string='Is closed Project',
+        required=False)

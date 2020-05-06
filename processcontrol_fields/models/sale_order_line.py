@@ -5,9 +5,9 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
-class AccountInvoice(models.Model):
-    _inherit = ['account.invoice']
+class SaleOrderLine(models.Model):
+    _inherit = ['sale.order.line']
 
-    numero_factura_sage = fields.Char(
-        string='Numero Factura Sage',
+    horas_reales = fields.Integer(
+        string='Horas Reales',
         required=False)
