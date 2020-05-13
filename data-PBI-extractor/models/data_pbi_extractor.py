@@ -34,7 +34,8 @@ class DataPbiExtractor(models.Model):
             # create a row contains heading of each column
             # Proyecto y Tarea
             writer.writerow(
-                ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable', 'Horas vendidas', 'Horas imputadas', '% Alerta'])
+                ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
+                 'Horas vendidas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado'])
 
             PP = self.env['project.project']
             SSL = self.env['sale.subscription.line']
@@ -43,6 +44,8 @@ class DataPbiExtractor(models.Model):
             projects = PP.search([])
 
             for project in projects:
+                horas_proyecto_cerrado = 0
+                is_closed_project = 0
                 total_quantity_for_project = 0
                 total_worked_hours = 0
                 tasks = project.task_ids
@@ -54,11 +57,15 @@ class DataPbiExtractor(models.Model):
                 tipo_proyecto = project.type_project
                 responsable = project.user_id.name
                 unidades_vendidas = 0
+                proyectoCerrado = "NO"
 
                 # Primero visitamos las tareas para obtener las horas imputadas y si estas tareas
                 # tienen lineas de venta, las recogemos con el fin de ir acumulando
                 # las horas vendidas
                 if tasks:
+                    i = 0
+                    idLineaPedido = ""
+
                     for task in tasks:
                         sales_lines = task.sale_line_id
                         total_worked_hours = total_worked_hours + task['effective_hours']
@@ -66,8 +73,16 @@ class DataPbiExtractor(models.Model):
                         if sales_lines:
                             # obtenemos el total de cantidad por linea en el pedido
                             for sale_line in sales_lines:
-                                total_quantity_line = sale_line['product_uom_qty']
-                                total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                                if sale_line['id'] != idLineaPedido:
+                                    total_quantity_line = sale_line['product_uom_qty']
+                                    total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                                    if sale_line.horas_reales > 0:
+                                        is_closed_project = 1
+                                        proyectoCerrado = "SI"
+                                        horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+
+                                    idLineaPedido = sale_line['id']
+                        i = i + 1
 
                 if project_id:
                     subscription_lines = SSL.search([
@@ -86,6 +101,9 @@ class DataPbiExtractor(models.Model):
 
                 total_horas_contratadas = total_quantity_for_project
 
+                if is_closed_project == 1:
+                    total_horas_contratadas = horas_proyecto_cerrado
+
                 totalHorasContratadas = str(total_horas_contratadas)
                 totalHorasContratadas = totalHorasContratadas.replace('.', ',')
 
@@ -94,7 +112,6 @@ class DataPbiExtractor(models.Model):
                 totalHorasImputadas = str(total_horas_imputadas)
                 totalHorasImputadas = totalHorasImputadas.replace('.', ',')
 
-
                 if total_quantity_for_project == 0:
                     alert_percentil_no_profitable = 1000
 
@@ -102,8 +119,9 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
-                writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable, totalHorasContratadas, totalHorasImputadas,
-                                 alert_percentil_no_profitable])
+                writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
+                                 totalHorasContratadas, totalHorasImputadas,
+                                 alert_percentil_no_profitable, proyectoCerrado])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
