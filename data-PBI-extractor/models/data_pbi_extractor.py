@@ -54,7 +54,7 @@ class DataPbiExtractor(models.Model):
                 alert_percentil_no_profitable = 0
                 nombre_cliente = project.partner_id.name
                 codigo_cliente = project.partner_id.id
-                tipo_proyecto = project.type_project
+                tipo_proyecto = self._get_name_tipo_proyecto(project.type_project)
                 responsable = project.user_id.name
                 unidades_vendidas = 0
                 proyectoCerrado = "NO"
@@ -192,3 +192,16 @@ class DataPbiExtractor(models.Model):
 
         return self.write(
             {'file_name': filename, 'file_binary': content, 'name': filename, 'model': 'PBI: Tickets'})
+
+    def _get_name_tipo_proyecto(self,idproyecto):
+        resultado = "Sin definir"
+        if idproyecto == "1":
+            resultado = "Mantenimiento"
+        if idproyecto == "2":
+            resultado = "Pack horas"
+        if idproyecto == "3":
+            resultado = "Proyecto cerrado"
+        if idproyecto == "4":
+            resultado = "Horas facturables"
+            
+        return resultado
