@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    horas_restantes_produccion_proyecto = fields.Integer(
+    horas_restantes_produccion_proyecto = fields.Float(
         string='Total Horas Restantes Produccion',
         required=False, compute='_calc_hours_less_for_proyect')
 
