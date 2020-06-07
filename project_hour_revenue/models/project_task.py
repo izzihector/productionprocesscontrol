@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    horas_restantes_produccion_proyecto = fields.Float(
+    horas_restantes_produccion_proyecto = fields.Char(
         string='Total Horas Restantes Produccion',
         required=False, compute='_calc_hours_less_for_proyect')
 
@@ -53,8 +53,10 @@ class ProjectTask(models.Model):
 
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
-                        horas_restantes_produccion = total_quantity_for_project - total_worked_hours
-            self.horas_restantes_produccion_proyecto = total_worked_hours
+                horas_restantes_produccion = total_quantity_for_project - total_worked_hours
+                result = '{0:02.0f}:{1:02.0f}'.format(*divmod(horas_restantes_produccion * 60, 60))
+
+                self.horas_restantes_produccion_proyecto = total_quantity_for_project
 
                 # Queda comentado ya que no atacamos al proyecto
                 # project['total_horas_contratadas'] = total_quantity_for_project
