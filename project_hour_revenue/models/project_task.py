@@ -37,6 +37,8 @@ class ProjectTask(models.Model):
                 horas_restantes_produccion = 0
                 sales_lines = project.sale_line_id
                 tasks = project.task_ids
+                isNegativeValue = 0
+                result = 0
 
                 if tasks:
                     for task in tasks:
@@ -46,7 +48,7 @@ class ProjectTask(models.Model):
                         if sales_lines:
                             # obtenemos el total de cantidad por linea en el pedido
                             for sale_line in sales_lines:
-                                if(sale_line['horas_reales'] > 0):
+                                if (sale_line['horas_reales'] > 0):
                                     total_quantity_line = sale_line['horas_reales']
                                 else:
                                     total_quantity_line = sale_line['product_uom_qty']
@@ -54,9 +56,18 @@ class ProjectTask(models.Model):
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
                 horas_restantes_produccion = total_quantity_for_project - total_worked_hours
-                result = '{0:02.0f}:{1:02.0f}'.format(*divmod(horas_restantes_produccion * 60, 60))
+                if (horas_restantes_produccion < 0):
+                    isNegativeValue = 1
+                    horas_restantes_produccion = abs(horas_restantes_produccion)
+                    horas_restantes_produccion = str(horas_restantes_produccion)
+                    horasSinSimbolo = horas_restantes_produccion.replace('-', '')
+                    horasSinSimbolo = float(horasSinSimbolo)
+                    result = '{0:02.0f}:{1:02.0f}'.format(*divmod(horasSinSimbolo * 60, 60))
+                    result = "-" + result
+                else:
+                    result = '{0:02.0f}:{1:02.0f}'.format(*divmod(horas_restantes_produccion * 60, 60))
 
-                self.horas_restantes_produccion_proyecto = total_quantity_for_project
+                self.horas_restantes_produccion_proyecto = result
 
                 # Queda comentado ya que no atacamos al proyecto
                 # project['total_horas_contratadas'] = total_quantity_for_project
