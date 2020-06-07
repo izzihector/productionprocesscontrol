@@ -63,8 +63,8 @@ class ProjectTask(models.Model):
                         totalHorasImputadas = str(total_horas_imputadas)
                         totalHorasImputadas = totalHorasImputadas.replace('.', ',')
 
-                        horas_restantes_produccion = total_quantity_for_project - total_horas_imputadas
-            self.horas_restantes_produccion_proyecto = horas_restantes_produccion
+                        #horas_restantes_produccion = total_quantity_for_project - total_horas_imputadas
+            self.horas_restantes_produccion_proyecto = totalHorasImputadas
 
                 # Queda comentado ya que no atacamos al proyecto
                 # project['total_horas_contratadas'] = total_quantity_for_project
