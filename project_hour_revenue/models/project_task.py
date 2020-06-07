@@ -3,10 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-import base64
-import csv
-from datetime import datetime
-import logging
+
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
@@ -66,7 +63,7 @@ class ProjectTask(models.Model):
                         totalHorasImputadas = str(total_horas_imputadas)
                         totalHorasImputadas = totalHorasImputadas.replace('.', ',')
 
-                        horas_restantes_produccion = totalHorasContratadas - totalHorasImputadas
+                        horas_restantes_produccion = total_quantity_for_project - total_horas_imputadas
             self.horas_restantes_produccion_proyecto = horas_restantes_produccion
 
                 # Queda comentado ya que no atacamos al proyecto
