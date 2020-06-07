@@ -46,11 +46,15 @@ class ProjectTask(models.Model):
                         if sales_lines:
                             # obtenemos el total de cantidad por linea en el pedido
                             for sale_line in sales_lines:
-                                total_quantity_line = sale_line['product_uom_qty']
+                                #if(sale_line['horas_reales'] > 0):
+                                total_quantity_line = sale_line['horas_reales']
+                                #else:
+                                 #   total_quantity_line = sale_line['product_uom_qty']
+
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
                         horas_restantes_produccion = total_quantity_for_project - total_worked_hours
-            self.horas_restantes_produccion_proyecto = horas_restantes_produccion
+            self.horas_restantes_produccion_proyecto = total_quantity_for_project
 
                 # Queda comentado ya que no atacamos al proyecto
                 # project['total_horas_contratadas'] = total_quantity_for_project
