@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    horas_restantes_produccion_proyecto = fields.Char(
+    horas_restantes_produccion_proyecto = fields.Float(
         string='Total Horas Restantes Produccion',
         required=False, compute='_calc_hours_less_for_proyect')
 
@@ -37,8 +37,6 @@ class ProjectTask(models.Model):
                 horas_restantes_produccion = 0
                 sales_lines = project.sale_line_id
                 tasks = project.task_ids
-                isNegativeValue = 0
-                result = 0
 
                 if tasks:
                     for task in tasks:
@@ -48,26 +46,11 @@ class ProjectTask(models.Model):
                         if sales_lines:
                             # obtenemos el total de cantidad por linea en el pedido
                             for sale_line in sales_lines:
-                                if (sale_line['horas_reales'] > 0):
-                                    total_quantity_line = sale_line['horas_reales']
-                                else:
-                                    total_quantity_line = sale_line['product_uom_qty']
-
+                                total_quantity_line = sale_line['product_uom_qty']
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
-                horas_restantes_produccion = total_quantity_for_project - total_worked_hours
-                if (horas_restantes_produccion < 0):
-                    isNegativeValue = 1
-                    horas_restantes_produccion = abs(horas_restantes_produccion)
-                    horas_restantes_produccion = str(horas_restantes_produccion)
-                    horasSinSimbolo = horas_restantes_produccion.replace('-', '')
-                    horasSinSimbolo = float(horasSinSimbolo)
-                    result = '{0:02.0f}:{1:02.0f}'.format(*divmod(horasSinSimbolo * 60, 60))
-                    result = "-" + result
-                else:
-                    result = '{0:02.0f}:{1:02.0f}'.format(*divmod(horas_restantes_produccion * 60, 60))
-
-                self.horas_restantes_produccion_proyecto = result
+                        horas_restantes_produccion = total_quantity_for_project - total_worked_hours
+            self.horas_restantes_produccion_proyecto = horas_restantes_produccion
 
                 # Queda comentado ya que no atacamos al proyecto
                 # project['total_horas_contratadas'] = total_quantity_for_project

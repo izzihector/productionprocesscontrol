@@ -37,6 +37,18 @@
             </field>
         </record>
 
+        <record id="sale_subscription_form_view_custom" model="ir.ui.view">
+            <field name="name">sale.subscription.form.view.custom</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+            <field name="priority">32</field>
+            <field name="arch" type="xml">
+              <xpath expr="//field[@name='to_renew']" position="after">
+                <field name="termino_pago"/>
+              </xpath>
+            </field>
+        </record>
+
 
 
     </data>
