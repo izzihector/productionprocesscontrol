@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <record id="sale_order_view_form_inherit_nfs" model="ir.ui.view">
+            <field name="name">sale.order.view.form.inherit.nfs</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">31</field>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                    <button name="deleteDuplicate" string="Limpiar etapas" type="object" class="oe_highlight"/>
+                  </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>
