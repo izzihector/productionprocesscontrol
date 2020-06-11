@@ -37,6 +37,18 @@
             </field>
         </record>
 
+        <record id="product_category_form_nfs" model="ir.ui.view">
+            <field name="name">product.category.form.nfs</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="priority">32</field>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='parent_id']" position = "after" >
+                    <field string="Categoría para proyecto cerrado" name="category_for_project_closed" />
+                </xpath >
+            </field>
+        </record>
+
         <record id="sale_subscription_form_view_custom" model="ir.ui.view">
             <field name="name">sale.subscription.form.view.custom</field>
             <field name="model">sale.subscription</field>
