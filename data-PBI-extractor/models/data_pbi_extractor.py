@@ -118,10 +118,10 @@ class DataPbiExtractor(models.Model):
 
 
 
-                #total_horas_imputadas = total_worked_hours
+                total_horas_imputadas = total_worked_hours
 
-                #totalHorasImputadas = float(totalHorasImputadas)
-                totalHorasImputadas = '{0:02.0f}:{1:02.0f}'.format(*divmod(total_worked_hours * 60, 60))
+                totalHorasImputadas = float(totalHorasImputadas)
+                #totalHorasImputadas = '{0:02.0f}:{1:02.0f}'.format(*divmod(total_worked_hours * 60, 60))
 
                 totalHorasImputadas = str(totalHorasImputadas)
                 totalHorasImputadas = totalHorasImputadas.replace('.', ',')
