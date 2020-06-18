@@ -37,7 +37,7 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado'])
+                 'Horas vendidas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado', 'Departamento', 'Comercial'])
 
             PP = self.env['project.project']
             SSL = self.env['sale.subscription.line']
@@ -56,6 +56,8 @@ class DataPbiExtractor(models.Model):
                 alert_percentil_no_profitable = 0
                 nombre_cliente = project.partner_id.name
                 codigo_cliente = project.partner_id.id
+                departamento = project.x_studio_departamento
+                comercial = project.x_comercial_id.name
                 tipo_proyecto = self._get_name_tipo_proyecto(project.type_project)
                 responsable = project.user_id.name
                 unidades_vendidas = 0
@@ -130,7 +132,7 @@ class DataPbiExtractor(models.Model):
 
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
                                  totalHorasContratadas, totalHorasImputadas,
-                                 alert_percentil_no_profitable, proyectoCerrado])
+                                 alert_percentil_no_profitable, proyectoCerrado, departamento, comercial])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
