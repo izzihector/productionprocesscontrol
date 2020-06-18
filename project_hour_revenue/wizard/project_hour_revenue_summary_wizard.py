@@ -45,7 +45,6 @@ class ProjectHourRevenueReportView(models.AbstractModel):
         id_responsable = data['form']['id_responsable']
         departamento = data['form']['departamento']
 
-
         PP = self.env['project.project']
         PT = self.env['project.task']
         SOL = self.env['sale.order.line']
@@ -103,6 +102,8 @@ class ProjectHourRevenueReportView(models.AbstractModel):
                 total_worked_hours = 0
                 tasks = project.task_ids
                 project_id = project.id
+
+                project['comercial'] = project.x_comercial_id.name
 
                 # Primero visitamos las tareas para obtener las horas imputadas y si estas tareas
                 # tienen lineas de venta, las recogemos con el fin de ir acumulando

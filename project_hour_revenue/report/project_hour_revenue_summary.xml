@@ -29,6 +29,8 @@
                         <th style="width: 15%">H. Imputadas</th>
                         <th style="width: 15%">Proyecto Cerrado</th>
                         <th style="width: 15%">% Alerta</th>
+                        <th style="width: 15%">Depart.</th>
+                        <th style="width: 15%">Comercial</th>
                     </thead>
                     <tbody>
                         <t t-foreach="docs" t-as="doc">
@@ -53,6 +55,12 @@
                                     </td>
                                     <td>
                                         <span t-esc="project['alert_percentil_no_profitable']"/>%
+                                    </td>
+                                    <td>
+                                        <span t-esc="project['x_studio_departamento']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="project['comercial']"/>
                                     </td>
                                 </tr>
                             </t>

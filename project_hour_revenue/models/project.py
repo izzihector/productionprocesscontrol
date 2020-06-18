@@ -33,3 +33,7 @@ class Project(models.Model):
     is_closed_project = fields.Boolean(
         string='Is closed Project',
         required=False)
+
+    comercial = fields.Char(
+        string='Comercial Informe',
+        required=False)
