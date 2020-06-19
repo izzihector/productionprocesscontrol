@@ -37,7 +37,7 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado', 'Departamento', 'Comercial'])
+                 'Horas vendidas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado', 'Departamento', 'Comercial', 'Etapa'])
 
             PP = self.env['project.project']
             SSL = self.env['sale.subscription.line']
@@ -63,6 +63,7 @@ class DataPbiExtractor(models.Model):
                 unidades_vendidas = 0
                 proyectoCerrado = "NO"
                 order_name = ""
+                etapa = project.x_stage_id.display_name
 
                 # Primero visitamos las tareas para obtener las horas imputadas y si estas tareas
                 # tienen lineas de venta, las recogemos con el fin de ir acumulando
@@ -132,7 +133,7 @@ class DataPbiExtractor(models.Model):
 
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
                                  totalHorasContratadas, totalHorasImputadas,
-                                 alert_percentil_no_profitable, proyectoCerrado, departamento, comercial])
+                                 alert_percentil_no_profitable, proyectoCerrado, departamento, comercial, etapa])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
