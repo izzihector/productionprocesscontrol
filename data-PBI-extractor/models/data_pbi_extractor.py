@@ -5,6 +5,7 @@ import base64
 import csv
 from datetime import datetime
 import logging
+import locale
 
 _logger = logging.getLogger(__name__)
 
@@ -17,6 +18,9 @@ class DataPbiExtractor(models.Model):
 
     file_name = fields.Char(string='File Name')
     file_binary = fields.Binary(string='Binary File')
+
+    file_name_tickets_sistemas = fields.Char(string='File Name Tickets Sistemas')
+    file_binary_tickets_sistemas = fields.Binary(string='Binary File Tickets Sistemas')
 
     file_name_project_horas_vendidas_vs_realizadas = fields.Char(string='File Name Project Horas vs Vendidas')
     file_binary_project_horas_vendidas_vs_realizadas = fields.Binary(string='Binary File Project Horas vs Vendidas')
@@ -245,3 +249,70 @@ class DataPbiExtractor(models.Model):
 
         return self.write(
             {'file_name': filename, 'file_binary': content, 'name': filename, 'model': 'PBI: Tickets'})
+
+    @api.multi
+    def get_tickets_sistemas_analityc(self):
+        now = datetime.now()  # current date and time
+
+        date_time = now.strftime("%m_%d_%Y_%H_%M_%S")
+
+        filename = "analitica_tickets_sistemas_" + date_time + ".csv"
+
+        with open("analitica_tickets_sistemas_" + date_time + ".csv", mode='w') as file:
+            writer = csv.writer(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            # create a row contains heading of each column
+            # Proyecto y Tarea
+            writer.writerow(
+                ['id', 'Nombre ticket', 'Empresa', 'Id Cliente', 'Descripción', 'Horas dedicadas', 'Equipo', 'Tarea',
+                 'Proyecto', 'Fecha Creacion', 'Comercial', 'Hora Creacion', 'Dia de la semana', 'Tecnico'])
+
+            HT = self.env['helpdesk.ticket']
+            tickets = HT.search([])
+
+            # fetch products and write respective data.
+            for ticket in tickets:
+                totalHorasImputadas = 0
+                comercial = ticket.partner_id.user_id.name
+                partes_horas = ticket.timesheet_ids
+                tarea = ticket.task_id.name
+                if tarea == False:
+                    tarea = ""
+                proyecto = ticket.project_id.name
+                if partes_horas:
+                    for account in partes_horas:
+                        totalHorasImputadas = totalHorasImputadas + account.unit_amount
+                name = ticket.name
+                id = ticket.id
+                partner = ticket.partner_name
+                tecnico = ticket.user_id.name
+
+                # Checkeamos si es compañia o no para ir a extraer el nombre correcto
+                id_cliente = ticket.partner_id.id
+                if ticket.partner_id.is_company == False:
+                    partner = ticket.partner_id.parent_id.name
+                    id_cliente = ticket.partner_id.parent_id.id
+
+                descripcion = ticket.description
+                if descripcion == False:
+                    descripcion = ""
+                fecha_creacion = ticket.create_date
+                equipo = ticket.team_id
+                totalHorasTexto = str(totalHorasImputadas)
+                totalHorasTexto = totalHorasTexto.replace('.', ',')
+
+                # Seteamos el lenguaje de fechas a español
+                locale.setlocale(locale.LC_ALL, "es_ES.utf8")
+
+                writer.writerow(
+                    [id, name, partner, id_cliente, descripcion, totalHorasTexto, equipo.name, tarea, proyecto,
+                     fecha_creacion.strftime("%d/%m/%Y"), comercial, fecha_creacion.strftime("%H:%M:%S"),
+                     fecha_creacion.strftime("%A"), tecnico])
+
+        files = open(filename, 'rb').read()
+        # file = open('export.csv', 'wb')
+        #
+        content = base64.encodestring(files)
+
+        return self.write(
+            {'file_name_tickets_sistemas': filename, 'file_binary_tickets_sistemas': content, 'name': filename,
+             'model': 'PBI: Tickets Sistemas'})
