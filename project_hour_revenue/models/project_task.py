@@ -16,7 +16,6 @@ class ProjectTask(models.Model):
     #     def create(self, values):
     #         if values.get('project_id'):
     #         values['horas_restantes_produccion_proyecto'] = 800
-
     #         return super(ProjectTask, self).write(values)
 
     def _calc_hours_less_for_proyect(self):
@@ -46,20 +45,29 @@ class ProjectTask(models.Model):
                         if sales_lines:
                             # obtenemos el total de cantidad por linea en el pedido
                             for sale_line in sales_lines:
+                                have_project = sale_line['x_studio_proyecto_pedido_venta']
                                 total_quantity_line = sale_line['product_uom_qty']
+                                if have_project:
+                                    total_quantity_line = sale_line['horas_reales']
                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
                         horas_restantes_produccion = total_quantity_for_project - total_worked_hours
-            self.horas_restantes_produccion_proyecto = horas_restantes_produccion
+            self.horas_restantes_produccion_proyecto = self.convert_time_unit_to_hours(horas_restantes_produccion)
 
-                # Queda comentado ya que no atacamos al proyecto
-                # project['total_horas_contratadas'] = total_quantity_for_project
-                # project['total_horas_imputadas'] = total_worked_hours
-                # project['horas_restantes_produccion'] = horas_restantes_produccion
+    def convert_time_unit_to_hours(self, time_unit):
+        total_time_hour = 100
+        total_minutes_hour = 60
+        es_negativo = 0
+        value_for_return = time_unit
 
-                # Asignamos a la tarea
+        if time_unit < 0:
+            es_negativo = 1
+            time_unit = abs(time_unit)
 
-#                 if horas_restantes_produccion <= 0:
-#                     project['hour_color_for_limit'] = "color:"
-#         return super(ProjectTask, self).fields_view_get(view_id=None, view_type='form', toolbar=False, submenu=False)
+        if es_negativo == 1:
+            value_for_return = (time_unit * total_minutes_hour) / total_time_hour
+            value_for_return = -abs(value_for_return)
+        else:
+            value_for_return = (time_unit * total_minutes_hour) / total_time_hour
 
+        return value_for_return
