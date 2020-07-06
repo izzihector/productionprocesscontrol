@@ -21,6 +21,6 @@ class VirtualModelToView(models.Model):
         self._cr.execute("""
                 CREATE OR REPLACE VIEW project_virtual AS (
                     SELECT 
-                    ps.display_name as project_name
+                    ps.name as project_name
                     FROM public.project_project ps
                 )""")

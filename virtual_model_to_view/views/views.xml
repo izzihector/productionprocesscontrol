@@ -21,6 +21,9 @@
             </field>
         </record>
 
-        <menuitem name="Project Milestone Invoicing" action="action_project_milestone_invoicing_view" id="menu_project_milestone_invoicing_act" parent="project.menu_project_config" sequence="4"/>
+        <menuitem id="extractor_base_menu" name="Vista Proyectos" action="action_data_pbi_extract"/>
+
+        <menuitem name="Project Milestone Invoicing" action="action_project_milestone_invoicing_view" id="menu_project_milestone_invoicing_act" parent="project.menu_project_report" sequence="5"/>
+
     </data>
 </odoo>
