@@ -1,6 +1,26 @@
 <odoo>
     <data>
+        <record id="action_project_milestone_invoicing_view" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="name">Project Milestone Invoicing</field>
+            <field name="res_model">virtual.model.to.view</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create the first project</p>
+            </field>
+        </record>
 
+        <record model="ir.ui.view" id="action_project_milestone_invoicing_tree">
+            <field name="name">Project Milestone Invoicing</field>
+            <field name="model">virtual.model.to.view</field>
+            <field name="arch" type="xml">
+                <tree string="Project Milestone Invoicing" create="false">
+                    <field name='project_name'/>
+                </tree>
+            </field>
+        </record>
 
+        <menuitem name="Project Milestone Invoicing" action="action_project_milestone_invoicing_view" id="menu_project_milestone_invoicing_act" parent="project.menu_project_config" sequence="4"/>
     </data>
 </odoo>
