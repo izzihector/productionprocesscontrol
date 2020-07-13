@@ -110,11 +110,10 @@ class DataPbiExtractor(models.Model):
                         ('project_id', '=', project_id)
                     ])
                     if subscription_lines:
-                        subscription_id = subscription_lines.analytic_account_id.id
+                        subscription_id = subscription_lines.analytic_account_id
                         # Obtenemos las facturas de su suscripcion para recorrer las lineas de las mismas
                         if subscription_id:
                             for sub in subscription_id:
-                                raise exceptions.UserError(_(sub) % ())
                                 invoice_lines = AIL.search([
                                     ('subscription_id', '=', sub)
                                 ])
