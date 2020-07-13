@@ -115,7 +115,7 @@ class DataPbiExtractor(models.Model):
                         if subscription_id:
                             for sub in subscription_id:
                                 invoice_lines = AIL.search([
-                                    ('subscription_id', '=', sub)
+                                    ('subscription_id', '=', sub.id)
                                 ])
                                 if invoice_lines:
                                     for invoice_line in invoice_lines:
