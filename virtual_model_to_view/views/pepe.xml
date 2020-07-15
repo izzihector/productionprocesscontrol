@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+        <record id="Purchase_Analysis_tree_view1" model="ir.ui.view">
+            <field name="name">virtual.model.to.view.tree</field>
+            <field name="model">virtual.model.to.view</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="project_name"/>
+                    <field name="fecha_creacion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="Purchase_Analysis_tree_view"  model="ir.actions.act_window">
+            <field name="name">Purchase Anaylsis</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">virtual.model.to.view</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+
+
+        <record id="Purchase_Analysis_tree_view_ticket" model="ir.ui.view">
+            <field name="name">virtual.model.to.view.ticket.tree</field>
+            <field name="model">virtual.model.to.view.ticket</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ticket_name"/>
+                    <field name="ticket_name"/>
+                    <field name="cliente"/>
+                    <field name="horas_imputadas"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="Purchase_Analysis_tree_view_ticket"  model="ir.actions.act_window">
+            <field name="name">Purchase Anaylsis</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">virtual.model.to.view.ticket</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+        <menuitem
+        name="Vista SQL Tickets"
+        action="Purchase_Analysis_tree_view_ticket"
+        id="menu_purchase_request_line_ticket"
+        parent="project.menu_project_config"
+        />
+
+
+        <menuitem
+        name="Vista SQL"
+        action="Purchase_Analysis_tree_view"
+        id="menu_purchase_request_line"
+        parent="project.menu_project_config"
+        />
+
+    </data>
+</odoo>
