@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+from odoo import models, fields, api, _, exceptions
+from odoo.exceptions import ValidationError
+
+import base64
+import csv
+from datetime import datetime
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class DataPbiExtractor(models.Model):
     _name = "data.pbi.extractor"
@@ -30,7 +41,7 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado', 'Departamento', 'Comercial',
+                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas imputadas', 'Proyecto Cerrado', 'Departamento', 'Comercial',
                  'Etapa'])
 
             PP = self.env['project.project']
@@ -127,7 +138,6 @@ class DataPbiExtractor(models.Model):
                                     else:
                                         horas_confirmadas = horas_confirmadas + total_quantity_line
 
-
                     subscription_lines = SSL.search([
                         ('project_id', '=', project_id)
                     ])
@@ -140,9 +150,10 @@ class DataPbiExtractor(models.Model):
                                     invoice_lines = AIL.search([
                                         ('subscription_id', '=', sub.id)
                                     ])
+
                                     if invoice_lines:
                                         for invoice_line in invoice_lines:
-                                            if invoice_line['project_id'] == project_id:
+                                            if invoice_line.project_id.id == project_id:
                                                 total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
 
                 total_horas_contratadas = total_quantity_for_project
@@ -167,8 +178,7 @@ class DataPbiExtractor(models.Model):
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
-                                 totalHorasContratadas, totalHorasImputadas,
-                                 alert_percentil_no_profitable, proyectoCerrado, departamento, comercial, etapa])
+                                 totalHorasContratadas, horas_presupuestadas, horas_confirmadas, totalHorasImputadas, proyectoCerrado, departamento, comercial, etapa])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
