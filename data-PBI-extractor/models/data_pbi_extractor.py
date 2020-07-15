@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, fields, api
+from odoo import models, fields, api, _, exceptions
+from odoo.exceptions import ValidationError
+
 import base64
 import csv
 from datetime import datetime
 import logging
-import locale
 
 _logger = logging.getLogger(__name__)
-
 
 class DataPbiExtractor(models.Model):
     _name = "data.pbi.extractor"
@@ -41,11 +41,12 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas imputadas', '% Alerta', 'Proyecto Cerrado', 'Departamento', 'Comercial',
+                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas imputadas', 'Proyecto Cerrado', 'Departamento', 'Comercial',
                  'Etapa'])
 
             PP = self.env['project.project']
             PT = self.env['project.task']
+            SOL = self.env['sale.order.line']
             SSL = self.env['sale.subscription.line']
             AIL = self.env['account.invoice.line']
 
@@ -70,42 +71,73 @@ class DataPbiExtractor(models.Model):
                 proyectoCerrado = "NO"
                 order_name = ""
                 etapa = project.x_stage_id.display_name
+                horas_confirmadas = 0
+                horas_presupuestadas = 0
 
-                # Primero visitamos las tareas para obtener las horas imputadas y si estas tareas
-                # tienen lineas de venta, las recogemos con el fin de ir acumulando
-                # las horas vendidas
+                # Primero visitamos las tareas para obtener las horas imputadas
                 tasks = PT.search([('project_id', '=', project_id)])
 
                 if tasks:
-                    i = 0
-                    idLineaPedido = ""
-
                     for task in tasks:
-                        sales_lines = task.sale_line_id
                         total_worked_hours = total_worked_hours + task['effective_hours']
 
-                        if sales_lines:
-                            # obtenemos el total de cantidad por linea en el pedido
-                            for sale_line in sales_lines:
-                                if sale_line['id'] != idLineaPedido:
-                                    total_quantity_line = sale_line['product_uom_qty']
-                                    # Comprobamos si el pedido de esta linea tiene factura, si la tiene
-                                    # comprobamos que no tiene refounds, si los tiene, no sumamos la cantidad de horas
-                                    # vendidas
-                                    order_name = sale_line['order_id'].name
-                                    order_state = sale_line['order_id'].state
-                                    if self.descartar_facturas_devolucion(
-                                            order_name) == 0 and self.check_order_is_active(order_state) == 1:
-                                        total_quantity_for_project = total_quantity_for_project + total_quantity_line
-                                        if sale_line.horas_reales > 0:
-                                            is_closed_project = 1
-                                            proyectoCerrado = "SI"
-                                            horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
-
-                                        idLineaPedido = sale_line['id']
-                        i = i + 1
-
                 if project_id:
+                    #Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
+                    lineas_relacionadas_con_proyecto = SOL.search([
+                        ('x_studio_proyecto_pedido_venta', '=', project_id)
+                    ])
+
+                    if lineas_relacionadas_con_proyecto:
+                        # obtenemos el total de cantidad por linea en el pedido
+                        for sale_line in lineas_relacionadas_con_proyecto:
+                            total_quantity_line = sale_line['product_uom_qty']
+
+                            # Comprobamos si el pedido de esta linea tiene factura, si la tiene
+                            # comprobamos que no tiene refounds, si los tiene, no sumamos la cantidad de horas
+                            # vendidas
+                            #COGEMOS EL PEDIDO EN ORDER_NAME
+                            order_name = sale_line['order_id'].name
+                            order_state = sale_line['order_id'].state
+
+                            #Comprobamos si tiene factura
+                            if self.tiene_factura(order_name) == 1:
+
+                                # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
+                                # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
+                                if self.descartar_facturas_devolucion(
+                                        order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                                    total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                                    if sale_line.horas_reales > 0:
+                                        is_closed_project = 1
+                                        proyectoCerrado = "SI"
+                                        horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                            else:
+                                #Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
+                                if order_state == "draft":
+                                    if sale_line.horas_reales > 0:
+                                        is_closed_project = 1
+                                        proyectoCerrado = "SI"
+                                        horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                                        horas_presupuestadas = horas_presupuestadas + sale_line.horas_reales
+                                    else:
+                                        horas_presupuestadas = horas_presupuestadas + total_quantity_line
+                                elif order_state == "sent":
+                                    if sale_line.horas_reales > 0:
+                                        is_closed_project = 1
+                                        proyectoCerrado = "SI"
+                                        horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                                        horas_presupuestadas = horas_presupuestadas + sale_line.horas_reales
+                                    else:
+                                        horas_presupuestadas = horas_presupuestadas + total_quantity_line
+                                elif order_state == "sale":
+                                    if sale_line.horas_reales > 0:
+                                        is_closed_project = 1
+                                        proyectoCerrado = "SI"
+                                        horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                                        horas_confirmadas = horas_confirmadas + sale_line.horas_reales
+                                    else:
+                                        horas_confirmadas = horas_confirmadas + total_quantity_line
+
                     subscription_lines = SSL.search([
                         ('project_id', '=', project_id)
                     ])
@@ -118,9 +150,11 @@ class DataPbiExtractor(models.Model):
                                     invoice_lines = AIL.search([
                                         ('subscription_id', '=', sub.id)
                                     ])
+
                                     if invoice_lines:
                                         for invoice_line in invoice_lines:
-                                            total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
+                                            if invoice_line.project_id.id == project_id:
+                                                total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
 
                 total_horas_contratadas = total_quantity_for_project
 
@@ -144,8 +178,7 @@ class DataPbiExtractor(models.Model):
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
-                                 totalHorasContratadas, totalHorasImputadas,
-                                 alert_percentil_no_profitable, proyectoCerrado, departamento, comercial, etapa])
+                                 totalHorasContratadas, horas_presupuestadas, horas_confirmadas, totalHorasImputadas, proyectoCerrado, departamento, comercial, etapa])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
@@ -175,6 +208,15 @@ class DataPbiExtractor(models.Model):
                     return 1
                 else:
                     return 0
+
+        return 0
+
+    def tiene_factura(self, nombre_pedido_venta):
+        AI = self.env['account.invoice']
+        facturas = AI.search([('origin', '=', nombre_pedido_venta)])
+
+        if facturas:
+            return 1
 
         return 0
 
