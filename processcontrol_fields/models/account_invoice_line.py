@@ -15,11 +15,10 @@ class AccountInvoiceLine(models.Model):
         str = "SUB"
         origen = vals['origin']
         project_id = False
-        raise exceptions.UserError(_(vals))
 
         if (origen):
             if (str not in origen):
-                project_id = vals['x_studio_proyecto_pedido_venta']
+                project_id = False
             if (str in origen):
                 project_id = vals['project_id']
         else:
