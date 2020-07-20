@@ -12,7 +12,9 @@ class AccountInvoiceLine(models.Model):
 
     @api.model
     def create(self, vals):
-        project_id = vals['project_id']
+        raise exceptions.UserError(_(vals))
+
+        project_id = vals['x_studio_proyecto_pedido_venta']
         invoice_lines = super(AccountInvoiceLine, self).create(vals)
         invoice_lines.write({'project_id': project_id})
 
