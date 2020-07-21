@@ -13,9 +13,13 @@ class AccountInvoiceLine(models.Model):
     @api.model
     def create(self, vals):
         project_id = False
+        
+        try:
+            if (vals['project_id']):
+                project_id = vals['project_id']
+        except:
+            project_id = False
 
-        if (vals['project_id']):
-            project_id = vals['project_id']
        # else:
             #raise exceptions.UserError(_("No se detecta origen"))
 
