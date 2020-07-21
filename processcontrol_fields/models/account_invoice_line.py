@@ -15,6 +15,7 @@ class AccountInvoiceLine(models.Model):
         str = "SUB"
         origen = vals['origin']
         project_id = False
+        raise exceptions.UserError(_(vals))
 
         if (origen):
             if (str not in origen):
