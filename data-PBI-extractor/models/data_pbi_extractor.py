@@ -10,6 +10,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class DataPbiExtractor(models.Model):
     _name = "data.pbi.extractor"
 
@@ -41,7 +42,8 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas imputadas', 'Proyecto Cerrado', 'Departamento', 'Comercial',
+                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas imputadas', 'Proyecto Cerrado',
+                 'Departamento', 'Comercial',
                  'Etapa'])
 
             PP = self.env['project.project']
@@ -73,6 +75,7 @@ class DataPbiExtractor(models.Model):
                 etapa = project.x_stage_id.display_name
                 horas_confirmadas = 0
                 horas_presupuestadas = 0
+                horas_totales = 0
 
                 # Primero visitamos las tareas para obtener las horas imputadas
                 tasks = PT.search([('project_id', '=', project_id)])
@@ -82,7 +85,7 @@ class DataPbiExtractor(models.Model):
                         total_worked_hours = total_worked_hours + task['effective_hours']
 
                 if project_id:
-                    #Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
+                    # Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
                     lineas_relacionadas_con_proyecto = SOL.search([
                         ('x_studio_proyecto_pedido_venta', '=', project_id)
                     ])
@@ -95,11 +98,11 @@ class DataPbiExtractor(models.Model):
                             # Comprobamos si el pedido de esta linea tiene factura, si la tiene
                             # comprobamos que no tiene refounds, si los tiene, no sumamos la cantidad de horas
                             # vendidas
-                            #COGEMOS EL PEDIDO EN ORDER_NAME
+                            # COGEMOS EL PEDIDO EN ORDER_NAME
                             order_name = sale_line['order_id'].name
                             order_state = sale_line['order_id'].state
 
-                            #Comprobamos si tiene factura
+                            # Comprobamos si tiene factura
                             if self.tiene_factura(order_name) == 1:
 
                                 # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
@@ -112,7 +115,7 @@ class DataPbiExtractor(models.Model):
                                         proyectoCerrado = "SI"
                                         horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
                             else:
-                                #Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
+                                # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
                                 if order_state == "draft":
                                     if sale_line.horas_reales > 0:
                                         is_closed_project = 1
@@ -154,7 +157,8 @@ class DataPbiExtractor(models.Model):
                                     if invoice_lines:
                                         for invoice_line in invoice_lines:
                                             if invoice_line.project_id.id == project_id:
-                                                total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
+                                                total_quantity_for_project = total_quantity_for_project + invoice_line[
+                                                    'quantity']
 
                 total_horas_contratadas = total_quantity_for_project
 
@@ -177,8 +181,11 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
+                horas_totales = horas_confirmadas + totalHorasContratadas
+
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
-                                 totalHorasContratadas, horas_presupuestadas, horas_confirmadas, totalHorasImputadas, proyectoCerrado, departamento, comercial, etapa])
+                                 totalHorasContratadas, horas_presupuestadas, horas_confirmadas, horas_totales,
+                                 totalHorasImputadas, proyectoCerrado, departamento, comercial, etapa])
 
         files = open(filename, 'rb').read()
         # file = open('export.csv', 'wb')
