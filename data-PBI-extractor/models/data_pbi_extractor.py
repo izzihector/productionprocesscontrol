@@ -181,7 +181,7 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
-                horas_totales = horas_confirmadas + totalHorasContratadas
+                horas_totales = float(horas_confirmadas) + float(totalHorasContratadas)
 
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
                                  totalHorasContratadas, horas_presupuestadas, horas_confirmadas, horas_totales,
