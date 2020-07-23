@@ -42,7 +42,7 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas imputadas', 'Proyecto Cerrado',
+                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas totales', 'Horas imputadas', 'Proyecto Cerrado',
                  'Departamento', 'Comercial',
                  'Etapa'])
 
