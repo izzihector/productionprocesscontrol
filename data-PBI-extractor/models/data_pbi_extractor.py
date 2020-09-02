@@ -225,8 +225,7 @@ class DataPbiExtractor(models.Model):
             for factura in facturas:
                 origenes = factura['origin']
                 if origenes:
-                    origenes_array = origenes.split(',')    
-                    for origen in origenes_array:
+                    for origen in origenes:
                         if origen == nombre_pedido_venta:
                             return 1
         return 0
