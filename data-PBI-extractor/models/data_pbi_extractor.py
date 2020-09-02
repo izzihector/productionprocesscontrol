@@ -103,7 +103,8 @@ class DataPbiExtractor(models.Model):
                             order_state = sale_line['order_id'].state
 
                             # Comprobamos si tiene factura
-                            if self.tiene_factura(order_name) == 1:
+                            #if self.tiene_factura(order_name) == 1:
+                            if sale_line['order_id'].invoice_status == 'invoiced':
 
                                 # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
                                 # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
@@ -224,8 +225,9 @@ class DataPbiExtractor(models.Model):
         if facturas:
             for factura in facturas:
                 origenes = factura['origin']
-                if origenes:
-                    for origen in origenes:
+                origenes_array = origenes.split(',')
+                if origenes_array:
+                    for origen in origenes_array:
                         if origen == nombre_pedido_venta:
                             return 1
         return 0
