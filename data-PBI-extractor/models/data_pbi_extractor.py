@@ -220,7 +220,7 @@ class DataPbiExtractor(models.Model):
 
     def tiene_factura(self, nombre_pedido_venta):
         AI = self.env['account.invoice']
-        facturas = AI.search([('origin', 'in', nombre_pedido_venta)])
+        facturas = AI.search([('origin', '=ilike', nombre_pedido_venta)])
 
         if facturas:
             return 1
