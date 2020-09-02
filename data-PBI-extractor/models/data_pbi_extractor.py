@@ -104,7 +104,7 @@ class DataPbiExtractor(models.Model):
 
                             # Comprobamos si tiene factura
                             #if self.tiene_factura(order_name) == 1:
-                            if sale_line['order_id'].invoice_status == 'invoiced' || sale_line['order_id'].invoice_status == 'upselling':
+                            if sale_line['order_id'].invoice_status == 'invoiced' or sale_line['order_id'].invoice_status == 'upselling':
 
                                 # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
                                 # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
