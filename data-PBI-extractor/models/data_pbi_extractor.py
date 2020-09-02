@@ -204,7 +204,7 @@ class DataPbiExtractor(models.Model):
 
     def descartar_facturas_devolucion(self, nombre_pedido_venta):
         AI = self.env['account.invoice']
-
+        #Este tambien hay que cambiarlo por un IN o derivado
         facturas = AI.search([('origin', '=', nombre_pedido_venta)])
 
         if facturas:
@@ -220,7 +220,7 @@ class DataPbiExtractor(models.Model):
 
     def tiene_factura(self, nombre_pedido_venta):
         AI = self.env['account.invoice']
-        facturas = AI.search([('origin', '=ilike', nombre_pedido_venta)])
+        facturas = AI.search([('origin', 'like', nombre_pedido_venta)])
 
         if facturas:
             return 1
