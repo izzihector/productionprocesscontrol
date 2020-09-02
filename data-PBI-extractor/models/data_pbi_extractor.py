@@ -222,11 +222,11 @@ class DataPbiExtractor(models.Model):
         AI = self.env['account.invoice']
         facturas = AI.search([])
         if facturas:
-            for facturas in factura:
+            for factura in facturas:
                 origenes = factura['origin']
                 if origenes:
                     origenes_array = origenes.split(',')    
-                    for origenes_array in origen:
+                    for origen in origenes_array:
                         if origen == nombre_predido_venta:
                             return 1
         return 0
