@@ -220,11 +220,14 @@ class DataPbiExtractor(models.Model):
 
     def tiene_factura(self, nombre_pedido_venta):
         AI = self.env['account.invoice']
-        facturas = AI.search([('origin', '=ilike', nombre_pedido_venta)])
-
+        facturas = AI.search([])
         if facturas:
-            return 1
-
+            for facturas in factura:
+                var origenes = factura.origin
+                if origenes:
+                    for origenes in origen:
+                        if origen == nombre_predido_venta:
+                            return 1
         return 0
 
     def _get_name_tipo_proyecto(self, idproyecto):
