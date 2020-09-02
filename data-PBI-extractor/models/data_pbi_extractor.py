@@ -227,7 +227,7 @@ class DataPbiExtractor(models.Model):
                 if origenes:
                     origenes_array = origenes.split(',')    
                     for origen in origenes_array:
-                        if origen == nombre_predido_venta:
+                        if origen == nombre_pedido_venta:
                             return 1
         return 0
 
