@@ -223,9 +223,10 @@ class DataPbiExtractor(models.Model):
         facturas = AI.search([])
         if facturas:
             for facturas in factura:
-                var origenes = factura['origin']
+                origenes = factura['origin']
                 if origenes:
-                    for origenes in origen:
+                    origenes_array = origenes.split(',')    
+                    for origenes_array in origen:
                         if origen == nombre_predido_venta:
                             return 1
         return 0
