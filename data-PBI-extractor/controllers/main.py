@@ -5,6 +5,6 @@ from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 
 class PBIExport(CustomerPortal):
-    @http.route(['/PBI/analytic/tickets'], type='http', auth="public", website=True)
+    @http.route(['/PBI/analytic/getProjects'], type='http', auth="public", website=True)
     def get_tickets_analytic(self, access_token=None, report_type=None, download=False, **kw):
         return "SI"
