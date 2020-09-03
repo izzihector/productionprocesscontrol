@@ -52,6 +52,23 @@
                                 <field name="file_binary_project_horas_vendidas_vs_realizadas" filename="file_name_project_horas_vendidas_vs_realizadas" readonly="1"/>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <h2>Datos básicos</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3">
+                                <button name="get_project_project" string="Obtener proyectos" type="object" class="oe_highlight" style="margin-bottom:10px;"/>
+                                <field name="file_name_projects" invisible="1"/>
+                                <field name="file_binary_projects" filename="file_name_projects" readonly="1"/>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <button name="get_project_tasks" string="Obtener tareas" type="object" class="oe_highlight" style="margin-bottom:10px;"/>
+                                <field name="file_name_projects_tasks" invisible="1"/>
+                                <field name="file_binary_projects_tasks" filename="file_name_projects_tasks" readonly="1"/>
+                            </div>
+                        </div>
 <!--                        </div>-->
                     </sheet>
                 </form>

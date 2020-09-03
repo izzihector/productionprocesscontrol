@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, fields, api, _, exceptions
 from odoo.exceptions import ValidationError
+import html2text
 
 import base64
 import csv
@@ -25,6 +26,12 @@ class DataPbiExtractor(models.Model):
 
     file_name_project_horas_vendidas_vs_realizadas = fields.Char(string='File Name Project Horas vs Vendidas')
     file_binary_project_horas_vendidas_vs_realizadas = fields.Binary(string='Binary File Project Horas vs Vendidas')
+
+    file_name_projects = fields.Char(string='File Name Projects')
+    file_binary_projects = fields.Binary(string='Binary File Projects')
+
+    file_name_projects_tasks = fields.Char(string='File Name Projects Tasks')
+    file_binary_projects_tasks = fields.Binary(string='Binary File Projects Tasks')
 
     @api.multi
     def get_informe_horas_vendidas_imputadas_analityc(self):
@@ -372,3 +379,77 @@ class DataPbiExtractor(models.Model):
         return self.write(
             {'file_name_tickets_sistemas': filename, 'file_binary_tickets_sistemas': content, 'name': filename,
              'model': 'PBI: Tickets Sistemas'})
+
+    @api.multi
+    def get_project_project(self):
+        now = datetime.now()  # current date and time
+
+        date_time = now.strftime("%m_%d_%Y_%H_%M_%S")
+
+        filename = "project_project_" + date_time + ".csv"
+
+        with open("project_project_" + date_time + ".csv", mode='w') as file:
+            writer = csv.writer(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            # create a row contains heading of each column
+            # Proyecto y Tarea
+            writer.writerow(
+                ['id', 'CodigoCliente', 'NombreCliente', 'CodigoProyecto', 'TituloProyecto'])
+
+            PP = self.env['project.project']
+            projects = PP.search([])
+
+            for project in projects:
+                id_proyecto = project.id
+                codigo_proyecto = project.id
+                titulo_proyecto = project.name
+                nombre_cliente = project.partner_id.name
+                codigo_cliente = project.partner_id.id
+
+                writer.writerow(
+                    [id_proyecto, codigo_cliente, nombre_cliente, codigo_proyecto, titulo_proyecto])
+
+        files = open(filename, 'rb').read()
+        # file = open('export.csv', 'wb')
+        #
+        content = base64.encodestring(files)
+
+        return self.write(
+            {'file_name_projects': filename, 'file_binary_projects': content, 'name': filename, 'model': 'PBI: Proyectos'})
+
+    @api.multi
+    def get_project_tasks(self):
+        now = datetime.now()  # current date and time
+
+        date_time = now.strftime("%m_%d_%Y_%H_%M_%S")
+
+        filename = "project_task_" + date_time + ".csv"
+
+        with open("project_task_" + date_time + ".csv", mode='w') as file:
+            writer = csv.writer(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            # create a row contains heading of each column
+            # Proyecto y Tarea
+            writer.writerow(
+                ['id', 'CodigoProyecto', 'Titulo', 'Horas Imputadas', 'Horas Planeadas'])
+
+            PT = self.env['project.task']
+            project_tasks = PT.search([])
+
+            for task in project_tasks:
+                id_tarea = task.id
+                codigo_proyecto = task.project_id.id
+                titulo = task.name
+                horas_planeadas = task.planned_hours
+                horas_imputadas = task['effective_hours']
+                totalHorasImputadas = str(horas_imputadas)
+                totalHorasImputadas = totalHorasImputadas.replace('.', ',')
+
+                writer.writerow(
+                    [id_tarea, codigo_proyecto, titulo, totalHorasImputadas, horas_planeadas])
+
+        files = open(filename, 'rb').read()
+        # file = open('export.csv', 'wb')
+        #
+        content = base64.encodestring(files)
+
+        return self.write(
+            {'file_name_projects_tasks': filename, 'file_binary_projects_tasks': content, 'name': filename, 'model': 'PBI: Proyectos Tareas'})
