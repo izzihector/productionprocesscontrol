@@ -68,6 +68,11 @@
                                 <field name="file_name_projects_tasks" invisible="1"/>
                                 <field name="file_binary_projects_tasks" filename="file_name_projects_tasks" readonly="1"/>
                             </div>
+                            <div class="col-lg-3 col-md-3">
+                                <button name="get_clientes" string="Obtener clientes" type="object" class="oe_highlight" style="margin-bottom:10px;"/>
+                                <field name="file_name_clientes" invisible="1"/>
+                                <field name="file_binary_clientes" filename="file_name_clientes" readonly="1"/>
+                            </div>
                         </div>
 <!--                        </div>-->
                     </sheet>

@@ -33,6 +33,9 @@ class DataPbiExtractor(models.Model):
     file_name_projects_tasks = fields.Char(string='File Name Projects Tasks')
     file_binary_projects_tasks = fields.Binary(string='Binary File Projects Tasks')
 
+    file_name_clientes = fields.Char(string='File Name Clientes')
+    file_binary_clientes = fields.Binary(string='Binary File Clientes')
+
     @api.multi
     def get_informe_horas_vendidas_imputadas_analityc(self):
         # Controlar que es una devolucion: refund_invoice_id controla si tiene cantidades dvueltas (account.invoice)
@@ -453,3 +456,37 @@ class DataPbiExtractor(models.Model):
 
         return self.write(
             {'file_name_projects_tasks': filename, 'file_binary_projects_tasks': content, 'name': filename, 'model': 'PBI: Proyectos Tareas'})
+
+    @api.multi
+    def get_clientes(self):
+        now = datetime.now()  # current date and time
+
+        date_time = now.strftime("%m_%d_%Y_%H_%M_%S")
+
+        filename = "clientes_" + date_time + ".csv"
+
+        with open("clientes_" + date_time + ".csv", mode='w') as file:
+            writer = csv.writer(file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            # create a row contains heading of each column
+            # Proyecto y Tarea
+            writer.writerow(
+                ['id', 'Nombre', 'Email'])
+
+            RU = self.env['res.users']
+            usuarios = RU.search([])
+
+            for usuario in usuarios:
+                nombre = usuario.display_name
+                email = usuario.email
+                id = usuario.id
+
+                writer.writerow(
+                    [id, nombre, email])
+
+        files = open(filename, 'rb').read()
+        # file = open('export.csv', 'wb')
+        #
+        content = base64.encodestring(files)
+
+        return self.write(
+            {'file_name_clientes': filename, 'file_binary_clientes': content, 'name': filename, 'model': 'PBI: Clientes'})
