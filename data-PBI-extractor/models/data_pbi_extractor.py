@@ -63,7 +63,7 @@ class DataPbiExtractor(models.Model):
             SSL = self.env['sale.subscription.line']
             AIL = self.env['account.invoice.line']
 
-            projects = PP.search([])
+            projects = PP.search([('project_id','=',1333)])
 
             for project in projects:
                 horas_proyecto_cerrado = 0
