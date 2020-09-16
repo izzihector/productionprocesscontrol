@@ -52,7 +52,8 @@ class DataPbiExtractor(models.Model):
             # Proyecto y Tarea
             writer.writerow(
                 ['Id proyecto', 'Proyecto', 'Cliente', 'Codigo Cliente', 'Tipo Proyecto', 'Responsable',
-                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas totales', 'Horas imputadas', 'Proyecto Cerrado',
+                 'Horas vendidas', 'Horas presupuestadas', 'Horas Confirmadas', 'Horas totales', 'Horas imputadas',
+                 'Proyecto Cerrado',
                  'Departamento', 'Comercial',
                  'Etapa'])
 
@@ -74,6 +75,11 @@ class DataPbiExtractor(models.Model):
                 project_name = project.name
                 alert_percentil_no_profitable = 0
                 nombre_cliente = project.partner_id.name
+
+                if(project.partner_id.company_type == "person"):
+                    if(project.partner_id.parent_id != False):
+                        nombre_cliente = project.partner_id.parent_id.name
+                
                 codigo_cliente = project.partner_id.id
                 departamento = project.x_studio_departamento
                 comercial = project.x_comercial_id.name
@@ -88,11 +94,15 @@ class DataPbiExtractor(models.Model):
                 horas_totales = 0
 
                 # Primero visitamos las tareas para obtener las horas imputadas
-                tasks = PT.search([('project_id', '=', project_id)])
+                tasks_activas = PT.search([('project_id', '=', project_id)])
+                tasks_archivadas = PT.search([('project_id', '=', project_id), ('active', '=', False)])
 
-                if tasks:
-                    for task in tasks:
+                if tasks_activas:
+                    for task in tasks_activas:
                         total_worked_hours = total_worked_hours + task['effective_hours']
+                if tasks_archivadas:
+                    for task_archivada in tasks_archivadas:
+                        total_worked_hours = total_worked_hours + task_archivada['effective_hours']
 
                 if project_id:
                     # Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
@@ -113,8 +123,9 @@ class DataPbiExtractor(models.Model):
                             order_state = sale_line['order_id'].state
 
                             # Comprobamos si tiene factura
-                            #if self.tiene_factura(order_name) == 1:
-                            if sale_line['order_id'].invoice_status == 'invoiced' or sale_line['order_id'].invoice_status == 'upselling':
+                            # if self.tiene_factura(order_name) == 1:
+                            if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
+                                'order_id'].invoice_status == 'upselling':
 
                                 # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
                                 # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
@@ -193,7 +204,6 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
-
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
                                  totalHorasContratadas, horas_presupuestadas, horas_confirmadas, horas_totales,
                                  totalHorasImputadas, proyectoCerrado, departamento, comercial, etapa])
@@ -215,7 +225,7 @@ class DataPbiExtractor(models.Model):
 
     def descartar_facturas_devolucion(self, nombre_pedido_venta):
         AI = self.env['account.invoice']
-        #Este tambien hay que cambiarlo por un IN o derivado
+        # Este tambien hay que cambiarlo por un IN o derivado
         facturas = AI.search([('origin', '=', nombre_pedido_venta)])
 
         if facturas:
@@ -417,7 +427,8 @@ class DataPbiExtractor(models.Model):
         content = base64.encodestring(files)
 
         return self.write(
-            {'file_name_projects': filename, 'file_binary_projects': content, 'name': filename, 'model': 'PBI: Proyectos'})
+            {'file_name_projects': filename, 'file_binary_projects': content, 'name': filename,
+             'model': 'PBI: Proyectos'})
 
     @api.multi
     def get_project_tasks(self):
@@ -455,7 +466,8 @@ class DataPbiExtractor(models.Model):
         content = base64.encodestring(files)
 
         return self.write(
-            {'file_name_projects_tasks': filename, 'file_binary_projects_tasks': content, 'name': filename, 'model': 'PBI: Proyectos Tareas'})
+            {'file_name_projects_tasks': filename, 'file_binary_projects_tasks': content, 'name': filename,
+             'model': 'PBI: Proyectos Tareas'})
 
     @api.multi
     def get_clientes(self):
@@ -489,4 +501,5 @@ class DataPbiExtractor(models.Model):
         content = base64.encodestring(files)
 
         return self.write(
-            {'file_name_clientes': filename, 'file_binary_clientes': content, 'name': filename, 'model': 'PBI: Clientes'})
+            {'file_name_clientes': filename, 'file_binary_clientes': content, 'name': filename,
+             'model': 'PBI: Clientes'})
