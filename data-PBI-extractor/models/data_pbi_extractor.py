@@ -183,7 +183,9 @@ class DataPbiExtractor(models.Model):
                                                     'quantity']
 
                 total_horas_contratadas = total_quantity_for_project
-                horas_totales = horas_confirmadas + total_horas_contratadas
+                #horas_totales = horas_confirmadas + total_horas_contratadas
+                
+                horas_totales = horas_confirmadas
 
                 if is_closed_project == 1:
                     total_horas_contratadas = horas_proyecto_cerrado
