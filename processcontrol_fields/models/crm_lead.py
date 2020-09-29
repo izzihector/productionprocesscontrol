@@ -12,6 +12,6 @@ class CrmLead(models.Model):
 		return{
 			'name': _('Crear Ticket'),
 			'type': 'ir.actions.act_window',
-			'view_mode': 'from',
+			'view_mode': 'form',
 			'res_model': 'helpdesk.ticket',
 	}
