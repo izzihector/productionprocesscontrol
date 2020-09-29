@@ -39,12 +39,12 @@ class AccountInvoice(models.Model):
                                         mensaje = mensaje + "\n En la linea del producto: " + producto.name + " es obligado establecer un proyecto."
                                         if linea.product_uom_qty == 1:
                                             if linea.horas_reales == 0:
-                                                mensaje = mensaje + "\n La linea del producto: " + producto.name + " no puede tener 0 horas reales."
+                                                mensaje = mensaje + "\n " + producto.name + " con 1 unidad, requieren informar horas reales."
 
                                     if linea.x_studio_proyecto_pedido_venta.id:
                                         if linea.product_uom_qty == 1:
                                             if linea.horas_reales == 0:
-                                                mensaje = mensaje + "\n La linea del producto: " + producto.name + " no puede tener 0 horas reales."
+                                                mensaje = mensaje + "\n " + producto.name + " con 1 unidad, requieren informar horas reales."
 
         if es_servicio == 1 and mensaje != "":
             raise ValidationError(_(mensaje))
@@ -52,22 +52,23 @@ class AccountInvoice(models.Model):
         str = "SUB"
         origen = vals['origin']
         isProyectoCerrado = 0
-        if(origen):
+        if (origen):
             if (str not in origen):
                 SO = self.env['sale.order']
-                orden = SO.search([('name','=', origen)])
-                if(orden):
+                orden = SO.search([('name', '=', origen)])
+                if (orden):
                     for dataOrder in orden:
                         idOrden = dataOrder.id
                         SOL = self.env['sale.order.line']
-                        lineasPedido = SOL.search([('order_id','=', idOrden)])
-                        if(lineasPedido):
+                        lineasPedido = SOL.search([('order_id', '=', idOrden)])
+                        if (lineasPedido):
                             for dataLineaPedido in lineasPedido:
                                 lineaParaProyectoCerrado = dataLineaPedido.x_studio_proyecto_cerrado
                                 lineaProyecto = dataLineaPedido.x_studio_proyecto_pedido_venta
-                                if(lineaParaProyectoCerrado == True):
-                                    if(lineaProyecto.id == False):
-                                        raise exceptions.UserError(_("No puedes facturar este pedido. Contiene lineas de proyecto cerrado y no esta informado el mismo") % ())
+                                if (lineaParaProyectoCerrado == True):
+                                    if (lineaProyecto.id == False):
+                                        raise exceptions.UserError(_(
+                                            "No puedes facturar este pedido. Contiene lineas de proyecto cerrado y no esta informado el mismo") % ())
 
         invoice = super(AccountInvoice, self).create(vals)
         payterm = False

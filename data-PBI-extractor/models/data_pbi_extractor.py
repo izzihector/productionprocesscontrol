@@ -63,7 +63,7 @@ class DataPbiExtractor(models.Model):
             SSL = self.env['sale.subscription.line']
             AIL = self.env['account.invoice.line']
 
-            projects = PP.search([('project_id','=',1333)])
+            projects = PP.search([])
 
             for project in projects:
                 horas_proyecto_cerrado = 0
@@ -183,10 +183,12 @@ class DataPbiExtractor(models.Model):
                                                     'quantity']
 
                 total_horas_contratadas = total_quantity_for_project
-                horas_totales = horas_confirmadas + total_horas_contratadas
-
+                
                 if is_closed_project == 1:
                     total_horas_contratadas = horas_proyecto_cerrado
+                
+                horas_totales = horas_confirmadas + total_horas_contratadas
+
 
                 totalHorasContratadas = str(total_horas_contratadas)
                 totalHorasContratadas = totalHorasContratadas.replace('.', ',')
