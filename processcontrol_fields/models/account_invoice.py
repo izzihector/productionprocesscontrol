@@ -72,17 +72,17 @@ class AccountInvoice(models.Model):
 
         invoice = super(AccountInvoice, self).create(vals)
         payterm = False
+        if(invoice.origin):
+            if (str in invoice.origin):
+                SSL = self.env['sale.subscription']
+                suscripciones = SSL.search([('name', '=', invoice.origin)])
 
-        if (str in invoice.origin):
-            SSL = self.env['sale.subscription']
-            suscripciones = SSL.search([('name', '=', invoice.origin)])
+                if (suscripciones):
+                    for sub in suscripciones:
+                        payterm = sub.termino_pago
+                        idSubscription = sub.id
+                        nombreSuscripcion = sub.name
 
-            if (suscripciones):
-                for sub in suscripciones:
-                    payterm = sub.termino_pago
-                    idSubscription = sub.id
-                    nombreSuscripcion = sub.name
-
-                    invoice.write({'payment_term_id': payterm.id})
+                        invoice.write({'payment_term_id': payterm.id})
 
         return invoice
