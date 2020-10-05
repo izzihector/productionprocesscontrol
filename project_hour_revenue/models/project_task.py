@@ -24,7 +24,7 @@ class ProjectTask(models.Model):
 
         PP = self.env['project.project']
         PT = self.env['project.task']
-
+        horas_restantes_produccion = 0
         project_id = 0
         for task in self:
             project_id = task.project_id.id
