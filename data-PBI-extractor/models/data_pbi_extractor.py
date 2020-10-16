@@ -180,8 +180,6 @@ class DataPbiExtractor(models.Model):
                                             if invoice_line.project_id.id == project_id:
                                                 total_quantity_for_project = total_quantity_for_project + invoice_line[
                                                     'quantity']
-                if (project_id == 364):
-                    raise ValidationError(_(total_quantity_for_project))
                 total_horas_contratadas = total_quantity_for_project
                 
                 if is_closed_project == 1:
@@ -206,6 +204,8 @@ class DataPbiExtractor(models.Model):
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
 
+                if (project_id == 364):
+                    raise ValidationError(_(totalHorasContratadas))
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
                                  totalHorasContratadas, horas_presupuestadas, horas_confirmadas, horas_totales,
                                  totalHorasImputadas, proyectoCerrado, departamento, comercial, etapa])
