@@ -110,9 +110,6 @@ class DataPbiExtractor(models.Model):
                         ('x_studio_proyecto_pedido_venta', '=', project_id)
                     ])
 
-                    if(project_id == 364):
-                        raise ValidationError(_(lineas_relacionadas_con_proyecto))
-
                     if lineas_relacionadas_con_proyecto:
                         # obtenemos el total de cantidad por linea en el pedido
                         for sale_line in lineas_relacionadas_con_proyecto:
@@ -125,6 +122,8 @@ class DataPbiExtractor(models.Model):
                             order_name = sale_line['order_id'].name
                             order_state = sale_line['order_id'].state
 
+                            if (sale_line.id == 24647):
+                                raise ValidationError(_("Estado" + order_state + " Nombre orden" + order_name))
                             # Comprobamos si tiene factura
                             # if self.tiene_factura(order_name) == 1:
                             if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
