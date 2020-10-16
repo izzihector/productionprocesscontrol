@@ -110,6 +110,9 @@ class DataPbiExtractor(models.Model):
                         ('x_studio_proyecto_pedido_venta', '=', project_id)
                     ])
 
+                    if(project_id.id == 364):
+                        raise ValidationError(_(lineas_relacionadas_con_proyecto))
+
                     if lineas_relacionadas_con_proyecto:
                         # obtenemos el total de cantidad por linea en el pedido
                         for sale_line in lineas_relacionadas_con_proyecto:
