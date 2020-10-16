@@ -110,7 +110,7 @@ class DataPbiExtractor(models.Model):
                         ('x_studio_proyecto_pedido_venta', '=', project_id)
                     ])
 
-                    if(project_id.id == 364):
+                    if(project_id == 364):
                         raise ValidationError(_(lineas_relacionadas_con_proyecto))
 
                     if lineas_relacionadas_con_proyecto:
