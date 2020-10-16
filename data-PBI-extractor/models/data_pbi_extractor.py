@@ -123,7 +123,7 @@ class DataPbiExtractor(models.Model):
                             order_state = sale_line['order_id'].state
 
                             if (sale_line.id == 24647):
-                                raise ValidationError(_("Estado" + order_state + " Nombre orden" + order_name))
+                                raise ValidationError(_("Estado" + order_state + " Nombre orden" + order_name + " Estado fra: " + sale_line['order_id'].invoice_status + " Es devolucion: " + self.descartar_facturas_devolucion(order_name)))
                             # Comprobamos si tiene factura
                             # if self.tiene_factura(order_name) == 1:
                             if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
