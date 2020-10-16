@@ -122,8 +122,6 @@ class DataPbiExtractor(models.Model):
                             order_name = sale_line['order_id'].name
                             order_state = sale_line['order_id'].state
 
-                            if (sale_line.id == 24647):
-                                raise ValidationError(_("Estado" + order_state + " Nombre orden" + order_name + " Estado fra: " + sale_line['order_id'].invoice_status + " Es devolucion: " + str(self.descartar_facturas_devolucion(order_name))))
                             # Comprobamos si tiene factura
                             # if self.tiene_factura(order_name) == 1:
                             if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
@@ -134,6 +132,9 @@ class DataPbiExtractor(models.Model):
                                 if self.descartar_facturas_devolucion(
                                         order_name) == 0 and self.check_order_is_active(order_state) == 1:
                                     total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                                    if (sale_line.id == 24647):
+                                        raise ValidationError(_(total_quantity_for_project))
+
                                     if sale_line.horas_reales > 0:
                                         is_closed_project = 1
                                         proyectoCerrado = "SI"
