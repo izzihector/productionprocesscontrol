@@ -162,7 +162,8 @@ class DataPbiExtractor(models.Model):
                                         horas_confirmadas = horas_confirmadas + sale_line.horas_reales
                                     else:
                                         horas_confirmadas = horas_confirmadas + total_quantity_line
-
+                    if (project_id == 364):
+                        raise ValidationError(_(total_quantity_for_project))
                     subscription_lines = SSL.search([
                         ('project_id', '=', project_id)
                     ])
@@ -182,8 +183,6 @@ class DataPbiExtractor(models.Model):
                                                 total_quantity_for_project = total_quantity_for_project + invoice_line[
                                                     'quantity']
 
-                if (sale_line.id == 24647):
-                    raise ValidationError(_(total_quantity_for_project))
                 total_horas_contratadas = total_quantity_for_project
                 
                 if is_closed_project == 1:
