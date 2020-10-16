@@ -132,9 +132,6 @@ class DataPbiExtractor(models.Model):
                                 if self.descartar_facturas_devolucion(
                                         order_name) == 0 and self.check_order_is_active(order_state) == 1:
                                     total_quantity_for_project = total_quantity_for_project + total_quantity_line
-                                    if (sale_line.id == 24647):
-                                        raise ValidationError(_(total_quantity_for_project))
-
                                     if sale_line.horas_reales > 0:
                                         is_closed_project = 1
                                         proyectoCerrado = "SI"
@@ -185,6 +182,8 @@ class DataPbiExtractor(models.Model):
                                                 total_quantity_for_project = total_quantity_for_project + invoice_line[
                                                     'quantity']
 
+                if (sale_line.id == 24647):
+                    raise ValidationError(_(total_quantity_for_project))
                 total_horas_contratadas = total_quantity_for_project
                 
                 if is_closed_project == 1:
