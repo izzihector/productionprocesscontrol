@@ -111,7 +111,7 @@ class DataPbiExtractor(models.Model):
 
                     if invoice_lines:
                         for invoice_line in invoice_lines:
-                            if project_id:
+                            if invoice_line.project_id == project_id:
                                 total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
                             else:
                                 lineas_relacionadas_con_proyecto = SOL.search([
