@@ -108,8 +108,6 @@ class DataPbiExtractor(models.Model):
                     invoice_lines = AIL.search([
                         ('project_id', '=', project_id)
                     ])
-                    if project_id == 609:
-                        raise ValidationError(_(invoice_lines))
                     if invoice_lines:
                         for invoice_line in invoice_lines:
                             total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
@@ -118,6 +116,8 @@ class DataPbiExtractor(models.Model):
                         lineas_relacionadas_con_proyecto = SOL.search([
                             ('x_studio_proyecto_pedido_venta', '=', project_id)
                         ])
+                        if project_id == 609:
+                            raise ValidationError(_(lineas_relacionadas_con_proyecto))
 
                         if lineas_relacionadas_con_proyecto:
                             # obtenemos el total de cantidad por linea en el pedido
@@ -139,6 +139,8 @@ class DataPbiExtractor(models.Model):
                                         # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
                                         if self.descartar_facturas_devolucion(
                                                     order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                                                if project_id == 609:
+                                                    raise ValidationError(_(total_quantity_line))
                                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                         if sale_line.horas_reales > 0:
                                             is_closed_project = 1
