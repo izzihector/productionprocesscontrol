@@ -202,9 +202,6 @@ class DataPbiExtractor(models.Model):
                 totalHorasContratadas = str(total_horas_contratadas)
                 totalHorasContratadas = totalHorasContratadas.replace('.', ',')
 
-                if (project_id == 104):
-                    raise ValidationError(_(totalHorasContratadas))
-
                 total_horas_imputadas = total_worked_hours
                 # totalHorasImputadas = total_worked_hours
 
