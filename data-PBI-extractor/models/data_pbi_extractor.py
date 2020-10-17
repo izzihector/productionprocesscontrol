@@ -119,6 +119,7 @@ class DataPbiExtractor(models.Model):
                                 ])
                                 if lineas_relacionadas_con_proyecto:
                                     for sale_line in lineas_relacionadas_con_proyecto:
+                                        total_quantity_line = sale_line['product_uom_qty']
                                         order_name = sale_line['order_id'].name
                                         order_state = sale_line['order_id'].state
                                         if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
