@@ -135,8 +135,7 @@ class DataPbiExtractor(models.Model):
                                         'order_id'].invoice_status == 'upselling':
                                         # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
                                         # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
-                                        if self.descartar_facturas_devolucion(
-                                                    order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                                        if self.descartar_facturas_devolucion(order_name) == 0 and self.check_order_is_active(order_state) == 1:
                                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                         if sale_line.horas_reales > 0:
                                             is_closed_project = 1
@@ -145,6 +144,7 @@ class DataPbiExtractor(models.Model):
                                     else:
                                         # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
                                         if order_state == "draft":
+                                            total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                             if sale_line.horas_reales > 0:
                                                 is_closed_project = 1
                                                 proyectoCerrado = "SI"
@@ -258,12 +258,8 @@ class DataPbiExtractor(models.Model):
                 if origenes_array:
                     for origen in origenes_array:
                         if origen == nombre_pedido_venta:
-                            if nombre_pedido_venta == 'SO2209':
-                                raise ValidationError(_("1"))
                             return 1
 
-        if nombre_pedido_venta == 'SO2209':
-            raise ValidationError(_("0"))
         return 0
 
     def _get_name_tipo_proyecto(self, idproyecto):
