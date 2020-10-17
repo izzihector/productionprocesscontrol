@@ -13,7 +13,6 @@ class AccountInvoiceLine(models.Model):
     @api.model
     def create(self, vals):
         project_id = False
-        
         try:
             if (vals['project_id']):
                 project_id = vals['project_id']
