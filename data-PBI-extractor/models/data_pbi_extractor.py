@@ -76,10 +76,10 @@ class DataPbiExtractor(models.Model):
                 alert_percentil_no_profitable = 0
                 nombre_cliente = project.partner_id.name
 
-                if(project.partner_id.company_type == "person"):
-                    if(project.partner_id.parent_id != False):
+                if (project.partner_id.company_type == "person"):
+                    if (project.partner_id.parent_id != False):
                         nombre_cliente = project.partner_id.parent_id.name
-                
+
                 codigo_cliente = project.partner_id.id
                 departamento = project.x_studio_departamento
                 comercial = project.x_comercial_id.name
@@ -108,95 +108,107 @@ class DataPbiExtractor(models.Model):
                     invoice_lines = AIL.search([
                         ('project_id', '=', project_id)
                     ])
+
                     if invoice_lines:
                         for invoice_line in invoice_lines:
-                            total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
-                    else:
-                        # Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
-                        lineas_relacionadas_con_proyecto = SOL.search([
-                            ('x_studio_proyecto_pedido_venta', '=', project_id)
-                        ])
-
-                        if lineas_relacionadas_con_proyecto:
-                            # obtenemos el total de cantidad por linea en el pedido
-                            for sale_line in lineas_relacionadas_con_proyecto:
-                                total_quantity_line = sale_line['product_uom_qty']
-
-                                # Comprobamos si el pedido de esta linea tiene factura, si la tiene
-                                # comprobamos que no tiene refounds, si los tiene, no sumamos la cantidad de horas
-                                # vendidas
-                                # COGEMOS EL PEDIDO EN ORDER_NAME
-                                order_name = sale_line['order_id'].name
-                                order_state = sale_line['order_id'].state
-
-                                # Comprobamos si tiene factura
-                                cantidad_facturas = sale_line['order_id'].invoice_count
-                                if cantidad_facturas > 0:
-                                #if self.tiene_factura(order_name) == 1:
-                                    if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
-                                        'order_id'].invoice_status == 'upselling':
-                                        # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
-                                        # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
-                                        if self.descartar_facturas_devolucion(order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                            if project_id:
+                                total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
+                            else:
+                                lineas_relacionadas_con_proyecto = SOL.search([
+                                    ('x_studio_proyecto_pedido_venta', '=', project_id)
+                                ])
+                                if lineas_relacionadas_con_proyecto:
+                                    for linea_pedido in lineas_relacionadas_con_proyecto:
+                                        if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
+                                            'order_id'].invoice_status == 'upselling':
+                                            if self.descartar_facturas_devolucion(
+                                                    order_name) == 0 and self.check_order_is_active(order_state) == 1:
                                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
-                                        if sale_line.horas_reales > 0:
-                                            is_closed_project = 1
-                                            proyectoCerrado = "SI"
-                                            horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
-                                    else:
-                                        total_quantity_for_project = total_quantity_for_project + total_quantity_line
-                                        # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
-                                        if order_state == "draft":
-                                            if sale_line.horas_reales > 0:
-                                                is_closed_project = 1
-                                                proyectoCerrado = "SI"
-                                                horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
-                                                horas_presupuestadas = horas_presupuestadas + sale_line.horas_reales
-                                            else:
-                                                horas_presupuestadas = horas_presupuestadas + total_quantity_line
-                                        elif order_state == "sent":
-                                            if sale_line.horas_reales > 0:
-                                                is_closed_project = 1
-                                                proyectoCerrado = "SI"
-                                                horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
-                                                horas_presupuestadas = horas_presupuestadas + sale_line.horas_reales
-                                            else:
-                                                horas_presupuestadas = horas_presupuestadas + total_quantity_line
-                                        elif order_state == "sale":
-                                            if sale_line.horas_reales > 0:
-                                                is_closed_project = 1
-                                                proyectoCerrado = "SI"
-                                                horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
-                                                horas_confirmadas = horas_confirmadas + sale_line.horas_reales
-                                            else:
-                                                horas_confirmadas = horas_confirmadas + total_quantity_line
-                        # subscription_lines = SSL.search([
-                        #    ('project_id', '=', project_id)
-                        # ])
-                    #if subscription_lines:
-                    #    for suscription_line in subscription_lines:
-                    #        subscription_id = suscription_line.analytic_account_id
-                    #        # Obtenemos las facturas de su suscripcion para recorrer las lineas de las mismas
-                    #        if subscription_id:
-                    #            for sub in subscription_id:
-                    #                invoice_lines = AIL.search([
-                    #                    ('subscription_id', '=', sub.id)
-                    #                ])
 
-                    #                if invoice_lines:
-                    #                    for invoice_line in invoice_lines:
-                    #                        if invoice_line.project_id.id == project_id:
-                    #                            total_quantity_for_project = total_quantity_for_project + invoice_line[
-                    #                                'quantity']
+                    # else:
+                    # Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
+                    #    lineas_relacionadas_con_proyecto = SOL.search([
+                    #        ('x_studio_proyecto_pedido_venta', '=', project_id)
+                    #    ])
 
+                #     if lineas_relacionadas_con_proyecto:
+                # obtenemos el total de cantidad por linea en el pedido
+                #        for sale_line in lineas_relacionadas_con_proyecto:
+                #           total_quantity_line = sale_line['product_uom_qty']
+
+                # Comprobamos si el pedido de esta linea tiene factura, si la tiene
+                # comprobamos que no tiene refounds, si los tiene, no sumamos la cantidad de horas
+                # vendidas
+                # COGEMOS EL PEDIDO EN ORDER_NAME
+                #           order_name = sale_line['order_id'].name
+                #           order_state = sale_line['order_id'].state
+
+                # Comprobamos si tiene factura
+                #          cantidad_facturas = sale_line['order_id'].invoice_count
+                #          if cantidad_facturas > 0:
+                #          #if self.tiene_factura(order_name) == 1:
+                #              if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
+                #                  'order_id'].invoice_status == 'upselling':
+                # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
+                # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
+                #                  if self.descartar_facturas_devolucion(order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                #                          total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                #                  if sale_line.horas_reales > 0:
+                #                     is_closed_project = 1
+                #                     proyectoCerrado = "SI"
+                #                     horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                #             else:
+                #                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
+                #                 if order_state == "draft":
+                #                     if sale_line.horas_reales > 0:
+                #                         is_closed_project = 1
+                #                         proyectoCerrado = "SI"
+                #                         horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                #                         horas_presupuestadas = horas_presupuestadas + sale_line.horas_reales
+                #                     else:
+                #                         horas_presupuestadas = horas_presupuestadas + total_quantity_line
+                #                 elif order_state == "sent":
+                #                     if sale_line.horas_reales > 0:
+                #                         is_closed_project = 1
+                #                   proyectoCerrado = "SI"
+                #                   horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                #                   horas_presupuestadas = horas_presupuestadas + sale_line.horas_reales
+                #               else:
+                #                    horas_presupuestadas = horas_presupuestadas + total_quantity_line
+                #            elif order_state == "sale":
+                #                if sale_line.horas_reales > 0:
+                #                    is_closed_project = 1
+                #                    proyectoCerrado = "SI"
+                #                    horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                #                    horas_confirmadas = horas_confirmadas + sale_line.horas_reales
+                #                else:
+                #                    horas_confirmadas = horas_confirmadas + total_quantity_line
+                # subscription_lines = SSL.search([
+                #    ('project_id', '=', project_id)
+                # ])
+                # if subscription_lines:
+                #    for suscription_line in subscription_lines:
+                #        subscription_id = suscription_line.analytic_account_id
+                #        # Obtenemos las facturas de su suscripcion para recorrer las lineas de las mismas
+                #        if subscription_id:
+                #            for sub in subscription_id:
+                #                invoice_lines = AIL.search([
+                #                    ('subscription_id', '=', sub.id)
+                #                ])
+
+                #                if invoice_lines:
+                #                    for invoice_line in invoice_lines:
+                #                        if invoice_line.project_id.id == project_id:
+                #                            total_quantity_for_project = total_quantity_for_project + invoice_line[
+                #                                'quantity']
 
                 total_horas_contratadas = total_quantity_for_project + horas_proyecto_cerrado
 
-                #if is_closed_project == 1:
-                 #   total_horas_contratadas = horas_proyecto_cerrado
-                
-                horas_totales = horas_confirmadas + total_horas_contratadas
+                # if is_closed_project == 1:
+                #   total_horas_contratadas = horas_proyecto_cerrado
 
+                horas_totales = horas_confirmadas + total_horas_contratadas
 
                 totalHorasContratadas = str(total_horas_contratadas)
                 totalHorasContratadas = totalHorasContratadas.replace('.', ',')
@@ -213,7 +225,6 @@ class DataPbiExtractor(models.Model):
                 if total_worked_hours > 0 and total_quantity_for_project > 0:
                     # project['alert_percentil_no_profitable'] = (total_worked_hours * 100) / total_quantity_for_project
                     alert_percentil_no_profitable = (total_worked_hours * 100) / total_quantity_for_project
-
 
                 writer.writerow([project_id, project_name, nombre_cliente, codigo_cliente, tipo_proyecto, responsable,
                                  totalHorasContratadas, horas_presupuestadas, horas_confirmadas, horas_totales,
