@@ -142,9 +142,11 @@ class DataPbiExtractor(models.Model):
                                             proyectoCerrado = "SI"
                                             horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
                                     else:
+                                        if(order_name == 'SO2290'):
+                                            raise ValidationError(_(total_quantity_line))
+                                        total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                         # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
                                         if order_state == "draft":
-                                            total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                             if sale_line.horas_reales > 0:
                                                 is_closed_project = 1
                                                 proyectoCerrado = "SI"
