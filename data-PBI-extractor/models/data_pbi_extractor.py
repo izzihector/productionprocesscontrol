@@ -126,16 +126,15 @@ class DataPbiExtractor(models.Model):
                             # if self.tiene_factura(order_name) == 1:
                             if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
                                 'order_id'].invoice_status == 'upselling':
-
                                 # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
                                 # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
-                                if self.descartar_facturas_devolucion(
-                                        order_name) == 0 and self.check_order_is_active(order_state) == 1:
-                                    total_quantity_for_project = total_quantity_for_project + total_quantity_line
-                                    if sale_line.horas_reales > 0:
-                                        is_closed_project = 1
-                                        proyectoCerrado = "SI"
-                                        horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
+                                #    if self.descartar_facturas_devolucion(
+                                #            order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                                #        total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                                if sale_line.horas_reales > 0:
+                                    is_closed_project = 1
+                                    proyectoCerrado = "SI"
+                                    horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
                             else:
                                 # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
                                 if order_state == "draft":
