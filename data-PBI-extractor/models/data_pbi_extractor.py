@@ -261,7 +261,12 @@ class DataPbiExtractor(models.Model):
                 if origenes_array:
                     for origen in origenes_array:
                         if origen == nombre_pedido_venta:
+                            if(nombre_pedido_venta == 'SO2209'):
+                                raise ValidationError(_(1))
                             return 1
+
+        if (nombre_pedido_venta == 'SO2209'):
+            raise ValidationError(_(0))
         return 0
 
     def _get_name_tipo_proyecto(self, idproyecto):
