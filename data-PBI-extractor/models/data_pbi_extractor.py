@@ -118,7 +118,7 @@ class DataPbiExtractor(models.Model):
                                     ('x_studio_proyecto_pedido_venta', '=', project_id)
                                 ])
                                 if lineas_relacionadas_con_proyecto:
-                                    for linea_pedido in lineas_relacionadas_con_proyecto:
+                                    for sale_line in lineas_relacionadas_con_proyecto:
                                         if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
                                             'order_id'].invoice_status == 'upselling':
                                             if self.descartar_facturas_devolucion(
