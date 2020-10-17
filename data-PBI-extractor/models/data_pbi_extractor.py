@@ -191,8 +191,8 @@ class DataPbiExtractor(models.Model):
                     #                                'quantity']
 
                 if (project_id == 104):
-                    raise ValidationError(_(invoice_line['quantity']))
-                
+                    raise ValidationError(_(total_quantity_for_project))
+
                 total_horas_contratadas = total_quantity_for_project + horas_proyecto_cerrado
                 
                 #if is_closed_project == 1:
