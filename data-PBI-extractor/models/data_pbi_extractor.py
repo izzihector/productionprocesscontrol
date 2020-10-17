@@ -130,15 +130,11 @@ class DataPbiExtractor(models.Model):
                                 order_state = sale_line['order_id'].state
 
                                 # Comprobamos si tiene factura
-
-                                if (order_name == 'SO2209'):
-                                    raise ValidationError(_(sale_line['order_id'].invoice_count))
-
-                                if self.tiene_factura(order_name) == 1:
+                                cantidad_facturas = sale_line['order_id'].invoice_count
+                                if cantidad_facturas > 0:
+                                #if self.tiene_factura(order_name) == 1:
                                     if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
                                         'order_id'].invoice_status == 'upselling':
-                                        if(order_name == 'SO2209'):
-                                            raise ValidationError(_(total_quantity_line))
                                         # Comprobamos que la factura no es devolucion y el pedido no esta cancelado
                                         # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
                                         if self.descartar_facturas_devolucion(order_name) == 0 and self.check_order_is_active(order_state) == 1:
@@ -148,8 +144,6 @@ class DataPbiExtractor(models.Model):
                                             proyectoCerrado = "SI"
                                             horas_proyecto_cerrado = horas_proyecto_cerrado + sale_line.horas_reales
                                     else:
-                                        if(order_name == 'SO2209'):
-                                            raise ValidationError(_("Aqui " + str(total_quantity_line)))
                                         total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                         # Obtenemos los sumatorios de horas presupuestasas y horas confirmadas
                                         if order_state == "draft":
@@ -176,9 +170,6 @@ class DataPbiExtractor(models.Model):
                                                 horas_confirmadas = horas_confirmadas + sale_line.horas_reales
                                             else:
                                                 horas_confirmadas = horas_confirmadas + total_quantity_line
-                                else:
-                                    if (order_name == 'SO2209'):
-                                        raise ValidationError(_("No tengo factura"))
                         # subscription_lines = SSL.search([
                         #    ('project_id', '=', project_id)
                         # ])
