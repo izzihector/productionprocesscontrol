@@ -130,9 +130,9 @@ class DataPbiExtractor(models.Model):
                                         order_name = sale_line['order_id'].name
                                         order_state = sale_line['order_id'].state
                                         if sale_line.horas_reales > 0:
-                                            total_quantity_for_project = total_quantity_for_project + total_quantity_line
-                                        else:
                                             total_quantity_for_project = total_quantity_for_project + sale_line.horas_reales
+                                        else:
+                                            total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
 
                     # else:
