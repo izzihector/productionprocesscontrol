@@ -122,18 +122,20 @@ class DataPbiExtractor(models.Model):
                         for sale_line in lineas_relacionadas_con_proyecto:
 
                             #Comprobamos que la factura no esta en el almacen de facturas
-                            numero_factura = sale_line['order_id'].invoice_ids
-                            raise ValidationError(_(numero_factura))
-                            if numero_factura in almacen_facturas:
+                            faturas_de_la_linea = sale_line['order_id'].invoice_ids
+                            if faturas_de_la_linea:
+                                for numero_factura in faturas_de_la_linea:
+                                    raise ValidationError(_(numero_factura))
+                                    if numero_factura in almacen_facturas:
 
-                                total_quantity_line = sale_line['product_uom_qty']
-                                order_name = sale_line['order_id'].name
-                                order_state = sale_line['order_id'].state
-                                if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
-                                    'order_id'].invoice_status == 'upselling':
-                                    if self.descartar_facturas_devolucion(
-                                            order_name) == 0 and self.check_order_is_active(order_state) == 1:
-                                        total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                                        total_quantity_line = sale_line['product_uom_qty']
+                                        order_name = sale_line['order_id'].name
+                                        order_state = sale_line['order_id'].state
+                                        if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
+                                            'order_id'].invoice_status == 'upselling':
+                                            if self.descartar_facturas_devolucion(
+                                                    order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                                                total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
                     # else:
                     # Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
