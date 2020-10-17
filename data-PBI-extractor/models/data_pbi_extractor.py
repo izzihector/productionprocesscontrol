@@ -165,21 +165,30 @@ class DataPbiExtractor(models.Model):
                     subscription_lines = SSL.search([
                         ('project_id', '=', project_id)
                     ])
-                    if subscription_lines:
-                        for suscription_line in subscription_lines:
-                            subscription_id = suscription_line.analytic_account_id
-                            # Obtenemos las facturas de su suscripcion para recorrer las lineas de las mismas
-                            if subscription_id:
-                                for sub in subscription_id:
-                                    invoice_lines = AIL.search([
-                                        ('subscription_id', '=', sub.id)
-                                    ])
 
-                                    if invoice_lines:
-                                        for invoice_line in invoice_lines:
-                                            if invoice_line.project_id.id == project_id:
-                                                total_quantity_for_project = total_quantity_for_project + invoice_line[
-                                                    'quantity']
+                    invoice_lines = AIL.search([
+                        ('project_id', '=', project_id)
+                    ])
+
+                    if invoice_lines:
+                        for invoice_line in invoice_lines:
+                            total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
+
+                    #if subscription_lines:
+                    #    for suscription_line in subscription_lines:
+                    #        subscription_id = suscription_line.analytic_account_id
+                    #        # Obtenemos las facturas de su suscripcion para recorrer las lineas de las mismas
+                    #        if subscription_id:
+                    #            for sub in subscription_id:
+                    #                invoice_lines = AIL.search([
+                    #                    ('subscription_id', '=', sub.id)
+                    #                ])
+
+                    #                if invoice_lines:
+                    #                    for invoice_line in invoice_lines:
+                    #                        if invoice_line.project_id.id == project_id:
+                    #                            total_quantity_for_project = total_quantity_for_project + invoice_line[
+                    #                                'quantity']
 
                 total_horas_contratadas = total_quantity_for_project + horas_proyecto_cerrado
                 
