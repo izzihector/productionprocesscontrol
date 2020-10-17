@@ -137,8 +137,6 @@ class DataPbiExtractor(models.Model):
                                         # posteriormente, añadimos las horas al total para contabilizarlas contra las imputadas
                                         if self.descartar_facturas_devolucion(
                                                     order_name) == 0 and self.check_order_is_active(order_state) == 1:
-                                                if project_id == 609:
-                                                    raise ValidationError(_(total_quantity_line))
                                                 total_quantity_for_project = total_quantity_for_project + total_quantity_line
                                         if sale_line.horas_reales > 0:
                                             is_closed_project = 1
@@ -170,6 +168,9 @@ class DataPbiExtractor(models.Model):
                                                 horas_confirmadas = horas_confirmadas + sale_line.horas_reales
                                             else:
                                                 horas_confirmadas = horas_confirmadas + total_quantity_line
+
+                                if project_id == 609:
+                                    raise ValidationError(_(total_quantity_for_project))
                         # subscription_lines = SSL.search([
                         #    ('project_id', '=', project_id)
                         # ])
