@@ -162,13 +162,16 @@ class DataPbiExtractor(models.Model):
                                         horas_confirmadas = horas_confirmadas + sale_line.horas_reales
                                     else:
                                         horas_confirmadas = horas_confirmadas + total_quantity_line
-                    subscription_lines = SSL.search([
-                        ('project_id', '=', project_id)
-                    ])
+                    #subscription_lines = SSL.search([
+                    #    ('project_id', '=', project_id)
+                    #])
 
                     invoice_lines = AIL.search([
                         ('project_id', '=', project_id)
                     ])
+
+                    if(project_id == 104):
+                        raise ValidationError(_(invoice_lines))
 
                     if invoice_lines:
                         for invoice_line in invoice_lines:
