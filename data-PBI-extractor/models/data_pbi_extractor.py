@@ -116,8 +116,6 @@ class DataPbiExtractor(models.Model):
                         lineas_relacionadas_con_proyecto = SOL.search([
                             ('x_studio_proyecto_pedido_venta', '=', project_id)
                         ])
-                        if project_id == 609:
-                            raise ValidationError(_(lineas_relacionadas_con_proyecto))
 
                         if lineas_relacionadas_con_proyecto:
                             # obtenemos el total de cantidad por linea en el pedido
