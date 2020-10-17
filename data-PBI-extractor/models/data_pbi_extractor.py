@@ -106,7 +106,7 @@ class DataPbiExtractor(models.Model):
 
                 if project_id:
                     invoice_lines = AIL.search([
-                        ('project_id', '=', project_id)
+                        #('project_id', '=', project_id)
                     ])
 
                     if invoice_lines:
