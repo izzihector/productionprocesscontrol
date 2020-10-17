@@ -168,9 +168,6 @@ class DataPbiExtractor(models.Model):
                                                 horas_confirmadas = horas_confirmadas + sale_line.horas_reales
                                             else:
                                                 horas_confirmadas = horas_confirmadas + total_quantity_line
-
-                                if project_id == 609:
-                                    raise ValidationError(_(total_quantity_for_project))
                         # subscription_lines = SSL.search([
                         #    ('project_id', '=', project_id)
                         # ])
