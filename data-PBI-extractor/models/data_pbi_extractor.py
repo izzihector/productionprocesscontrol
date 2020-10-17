@@ -108,7 +108,8 @@ class DataPbiExtractor(models.Model):
                     invoice_lines = AIL.search([
                         ('project_id', '=', project_id)
                     ])
-
+                    if project_id == 609:
+                        raise ValidationError(_(invoice_lines))
                     if invoice_lines:
                         for invoice_line in invoice_lines:
                             total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
