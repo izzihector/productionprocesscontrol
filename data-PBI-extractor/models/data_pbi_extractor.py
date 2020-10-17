@@ -105,28 +105,35 @@ class DataPbiExtractor(models.Model):
                         total_worked_hours = total_worked_hours + task_archivada['effective_hours']
 
                 if project_id:
+                    almacen_facturas = []
+                    #RECOGEMOS TODAS LAS LINEAS DE FACTURA DEL PROYECTO
                     invoice_lines = AIL.search([
-                        #('project_id', '=', project_id)
+                        ('project_id', '=', project_id)
                     ])
-
                     if invoice_lines:
                         for invoice_line in invoice_lines:
-                            if invoice_line.project_id == project_id:
-                                total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
-                            else:
-                                lineas_relacionadas_con_proyecto = SOL.search([
-                                    ('x_studio_proyecto_pedido_venta', '=', project_id)
-                                ])
-                                if lineas_relacionadas_con_proyecto:
-                                    for sale_line in lineas_relacionadas_con_proyecto:
-                                        total_quantity_line = sale_line['product_uom_qty']
-                                        order_name = sale_line['order_id'].name
-                                        order_state = sale_line['order_id'].state
-                                        if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
-                                            'order_id'].invoice_status == 'upselling':
-                                            if self.descartar_facturas_devolucion(
-                                                    order_name) == 0 and self.check_order_is_active(order_state) == 1:
-                                                total_quantity_for_project = total_quantity_for_project + total_quantity_line
+                            almacen_facturas.append(invoice_line.invoice_id.name)
+                            total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
+
+                    lineas_relacionadas_con_proyecto = SOL.search([
+                        ('x_studio_proyecto_pedido_venta', '=', project_id)
+                    ])
+                    if lineas_relacionadas_con_proyecto:
+                        for sale_line in lineas_relacionadas_con_proyecto:
+
+                            #Comprobamos que la factura no esta en el almacen de facturas
+                            numero_factura = sale_line['order_id'].invoice_ids
+                            raise ValidationError(_(numero_factura))
+                            if numero_factura in almacen_facturas:
+
+                                total_quantity_line = sale_line['product_uom_qty']
+                                order_name = sale_line['order_id'].name
+                                order_state = sale_line['order_id'].state
+                                if sale_line['order_id'].invoice_status == 'invoiced' or sale_line[
+                                    'order_id'].invoice_status == 'upselling':
+                                    if self.descartar_facturas_devolucion(
+                                            order_name) == 0 and self.check_order_is_active(order_state) == 1:
+                                        total_quantity_for_project = total_quantity_for_project + total_quantity_line
 
                     # else:
                     # Obtenemos las lineas de pedidos de venta que tienen asignado el proyecto
