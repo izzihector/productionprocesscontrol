@@ -125,7 +125,7 @@ class DataPbiExtractor(models.Model):
                             faturas_de_la_linea = sale_line['order_id'].invoice_ids
                             if faturas_de_la_linea:
                                 for numero_factura in faturas_de_la_linea:
-                                    raise ValidationError(_(numero_factura))
+                                    raise ValidationError(_(numero_factura.id))
                                     if numero_factura in almacen_facturas:
 
                                         total_quantity_line = sale_line['product_uom_qty']
