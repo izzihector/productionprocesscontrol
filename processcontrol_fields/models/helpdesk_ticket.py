@@ -15,5 +15,5 @@ class HelpdeskTicket(models.Model):
             'name': _('Nueva Gestión'),
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'res_model': 'helpdesk.ticket',
+            'res_model': 'project.task',
         }
