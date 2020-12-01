@@ -34,6 +34,10 @@ class ProjectTask(models.Model):
             project_id = task.project_id.id
 
         if project_id:
+            tasks = PT.search([('project_id', '=', project_id)])
+            if tasks:
+                for task in tasks:
+                    total_worked_hours = total_worked_hours + task['effective_hours']
 
             projects = PP.search([('id', '=', project_id)])
             for project in projects:
@@ -74,11 +78,6 @@ class ProjectTask(models.Model):
 
                 total_horas_contratadas = total_quantity_for_project
 
-                if tasks:
-                    for task in tasks:
-                        sales_lines = task.sale_line_id
-                        total_worked_hours = total_worked_hours + task['effective_hours']
-
                 horas_restantes_produccion = total_horas_contratadas - total_worked_hours
 
                 is_negative = 0
@@ -99,7 +98,7 @@ class ProjectTask(models.Model):
                 if is_negative == 1:
                     horas_restantes_produccion = "-" + horas_restantes_produccion
 
-            self.horas_restantes_produccion_proyecto = tasks
+            self.horas_restantes_produccion_proyecto = total_horas_contratadas
 
     def convert_time_unit_to_hours(self, time_unit):
 
