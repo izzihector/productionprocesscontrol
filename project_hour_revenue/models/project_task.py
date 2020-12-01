@@ -29,6 +29,7 @@ class ProjectTask(models.Model):
         AIL = self.env['account.invoice.line']
 
         horas_restantes_produccion = 0
+        total_worked_hours = 0
         project_id = 0
         for task in self:
             project_id = task.project_id.id
@@ -46,7 +47,6 @@ class ProjectTask(models.Model):
                 sales_lines = project.sale_line_id
                 tasks = project.task_ids
                 total_quantity_for_project = 0
-                total_worked_hours = 0
 
                 # RECOGEMOS TODAS LAS LINEAS DE FACTURA DEL PROYECTO
                 invoice_lines = AIL.search([
