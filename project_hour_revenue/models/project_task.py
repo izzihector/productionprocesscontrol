@@ -99,7 +99,7 @@ class ProjectTask(models.Model):
                 if is_negative == 1:
                     horas_restantes_produccion = "-" + horas_restantes_produccion
 
-            self.horas_restantes_produccion_proyecto = total_worked_hours
+            self.horas_restantes_produccion_proyecto = total_horas_contratadas
 
     def convert_time_unit_to_hours(self, time_unit):
 
