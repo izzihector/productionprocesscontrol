@@ -24,6 +24,10 @@ class ProjectTask(models.Model):
 
         PP = self.env['project.project']
         PT = self.env['project.task']
+        SOL = self.env['sale.order.line']
+        SSL = self.env['sale.subscription.line']
+        AIL = self.env['account.invoice.line']
+
         horas_restantes_produccion = 0
         project_id = 0
         for task in self:
@@ -33,31 +37,49 @@ class ProjectTask(models.Model):
 
             projects = PP.search([('id', '=', project_id)])
             for project in projects:
-                total_quantity_for_project = 0
-                total_worked_hours = 0
+                almacen_facturas = []
                 horas_restantes_produccion = 0
                 sales_lines = project.sale_line_id
                 tasks = project.task_ids
+                total_quantity_for_project = 0
+                total_worked_hours = 0
+
+                # RECOGEMOS TODAS LAS LINEAS DE FACTURA DEL PROYECTO
+                invoice_lines = AIL.search([
+                    ('project_id', '=', project_id)
+                ])
+                if invoice_lines:
+                    for invoice_line in invoice_lines:
+                        almacen_facturas.append(invoice_line.invoice_id.name)
+                        total_quantity_for_project = total_quantity_for_project + invoice_line['quantity']
+
+                    lineas_relacionadas_con_proyecto = SOL.search([
+                        ('x_studio_proyecto_pedido_venta', '=', project_id)
+                    ])
+                    if lineas_relacionadas_con_proyecto:
+                        for sale_line in lineas_relacionadas_con_proyecto:
+                            # Comprobamos que la factura no esta en el almacen de facturas
+                            faturas_de_la_linea = sale_line['order_id'].invoice_ids
+                            if faturas_de_la_linea:
+                                for numero_factura in faturas_de_la_linea:
+                                    nombre_factura = numero_factura.name
+                                    if nombre_factura not in almacen_facturas:
+                                        total_quantity_line = sale_line['product_uom_qty']
+                                        order_name = sale_line['order_id'].name
+                                        order_state = sale_line['order_id'].state
+                                        if sale_line.horas_reales > 0:
+                                            total_quantity_for_project = total_quantity_for_project + sale_line.horas_reales
+                                        else:
+                                            total_quantity_for_project = total_quantity_for_project + total_quantity_line
+
+                total_horas_contratadas = total_quantity_for_project
 
                 if tasks:
                     for task in tasks:
                         sales_lines = task.sale_line_id
                         total_worked_hours = total_worked_hours + task['effective_hours']
 
-                        if sales_lines:
-                            # obtenemos el total de cantidad por linea en el pedido
-                            for sale_line in sales_lines:
-                                have_project = sale_line['x_studio_proyecto_pedido_venta']
-                                total_quantity_line = sale_line['product_uom_qty']
-                                horas_reales = sale_line['horas_reales']
-                                if horas_reales:
-                                    total_quantity_line = horas_reales
-                                if have_project:
-                                    total_quantity_line = sale_line['horas_reales']
-
-                                total_quantity_for_project = total_quantity_for_project + total_quantity_line
-
-                horas_restantes_produccion = total_quantity_for_project - total_worked_hours
+                horas_restantes_produccion = total_horas_contratadas - total_worked_hours
 
                 is_negative = 0
                 negative_code = "-"
