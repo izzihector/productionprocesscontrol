@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="portal_contact_remove" inherit_id="portal.portal_layout" >
+    <xpath expr="//t[@t-call='portal.portal_contact']" position="replace">
+    </xpath>
+  </template>
+</odoo>
