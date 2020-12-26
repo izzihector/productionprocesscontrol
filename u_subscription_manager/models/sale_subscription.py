@@ -24,7 +24,7 @@ class SaleSubscription(models.Model):
         res = super(SaleSubscription, self)._prepare_renewal_order_values()
         for index, line in enumerate(res[self.id]['order_line']):
             line[2]['project_id'] = self.recurring_invoice_line_ids[index].project_id.id
-            line[2]['cost'] = self.recurring_invoice_line_ids[index].cost
+            line[2]['purchase_price'] = self.recurring_invoice_line_ids[index].cost
         res[self.id]['payment_term_id'] = self.payment_term_id.id
         res[self.id]['sale_order_type_id'] = self.template_id.sale_order_type_id.id
         return res
@@ -61,15 +61,20 @@ class SaleSubscription(models.Model):
 class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
 
-    project_id = fields.Many2one(
-        'project.project',
-        'Project'
-    )
-    product_project_id = fields.Many2one(
-        related='product_id.project_id'
+    product_service_tracking = fields.Selection(
+        related='product_id.service_tracking'
     )
     cost = fields.Float(
         'Cost'
+    )
+    order_line_id = fields.Many2one(
+        'sale.order.line',
+        'Order line'
+    )
+    project_id = fields.Many2one(
+        'project.project',
+        'Project',
+        related='order_line_id.project_id'
     )
 
 
