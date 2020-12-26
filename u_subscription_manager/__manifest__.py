@@ -9,13 +9,14 @@
 Modifications to subscriptions
 ========================================
     """,
-    'depends': ['base', 'sale_subscription', 'project', 'timesheet_grid'],
+    'depends': ['base', 'sale_subscription', 'project', 'timesheet_grid', 'project_forecast', 'sale_margin'],
     'author': 'Unoobi',
     'website': 'http://www.unoobi.com',
     'data': [
         'security/ir.model.access.csv',
         'views/sale_subscription_view.xml',
         'views/sale_order.xml',
+        'views/project_view.xml',
     ],
     'qweb': [],
     'application': False,

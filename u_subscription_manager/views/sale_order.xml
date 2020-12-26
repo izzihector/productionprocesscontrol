@@ -36,11 +36,9 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="after">
-                    <field name="project_id"/>
-                    <field name="cost"/>
+                    <field name="project_id" readonly="1" string="Project"/>
                 </xpath>
                 <xpath expr="//field[@name='sale_order_template_id']" position="after">
-                    <field name="subscription_id" readonly="1"/>
                     <field name="sale_order_type_id"/>
                 </xpath>
             </field>
