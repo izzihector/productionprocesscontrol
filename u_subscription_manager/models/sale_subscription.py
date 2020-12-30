@@ -73,8 +73,7 @@ class SaleSubscriptionLine(models.Model):
     )
     project_id = fields.Many2one(
         'project.project',
-        'Project',
-        related='order_line_id.project_id'
+        'Project'
     )
 
 

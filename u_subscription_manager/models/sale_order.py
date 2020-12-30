@@ -45,6 +45,16 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
+    @api.multi
+    def _timesheet_service_generation(self):
+        res = super(SaleOrderLine, self)._timesheet_service_generation()
+        for line in self:
+            if line.project_id:
+                subscription_line_id = self.env['sale.subscription.line'].\
+                    search([('order_line_id', '=', line.id)])
+                if subscription_line_id:
+                    subscription_line_id.project_id = line.project_id.id
+
     def _prepare_subscription_line_data(self):
         res = super(SaleOrderLine, self)._prepare_subscription_line_data()
         for index, line in enumerate(res):
@@ -54,10 +64,6 @@ class SaleOrderLine(models.Model):
             })
         return res
 
-    project_id = fields.Many2one(
-        'project.project',
-        'Project'
-    )
     sale_order_type = fields.Many2one(
         'sale.order.type',
         'Type'
