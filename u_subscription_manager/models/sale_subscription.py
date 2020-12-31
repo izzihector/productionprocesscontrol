@@ -3,7 +3,7 @@
 
 from odoo import api, models, fields
 import logging
-import datetime
+from datetime import datetime, date
 import traceback
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, _
@@ -32,7 +32,7 @@ class SaleSubscription(models.Model):
     @api.multi
     def _recurring_create_invoice(self, automatic=False):
         res = super(SaleSubscription, self)._recurring_create_invoice(automatic)
-        current_date = datetime.date.today()
+        current_date = date.today()
         domain = [('recurring_next_date', '<=', current_date),
                   '|', ('in_progress', '=', True),
                   ('to_renew', '=', True)]
@@ -52,7 +52,13 @@ class SaleSubscription(models.Model):
 
                 invoicing_period = relativedelta(
                     **{periods[sub.recurring_rule_type]: sub.recurring_interval})
-                new_date = next_date + invoicing_period
+
+                if sub.template_id.recurring_rule_type == 'monthly':
+                    first_day = datetime.today().replace(day=1)
+                    recurring_next_date = first_day + invoicing_period
+                    new_date = recurring_next_date
+                else:
+                    new_date = next_date + invoicing_period
 
                 sub.write({'recurring_next_date': new_date.strftime('%Y-%m-%d')})
         return res
