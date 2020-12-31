@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_inherit_sale_subscription_form">
+            <field name="name">view.inherit.sale.subscription.form</field>
+            <field name="model">sale.subscription</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='close_reason_id']" position="after">
+                    <field name="payment_term_id"/>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='name']" position='after'>
+                    <field name="product_service_tracking" invisible="1"/>
+                    <field name="order_line_id" invisible="1"/>
+                    <field name="project_id"
+                           attrs="{'readonly':[('product_service_tracking','not in', ('task_global_project', 'task_new_project'))]}"/>
+                    <field name="cost"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_inherit_sale_subscription_template_form">
+            <field name="name">view.inherit.sale.subscription.template.form</field>
+            <field name="model">sale.subscription.template</field>
+            <field name="inherit_id" ref="sale_subscription.sale_subscription_template_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='template_asset_category_id']" position="after">
+                    <field name="sale_order_type_id" attrs="{'invisible':[('payment_mode','not in', ('quotation_sale_order', 'confirmed_sale_order'))]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
