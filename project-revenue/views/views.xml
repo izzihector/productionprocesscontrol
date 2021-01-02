@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="import_sage_customers.list">
+      <field name="name">importSageCustomers list</field>
+      <field name="model">import_sage_customers.import_sage_customers</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name_bbdd"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="import_sage_customers.action_window">
+      <field name="name">Dashboard</field>
+      <field name="res_model">import_sage_customers.import_sage_customers</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[]</field>
+    </record>
+
+      <!-- Modifica la vista principal de tabla -->
+    <record id="view_server_tree" model="ir.ui.view">
+      <field name="name">Listado de servidores</field>
+      <field name="model">import_sage_customers.import_sage_customers</field>
+      <field name="priority" eval="8" />
+      <field name="arch" type="xml">
+          <tree string="Servidor">
+              <field name="server" string="Servidor" />
+              <field name="name_bbdd" string="Base de datos" />
+              <field name="port" string="Puerto"/>
+              <field name="description" string="Descripción"/>
+              <button name="button" string="Importar contactos" type="object" class="oe_highlight"/>
+
+          </tree>
+      </field>
+    </record>
+
+    <record id="view_server_form" model="ir.ui.view">
+            <field name="name">import_sage_customers.form</field>
+            <field name="model">import_sage_customers.import_sage_customers</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Servidor">
+                    <sheet>
+                        <notebook colspan="4">
+                            <page name="server_information"
+                                string="Información de conexión">
+                                <group col="4" colspan="4"
+                                    name="personal_detail">
+                                    <field name="server" string="Servidor" />
+                                    <field name="name_bbdd" string="Base de datos"/>
+                                    <field name="port" string="Puerto"/>
+                                    <field name="description" string="Descripción"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Importador de clientes Sage Murano" id="import_sage_customers.menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Dashboard" id="import_sage_customers.dashboard" parent="import_sage_customers.menu_root" action="import_sage_customers.action_window"/>
+
+    <!-- actions -->
+
+    <!--<menuitem name="List" id="import_sage_customers.menu_1_list" parent="import_sage_customers.menu_1"
+              action="import_sage_customers.action_window"/>-->
+
+  </data>
+</odoo>
