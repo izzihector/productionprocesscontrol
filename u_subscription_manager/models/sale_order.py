@@ -59,9 +59,6 @@ class SaleOrderLine(models.Model):
         res = super(SaleOrderLine, self)._prepare_subscription_line_data()
         for index, line in enumerate(res):
             line[2].update({
-                # hack sencillo para evitar que se pierda el nombre al actualizar desde
-                # cualquier lado
-                'name': self[index].get_sale_order_line_multiline_description_sale(self[index].product_id),
                 'order_line_id': self[index].id,
                 'cost': self[index].purchase_price
             })

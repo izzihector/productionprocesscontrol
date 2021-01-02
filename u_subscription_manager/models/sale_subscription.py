@@ -68,10 +68,6 @@ class SaleSubscription(models.Model):
 class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
 
-    def write(self, vals):
-        res = super(SaleSubscriptionLine, self).write(vals)
-        return res
-
     product_service_tracking = fields.Selection(
         related='product_id.service_tracking'
     )
