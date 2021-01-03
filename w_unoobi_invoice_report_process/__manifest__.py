@@ -1,0 +1,43 @@
+# -*- encoding: utf-8 -*-
+###############################################################################
+#
+#    Module Writen to Odoo12, Open Source Management Solution
+#
+############################################################################
+{
+    'name': 'Unoobi | Invoice Report (Process)',
+
+    'summary': """The design of the invoice report is customized (Process).""",
+
+    'description': """
+        The design of the invoice report is customized (Process).
+    """,
+
+    'author': 'UNOOBI ©',
+
+    "website" : "https://www.unoobi.com/",
+
+    'category': 'Extra Tools',
+
+    'version': '1.0',
+
+    'depends': ['base', 'account'],
+
+    'data': [
+            'views/inherit_report_invoice.xml',
+            'views/inherit_external_layout_views.xml',
+           ],
+
+    # 'qweb': [
+    #         'static/src/xml/*.xml'
+    #     ],
+
+    'installable': True,
+
+    'active': False,
+
+    'certificate': '',
+
+    'application':False,
+}
+
