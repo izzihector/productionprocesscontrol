@@ -20,8 +20,8 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_invoice_create(self, grouped=False, final=False):
-        archived_products = self.order_line.filtered(lambda x: x.product_id.active == False)
-        if len(archived_products) >= 1:
-            raise ValidationError(_("The products {} are archived".format(archived_products.mapped('name'))))
-        record= super(SaleOrder, self).action_invoice_create()
-        return record
+        for order in self:
+            archived_products = order.order_line.filtered(lambda x: x.product_id.active == False)
+            if len(archived_products) >= 1:
+                raise ValidationError(_("The products {} are archived".format(archived_products.mapped('name'))))
+        return super(SaleOrder, self).action_invoice_create()
