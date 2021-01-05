@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Perfil usuario desbloqueo orden venta -->
+        <record id="group_unlock_sell_orders" model="res.groups">
+            <field name="name">Unlock sell orders</field>
+            <field name="comment">Unlock sell orders</field>
+        </record>
+
+    </data>
+</odoo>
