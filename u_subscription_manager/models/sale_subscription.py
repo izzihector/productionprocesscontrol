@@ -25,6 +25,7 @@ class SaleSubscription(models.Model):
         for index, line in enumerate(res[self.id]['order_line']):
             line[2]['project_id'] = self.recurring_invoice_line_ids[index].project_id.id
             line[2]['purchase_price'] = self.recurring_invoice_line_ids[index].cost
+            line[2]['name'] = self.recurring_invoice_line_ids[index].name
         res[self.id]['payment_term_id'] = self.payment_term_id.id
         res[self.id]['sale_order_type_id'] = self.template_id.sale_order_type_id.id
         return res
