@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* w_unoobi_notify_subscriptions
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-30 22:13+0000\n"
+"PO-Revision-Date: 2020-12-30 22:13+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: w_unoobi_notify_subscriptions
+#: model:ir.model.fields,field_description:w_unoobi_notify_subscriptions.field_sale_subscription_template__create_activity
+msgid "Create activity for"
+msgstr "Crear actividad para"
+
+#. module: w_unoobi_notify_subscriptions
+#: model:ir.model,name:w_unoobi_notify_subscriptions.model_sale_subscription
+msgid "Subscription"
+msgstr "Suscripción"
+
+#. module: w_unoobi_notify_subscriptions
+#: model:ir.model,name:w_unoobi_notify_subscriptions.model_sale_subscription_template
+msgid "Subscription Template"
+msgstr "Plantilla de la suscripción"
+
+#. module: w_unoobi_notify_subscriptions
+#: code:addons/w_unoobi_notify_subscriptions/models/inherit_sale_subscription.py:30
+#, python-format
+msgid "Subscription review"
+msgstr "Revisión de suscripción"
+
+#. module: w_unoobi_notify_subscriptions
+#: model:ir.model.fields,help:w_unoobi_notify_subscriptions.field_sale_subscription_template__create_activity
+msgid "user to whom the activity is assigned, when creating a subscription"
+msgstr "usuario al que se asigna la actividad, al crear una suscripción"
+
