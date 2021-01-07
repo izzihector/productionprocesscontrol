@@ -234,8 +234,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div style="font-size:12px;">
+                    <div class="row mb32">
+                        <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
                             <span t-field="o.payment_term_id.note"/><br/>
                             Due Date:
                             <span t-field="o.date_due"/><br/>
