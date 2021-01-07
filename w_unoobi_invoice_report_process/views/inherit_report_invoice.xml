@@ -234,18 +234,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb32">
+                    <div class="page">
                         <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
                             <span t-field="o.payment_term_id.note"/><br/>
                             Due Date:
                             <span t-field="o.date_due"/><br/>
                             Account N°:
                             <span t-field="o.partner_bank_id.acc_number"/>
+                            <p t-if="o.reference">
+                                Please use the following communication for your payment : <b><span t-field="o.reference"/></b>
+                            </p>
                         </div>
                     </div>
-                    <p t-if="o.reference">
+                    <!--<p t-if="o.reference">
                         Please use the following communication for your payment : <b><span t-field="o.reference"/></b>
-                    </p>
+                    </p>-->
                     <p t-if="o.comment" name="comment">
                         <span t-field="o.comment"/>
                     </p>
