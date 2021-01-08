@@ -22,13 +22,16 @@ class AccountAnalyticGroup(models.Model):
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
-    @api.depends('name')
+    @api.multi
     def name_get(self):
-        result = []
-        for account in self:
-            if account.group_id and account.group_id.is_sale_purchase_group:
-                name = '%s + Compra-Venta' % account.partner_id.name
-                result.append((account.id, name))
-                return result
-            else:
-                return super(AccountAnalyticAccount, self).name_get()
+        res = []
+        for analytic in self:
+            name = analytic.name
+            if analytic.code:
+                name = '[' + analytic.code + '] ' + name
+            if analytic.partner_id.commercial_partner_id.name:
+                name = name + ' - ' + analytic.partner_id.commercial_partner_id.name
+            if analytic.group_id and analytic.group_id.is_sale_purchase_group:
+                name = '%s + Compra-Venta' % analytic.partner_id.name
+            res.append((analytic.id, name))
+        return res
