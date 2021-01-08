@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
     @api.multi
     def action_confirm(self):
         record= super(SaleOrder, self).action_confirm()
-        archived_products= self.order_line.filtered(lambda x: x.product_id.active == False)
+        archived_products= self.order_line.filtered(lambda x: x.product_id.active == False and len(x.product_id) == 1)
         if len(archived_products) >= 1:
             raise ValidationError(_("The products {} are archived".format(archived_products.mapped('name'))))
         return record
@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
     @api.multi
     def action_invoice_create(self, grouped=False, final=False):
         for order in self:
-            archived_products = order.order_line.filtered(lambda x: x.product_id.active == False)
+            archived_products = order.order_line.filtered(lambda x: x.product_id.active == False and len(x.product_id) == 1)
             if len(archived_products) >= 1:
                 raise ValidationError(_("The products {} are archived".format(archived_products.mapped('name'))))
         return super(SaleOrder, self).action_invoice_create()
