@@ -19,10 +19,17 @@ class SaleOrder(models.Model):
             if analytic_id:
                 analytic_account_id = analytic_id
             else:
+                if order.partner_id.parent_id:
+                    name = '%s + %s' % (order.partner_id.parent_id.name, 'compra-venta')
+                    partner_id = order.partner_id.parent_id.id
+                else:
+                    name = '%s + %s' % (order.partner_id.name, 'compra-venta')
+                    partner_id = order.partner_id.id
+
                 analytic_account_id = self.env['account.analytic.account'].\
                     with_context(from_process=True).create({
-                    'name': '%s + %s' % (order.partner_id.name, 'compra-venta'),
-                    'partner_id': order.partner_id.id,
+                    'name': name,
+                    'partner_id': partner_id,
                     'group_id': self.env['account.analytic.group'].search([
                         ('is_sale_purchase_group', '=', True)],
                         limit=1).id
