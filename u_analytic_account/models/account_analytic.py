@@ -35,3 +35,4 @@ class AccountAnalyticAccount(models.Model):
                 name = '%s + Compra-Venta' % analytic.partner_id.name
             res.append((analytic.id, name))
         return res
+
