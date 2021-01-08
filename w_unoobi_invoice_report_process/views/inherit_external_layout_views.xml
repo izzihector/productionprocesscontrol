@@ -27,7 +27,7 @@
             <div class="header" t-att-style="report_header_style">
                 <div class="row">
                     <div class="col-3 mb4">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="150px" height="90px"
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="140px" height="90px"
                              alt="Logo"/>
                     </div>
                     <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="footer o_standard_footer">
-                <div style="font-size:7px; color:#A5A5A5;">
+                <div class="last-page" style="font-size:7px; color:#A5A5A5;">
                     De conformidad con lo establecido en la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán incorporados al sistema de tratamiento titularidad de PROCESS CONTROL SCCL con CIF F58162116 y domicilio social sito en AMADEU VIVES, nº 2, MOLINS DE REI, 08750 (BARCELONA), con la finalidad de poder remitirle la documentación que corresponda (presupuesto, albarán, factura, etc). En cumplimiento con la normativa vigente, C/ PROCESS CONTROL SCCL informa que los datos serán conservados durante el plazo legalmente establecido.
                     Con la presente cláusula queda informado de que sus datos serán comunicados en caso de ser necesario a: administraciones públicas y a todas aquellas entidades con las que sea necesaria la comunicación con la finalidad de cumplir con la prestación del servicio anteriormente mencionado.
                     El hecho de no facilitar los datos a las entidades mencionadas implica que no se pueda cumplir con la prestación de los servicios.
@@ -62,7 +62,7 @@
                     Podrá ejercer los derechos de acceso, rectificación, limitación de tratamiento, supresión, portabilidad y oposición/revocación, en los términos que establece la normativa vigente en materia de protección de datos, dirigiendo su petición a la dirección postal C/ AMAEDU VIVES, nº 2 DE MOLINS DE REI, 08750  BARCELONA) o bien a través de correo electrónico RGPD@PROCESSCONTROL.ES.
                     Podrá dirigirse a la Autoridad de Control competente para presentar la reclamación que considere oportuna.
                 </div>
-                <div class="text-center" style="border-top: 2px solid #358FFA;; font-size:12px;">
+                <div class="text-center" style="border-top: 2px solid #358FFA; font-size:12px;">
                     <ul class="list-inline mb4">
                         <li t-if="company.phone" class="list-inline-item">Phone:
                             <span t-field="company.phone"/>

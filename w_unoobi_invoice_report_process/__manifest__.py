@@ -26,6 +26,7 @@
     'data': [
             'views/inherit_report_invoice.xml',
             'views/inherit_external_layout_views.xml',
+            'views/layouts.xml',
            ],
 
     # 'qweb': [
