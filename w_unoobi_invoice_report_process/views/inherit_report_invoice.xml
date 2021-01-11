@@ -236,11 +236,16 @@
                     </div>
                     <div class="page">
                         <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
-                            <span t-field="o.payment_term_id.note"/><br/>
+                            <span>Way to pay:</span>
+                            <span t-field="o.payment_term_id.name"/><br/>
                             Due Date:
                             <span t-field="o.date_due"/><br/>
-                            Account N°:
-                            <span t-field="o.partner_bank_id.acc_number"/>
+                            <p t-if="o.partner_bank_id">
+                            For payment by transfer:<br/>
+                            IBAN:
+                            <span t-field="o.partner_bank_id.acc_number"/><br/>
+                            BIC/CODIGO SWIFT CAIXESBBXXX
+                            </p>
                             <p t-if="o.reference">
                                 Please use the following communication for your payment : <b><span t-field="o.reference"/></b>
                             </p>
