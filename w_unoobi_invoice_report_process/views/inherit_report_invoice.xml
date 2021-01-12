@@ -236,8 +236,8 @@
                     </div>
                     <div class="page">
                         <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
-                            <span>Way to pay:</span>
-                            <span t-field="o.payment_term_id.name"/><br/>
+                            <!--<span>Way to pay:</span>-->
+                            <span t-field="o.payment_term_id.note"/><br/>
                             Due Date:
                             <span t-field="o.date_due"/><br/>
                             <span>For payment by transfer:</span><br/>
