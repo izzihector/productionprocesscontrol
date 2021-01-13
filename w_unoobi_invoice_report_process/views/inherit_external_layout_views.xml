@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="external_layout_customer">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <t t-call="w_unoobi_invoice_report_process.external_layout_standard_customer">
+                <t t-raw="0"/>
+            </t>
+        </template>
+
+        <template id="external_layout_standard_customer">
+            <div class="header" t-att-style="report_header_style">
+                <div class="row">
+                    <div class="col-3 mb4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="140px" height="90px"
+                             alt="Logo"/>
+                    </div>
+                    <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                </div>
+                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                    <div class="col-12">
+                        <div style="border-bottom: 2px solid #358FFA;"/>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-6" name="company_address">
+                        <div t-field="company.partner_id"
+                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                        />
+                    </div>
+                </div>-->
+            </div>
+
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+                 t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer o_standard_footer">
+                <div class="last-page" style="font-size:7px; color:#A5A5A5;">
+                    De conformidad con lo establecido en la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán incorporados al sistema de tratamiento titularidad de PROCESS CONTROL SCCL con CIF F58162116 y domicilio social sito en AMADEU VIVES, nº 2, MOLINS DE REI, 08750 (BARCELONA), con la finalidad de poder remitirle la documentación que corresponda (presupuesto, albarán, factura, etc). En cumplimiento con la normativa vigente, C/ PROCESS CONTROL SCCL informa que los datos serán conservados durante el plazo legalmente establecido.
+                    Con la presente cláusula queda informado de que sus datos serán comunicados en caso de ser necesario a: administraciones públicas y a todas aquellas entidades con las que sea necesaria la comunicación con la finalidad de cumplir con la prestación del servicio anteriormente mencionado.
+                    El hecho de no facilitar los datos a las entidades mencionadas implica que no se pueda cumplir con la prestación de los servicios.
+                    A su vez, le informamos que puede contactar con el Delegado de Protección de Datos de PROCESS CONTROL SCCL, dirigiéndose por escrito a la dirección de correo RGPD@PROCESSCONTROL.ES o al teléfono 932296810
+                    PROCESS CONTROL SCCL informa que procederá a tratar los datos de manera lícita, leal, transparente, adecuada, pertinente, limitada, exacta y actualizada. Es por ello que PROCESS CONTROL SCCL se compromete a adoptar todas las medidas razonables para que estos se supriman o rectifiquen sin dilación cuando sean inexactos.
+                    Podrá ejercer los derechos de acceso, rectificación, limitación de tratamiento, supresión, portabilidad y oposición/revocación, en los términos que establece la normativa vigente en materia de protección de datos, dirigiendo su petición a la dirección postal C/ AMAEDU VIVES, nº 2 DE MOLINS DE REI, 08750  BARCELONA) o bien a través de correo electrónico RGPD@PROCESSCONTROL.ES.
+                    Podrá dirigirse a la Autoridad de Control competente para presentar la reclamación que considere oportuna.
+                </div>
+                <div class="text-center" style="border-top: 2px solid #358FFA; font-size:12px;">
+                    <ul class="list-inline mb4">
+                        <li t-if="company.phone" class="list-inline-item">Phone:
+                            <span t-field="company.phone"/>
+                        </li>
+                        <li t-if="company.email" class="list-inline-item">Email:
+                            <span t-field="company.email"/>
+                        </li>
+                        <li t-if="company.website" class="list-inline-item">Web:
+                            <span t-field="company.website"/>
+                        </li>
+                        <li t-if="company.vat" class="list-inline-item"><t
+                                t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>:
+                            <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/>
+                        </li>
+                    </ul>
+
+                    <div name="financial_infos">
+                        <span t-field="company.report_footer"/>
+                    </div>
+
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>
