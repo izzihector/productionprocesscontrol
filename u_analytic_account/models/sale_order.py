@@ -30,6 +30,7 @@ class SaleOrder(models.Model):
                     with_context(from_process=True).create({
                     'name': name,
                     'partner_id': partner_id,
+
                     'group_id': self.env['account.analytic.group'].search([
                         ('is_sale_purchase_group', '=', True)],
                         limit=1).id
