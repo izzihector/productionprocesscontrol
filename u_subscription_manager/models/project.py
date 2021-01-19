@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
+from odoo.exceptions import ValidationError
 
 
 class ProjectProject(models.Model):
@@ -32,6 +33,13 @@ class ProjectTask(models.Model):
         res = super(ProjectTask, self).create(vals_list)
         res.sales_hours = res.planned_hours
         return res
+
+    @api.multi
+    def unlink(self):
+        for task in self:
+            if task.sales_hours != 0:
+                raise ValidationError(_("Task cannot be deleted!"))
+        return super(ProjectTask, self).unlink()
 
     sales_hours = fields.Float(
         'Sale hours'
