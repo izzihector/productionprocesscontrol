@@ -208,3 +208,17 @@ msgstr "Tipo"
 msgid "sale.order.type"
 msgstr ""
 
+#. module: u_subscription_manager
+#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
+msgid "Add a line"
+msgstr "Agregar registro"
+
+#. module: u_subscription_manager
+#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
+msgid "Add a note"
+msgstr "Agregar nota"
+
+#. module: u_subscription_manager
+#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
+msgid "Add a section"
+msgstr "Agregar una sección"
