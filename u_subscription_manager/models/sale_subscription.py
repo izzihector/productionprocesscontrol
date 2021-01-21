@@ -83,6 +83,7 @@ class SaleSubscriptionLine(models.Model):
         'Project'
     )
 
+    sequence = fields.Integer(string='Sequence', default=10)
 
 class SaleSubscriptionTemplate(models.Model):
     _inherit = 'sale.subscription.template'
