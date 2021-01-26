@@ -15,6 +15,7 @@ class ProjectProject(models.Model):
         'Sale hours',
         compute='compute_sales_hours'
     )
+    department_id= fields.Many2one('hr.department', 'Department')
 
 
 class ProjectTask(models.Model):

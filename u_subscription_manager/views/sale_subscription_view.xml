@@ -43,6 +43,27 @@
                            attrs="{'readonly':[('product_service_tracking','not in', ('task_global_project', 'task_new_project'))]}"/>
                     <field name="cost"/>
                 </xpath>
+
+                <xpath expr="//page[2]" position='after'>
+                    <page string="Ticket and task" name="ticket_task">
+                        <div>
+                            <field name="product_ticket_task_line">
+                                <tree string="Task and ticket product line" editable="0" delete="0" create="0">
+                                    <field name="product_id" readonly="True" optional="show"/>
+                                    <field name="cost" readonly="True" optional="show"/>
+                                    <field name="quantity" readonly="True" optional="show"/>
+                                    <field name="umo_id" readonly="True" optional="show"/>
+                                    <field name="price_unit" readonly="True" optional="show"/>
+                                    <field name="price_subtotal" readonly="True" optional="show"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="ticket_task_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly': true}"/>
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+
             </field>
         </record>
 

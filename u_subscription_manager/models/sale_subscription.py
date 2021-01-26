@@ -19,6 +19,8 @@ class SaleSubscription(models.Model):
         'account.payment.term',
         'Payment Terms'
     )
+    product_ticket_task_line = fields.One2many('product.ticket.task', 'sale_subscription_id', string='Task and ticket product line')
+    ticket_task_total = fields.Float(compute='_compute_ticket_task_total', string="Total", store=True)
 
     def _prepare_renewal_order_values(self):
         res = super(SaleSubscription, self)._prepare_renewal_order_values()
@@ -65,6 +67,49 @@ class SaleSubscription(models.Model):
                 sub.write({'recurring_next_date': new_date.strftime('%Y-%m-%d')})
         return res
 
+    @api.model
+    def create(self, vals):
+        record = super(SaleSubscription, self).create(vals)
+        recurring_invoice_line_ids = record.recurring_invoice_line_ids.filtered(lambda x: x.product_id.type == 'service' and
+                                                x.product_id.recurring_invoice == True and x.product_id.show_product == True)
+
+        line_vals = []
+        for line in recurring_invoice_line_ids:
+            params = {
+                'product_id': line.product_id.id,
+                'sale_subscription_line_id': line.id,
+            }
+            line_vals.append((0, 0, params))
+        record.update({
+            'product_ticket_task_line': line_vals
+        })
+        return record
+
+    @api.multi
+    def write(self, vals):
+        record= super(SaleSubscription, self).write(vals)
+
+        if vals.get('recurring_invoice_line_ids'):
+            product_list= [x[2]['product_id'] for x in vals['recurring_invoice_line_ids'] if x[2] != False]
+            lines= self.recurring_invoice_line_ids.filtered(lambda x: x.product_id.id in product_list and x.product_id.type == 'service' and
+                                                    x.product_id.recurring_invoice == True and x.product_id.show_product == True)
+
+            line_vals = []
+            for line in lines:
+                params = {
+                    'product_id': line.product_id.id,
+                    'sale_subscription_line_id': line.id,
+                }
+                line_vals.append((0, 0, params))
+            self.update({
+                'product_ticket_task_line': line_vals
+            })
+        return record
+
+    @api.depends('product_ticket_task_line', 'product_ticket_task_line.quantity', 'product_ticket_task_line.price_subtotal')
+    def _compute_ticket_task_total(self):
+        for aux in self:
+            aux.ticket_task_total = sum(line.price_subtotal for line in aux.product_ticket_task_line)
 
 class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
@@ -118,7 +163,6 @@ class SaleSubscriptionLine(models.Model):
                 "should delete the current line and create a new line of "
                 "the proper type."))
         return super(SaleSubscriptionLine, self).write(values)
-
 
 class SaleSubscriptionTemplate(models.Model):
     _inherit = 'sale.subscription.template'
