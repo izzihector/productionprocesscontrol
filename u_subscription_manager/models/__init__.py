@@ -4,5 +4,3 @@
 from . import sale_subscription
 from . import sale_order
 from . import project
-from . import inherit_product_template
-from . import product_ticket_task

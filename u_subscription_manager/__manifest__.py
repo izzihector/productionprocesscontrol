@@ -9,7 +9,7 @@
 Modifications to subscriptions
 ========================================
     """,
-    'depends': ['base', 'sale_subscription', 'project', 'timesheet_grid', 'project_forecast', 'sale_margin', 'product'],
+    'depends': ['base', 'sale_subscription', 'project', 'timesheet_grid', 'project_forecast', 'sale_margin'],
     'author': 'Unoobi',
     'website': 'http://www.unoobi.com',
     'data': [
@@ -17,7 +17,6 @@ Modifications to subscriptions
         'views/sale_subscription_view.xml',
         'views/sale_order.xml',
         'views/project_view.xml',
-        'views/inherit_product_template_views.xml',
     ],
     'qweb': [],
     'application': False,
