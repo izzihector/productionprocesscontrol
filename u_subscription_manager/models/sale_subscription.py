@@ -119,6 +119,7 @@ class SaleSubscriptionLine(models.Model):
                 "the proper type."))
         return super(SaleSubscriptionLine, self).write(values)
 
+    sequence = fields.Integer(string='Sequence', default=10)
 
 class SaleSubscriptionTemplate(models.Model):
     _inherit = 'sale.subscription.template'
