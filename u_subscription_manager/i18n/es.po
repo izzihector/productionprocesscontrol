@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-23 00:32+0000\n"
-"PO-Revision-Date: 2021-01-23 00:32+0000\n"
+"POT-Creation-Date: 2021-01-19 17:08+0000\n"
+"PO-Revision-Date: 2021-01-19 17:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,6 @@ msgid "Confirmed Sale Order"
 msgstr "Orden venta confirmada"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__cost
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_subscription_line__cost
 msgid "Cost"
 msgstr "Coste"
@@ -37,24 +36,16 @@ msgid "Create a new sale order type"
 msgstr "Crea un nuevo tipo de orden de venta"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__create_uid
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__create_date
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_project_project__department_id
-msgid "Department"
-msgstr "Departamento"
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__display_name
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -65,7 +56,6 @@ msgid "Draft invoice"
 msgstr "Factura borrador"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__id
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__id
 msgid "ID"
 msgstr ""
@@ -86,19 +76,16 @@ msgid "Invoice only on successful payment"
 msgstr "Factura solo por pago exitoso"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task____last_update
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__write_uid
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__write_date
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
@@ -109,7 +96,6 @@ msgid "Manual"
 msgstr ""
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__name
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order_type__name
 msgid "Name"
 msgstr "Nombre"
@@ -140,31 +126,11 @@ msgid "Payment Terms"
 msgstr "Plazos de pago"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__product_id
-msgid "Product"
-msgstr "Producto"
-
-#. module: u_subscription_manager
-#: model:ir.model,name:u_subscription_manager.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
-
-#. module: u_subscription_manager
 #: model:ir.model,name:u_subscription_manager.model_project_project
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_subscription_line__project_id
 #: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_order_line_form
 msgid "Project"
 msgstr "Proyecto"
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__quantity
-msgid "Quantity"
-msgstr "Cantidad"
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,help:u_subscription_manager.field_product_ticket_task__quantity
-msgid "Quantity that will be invoiced."
-msgstr "Cantidad que se facturará."
 
 #. module: u_subscription_manager
 #: selection:sale.subscription.template,payment_mode:0
@@ -204,14 +170,7 @@ msgid "Service Tracking"
 msgstr "Seguimiento del servicio"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_product__show_product
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_template__show_product
-msgid "Show product"
-msgstr "Mostrar producto"
-
-#. module: u_subscription_manager
 #: model:ir.model,name:u_subscription_manager.model_sale_subscription
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__sale_subscription_id
 msgid "Subscription"
 msgstr "Suscripción"
 
@@ -226,41 +185,15 @@ msgid "Subscription Template"
 msgstr "Plantilla de la suscripción"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__sale_subscription_line_id
-msgid "Subscription line"
-msgstr ""
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__price_subtotal
-msgid "Subtotal"
-msgstr ""
-
-#. module: u_subscription_manager
 #: model:ir.model,name:u_subscription_manager.model_project_task
 msgid "Task"
 msgstr "Tarea"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_sale_subscription__product_ticket_task_line
-#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
-msgid "Task and ticket product line"
-msgstr ""
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,help:u_subscription_manager.field_product_product__show_product
-#: model:ir.model.fields,help:u_subscription_manager.field_product_template__show_product
-msgid "The product will show up in tasks and tickets"
-msgstr "El producto se mostrará en tareas y tickets"
-
-#. module: u_subscription_manager
-#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
-msgid "Ticket and task"
-msgstr ""
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_sale_subscription__ticket_task_total
-msgid "Total"
-msgstr ""
+#: code:addons/u_subscription_manager/models/project.py:41
+#, python-format
+msgid "Task cannot be deleted!"
+msgstr "La tarea no se puede eliminar"
 
 #. module: u_subscription_manager
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_order__sale_order_type_id
@@ -270,22 +203,21 @@ msgid "Type"
 msgstr "Tipo"
 
 #. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__umo_id
-msgid "Unit of measurement"
-msgstr "Unidad de medida"
-
-#. module: u_subscription_manager
-#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket_task__price_unit
-msgid "Unit price"
-msgstr "Precio unitario"
-
-#. module: u_subscription_manager
-#: model:ir.model,name:u_subscription_manager.model_product_ticket_task
-msgid "product.ticket.task"
-msgstr ""
-
-#. module: u_subscription_manager
 #: model:ir.model,name:u_subscription_manager.model_sale_order_type
 msgid "sale.order.type"
 msgstr ""
 
+#. module: u_subscription_manager
+#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
+msgid "Add a line"
+msgstr "Agregar registro"
+
+#. module: u_subscription_manager
+#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
+msgid "Add a note"
+msgstr "Agregar nota"
+
+#. module: u_subscription_manager
+#: model_terms:ir.ui.view,arch_db:u_subscription_manager.view_inherit_sale_subscription_form
+msgid "Add a section"
+msgstr "Agregar una sección"
