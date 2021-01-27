@@ -9,6 +9,33 @@
                 <xpath expr="//field[@name='close_reason_id']" position="after">
                     <field name="payment_term_id"/>
                 </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']" position="attributes">
+                    <attribute name="widget">section_and_note_one2many</attribute>
+                    <attribute name="mode">tree,kanban</attribute>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree" position='attributes'>
+                    <attribute name="editable">bottom</attribute>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='product_id']" position='before'>
+                    <field name="sequence" widget="handle"/>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='product_id']" position='after'>
+                    <control>
+                        <create string="Add a line"/>
+                        <create string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                        <create string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                    </control>
+                    <field name="display_type" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='product_id']" position='attributes'>
+                    <attribute name="attrs">{'required': [('display_type', 'not in', ('line_section', 'line_note'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='uom_id']" position='attributes'>
+                    <attribute name="attrs">{'required': [('display_type', 'not in', ('line_section', 'line_note'))]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='name']" position='attributes'>
+                    <attribute name="widget">section_and_note_text</attribute>
+                </xpath>
                 <xpath expr="//field[@name='recurring_invoice_line_ids']/tree//field[@name='name']" position='after'>
                     <field name="product_service_tracking" invisible="1"/>
                     <field name="order_line_id" invisible="1"/>
@@ -16,10 +43,6 @@
                            attrs="{'readonly':[('product_service_tracking','not in', ('task_global_project', 'task_new_project'))]}"/>
                     <field name="cost"/>
                 </xpath>
-
-                <!--<xpath expr="//field[@name='recurring_invoice_line_ids']/tree[1]/field[@name='product_id']" position='before'>
-                    <field name="sequence" widget="handle"/>
-                </xpath>-->
 
             </field>
         </record>

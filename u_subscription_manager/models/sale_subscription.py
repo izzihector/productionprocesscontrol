@@ -26,6 +26,7 @@ class SaleSubscription(models.Model):
             line[2]['project_id'] = self.recurring_invoice_line_ids[index].project_id.id
             line[2]['purchase_price'] = self.recurring_invoice_line_ids[index].cost
             line[2]['name'] = self.recurring_invoice_line_ids[index].name
+            line[2]['display_type'] = self.recurring_invoice_line_ids[index].display_type
         res[self.id]['payment_term_id'] = self.payment_term_id.id
         res[self.id]['sale_order_type_id'] = self.template_id.sale_order_type_id.id
         return res
@@ -67,7 +68,12 @@ class SaleSubscription(models.Model):
 
 class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
+    _order = 'sequence'
 
+    sequence = fields.Integer(
+        string='Sequence',
+        default=1
+    )
     product_service_tracking = fields.Selection(
         related='product_id.service_tracking'
     )
@@ -82,8 +88,37 @@ class SaleSubscriptionLine(models.Model):
         'project.project',
         'Project'
     )
+    display_type = fields.Selection([
+        ('line_section', "Section"),
+        ('line_note', "Note")],
+        default=False,
+        help="Technical field for UX purpose."
+    )
+    product_id = fields.Many2one(
+        required=False
+    )
+    uom_id = fields.Many2one(
+        required=False
+    )
 
-    #sequence = fields.Integer(string='Sequence', default=10)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('display_type', self.default_get(['display_type'])['display_type']):
+                vals.update(product_id=False, price_unit=0, product_uom_qty=0,
+                            product_uom=False)
+        return super(SaleSubscriptionLine, self).create(vals_list)
+
+    @api.multi
+    def write(self, values):
+        if 'display_type' in values and self.filtered(
+                lambda line: line.display_type != values.get('display_type')):
+            raise UserError(_(
+                "You cannot change the type of an sale order line. Instead you "
+                "should delete the current line and create a new line of "
+                "the proper type."))
+        return super(SaleSubscriptionLine, self).write(values)
+
 
 class SaleSubscriptionTemplate(models.Model):
     _inherit = 'sale.subscription.template'
