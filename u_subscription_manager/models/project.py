@@ -17,6 +17,7 @@ class ProjectProject(models.Model):
         compute='compute_sales_hours'
     )
 
+    department_id = fields.Many2one('hr.department', 'Department')
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
