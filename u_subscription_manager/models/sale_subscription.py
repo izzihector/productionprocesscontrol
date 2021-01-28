@@ -119,6 +119,7 @@ class SaleSubscriptionLine(models.Model):
                 "the proper type."))
         return super(SaleSubscriptionLine, self).write(values)
 
+
 class SaleSubscriptionTemplate(models.Model):
     _inherit = 'sale.subscription.template'
 
