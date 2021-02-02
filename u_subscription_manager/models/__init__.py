@@ -4,3 +4,6 @@
 from . import sale_subscription
 from . import sale_order
 from . import project
+from . import product_subscription_ticket
+from . import inherit_product_template
+from . import inherit_helpdesk_ticket
