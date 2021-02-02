@@ -65,6 +65,27 @@ class SaleSubscription(models.Model):
                 sub.write({'recurring_next_date': new_date.strftime('%Y-%m-%d')})
         return res
 
+    @api.model
+    def create(self, vals):
+        record = super(SaleSubscription, self).create(vals)
+        self._create_line_subscription(record)
+        return record
+
+    def _create_line_subscription(self, record):
+        recurring_invoice_line_ids = record.recurring_invoice_line_ids.filtered(lambda x: x.product_id.show_product == True)
+        list_task = self.env['project.task'].search([('partner_id', '=', record.partner_id.id)])
+
+        line_vals = []
+        for line in recurring_invoice_line_ids:
+            params = {
+                'product_id': line.product_id.id,
+                'sale_subscription_line_id': line.id,
+            }
+            line_vals.append((0, 0, params))
+        list_task.update({
+            'product_subscription': line_vals
+        })
+        return
 
 class SaleSubscriptionLine(models.Model):
     _inherit = 'sale.subscription.line'
