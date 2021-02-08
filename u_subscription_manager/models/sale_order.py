@@ -24,6 +24,18 @@ class SaleOrderType(models.Model):
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    def update_existing_subscriptions(self):
+        """
+        Heredamos para evitar que al hacer confirm a la orden
+        desde el generar factura de la subscripcion, se tengan
+        que actualizar los valores
+        """
+        res = []
+        if self.env.context.get('from_subscription', False):
+            return res
+        else:
+            return super(SaleOrder, self).update_existing_subscriptions()
+
     def _prepare_subscription_data(self, template):
         res = super(SaleOrder, self)._prepare_subscription_data(template)
 
