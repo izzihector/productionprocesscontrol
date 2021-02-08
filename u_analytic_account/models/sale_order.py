@@ -14,8 +14,10 @@ class SaleOrder(models.Model):
         for order in self:
             self.env['account.analytic.group'].check_sale_purchase_group()
             analytic_id = self.env['account.analytic.account'].search([
-                ('partner_id', '=', order.partner_id.id),
-                ('group_id.is_sale_purchase_group', '=', True)])
+                ('group_id.is_sale_purchase_group', '=', True),
+                '|', ('partner_id', '=', order.partner_id.id),
+                ('partner_id', '=', order.partner_id.parent_id.id)
+            ])
             if analytic_id:
                 analytic_account_id = analytic_id
             else:
