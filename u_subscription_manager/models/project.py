@@ -58,7 +58,8 @@ class ProjectTask(models.Model):
         return
 
     def _create_line_subscription(self, record):
-        list_subscription= self.env['sale.subscription'].search([('partner_id', '=', record.partner_id.id)])
+        partner_ids = record.partner_id + record.partner_id.parent_id + record.partner_id.child_ids
+        list_subscription = self.env['sale.subscription'].search([('partner_id', 'in', partner_ids.mapped('id'))])
         line_subscription= list_subscription.mapped('recurring_invoice_line_ids')
         filter_line= line_subscription.filtered(lambda line: line.product_id.show_product == True)
 
