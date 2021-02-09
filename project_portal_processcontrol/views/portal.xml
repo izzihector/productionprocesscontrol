@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="portal_searchbar_processcontrol" inherit_id="portal.portal_searchbar" >
+    <xpath expr="//div[@t-if='searchbar_filters']" position="before">
+      <div t-if="stage_filters" class="form-inline ml-lg-2">
+          <span class="small mr-1 navbar-text">Stage:</span>
+          <div class="btn-group">
+              <button id="portal_stage_filters" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
+                 <t t-esc="stage_filters[stageby].get('label', 'All')"/>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="portal_stage_filters">
+                  <t t-foreach="stage_filters" t-as="option">
+                      <a t-att-href="default_url + '?' + keep_query('*', stageby=option)" t-attf-class="dropdown-item#{stageby == option and ' active' or ''}">
+                          <span t-esc="stage_filters[option].get('label')"/>
+                      </a>
+                  </t>
+              </div>
+          </div>
+      </div>
+    </xpath>
+  </template>
+</odoo>
