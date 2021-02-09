@@ -1,3 +1,6 @@
+
+import werkzeug
+
 from collections import OrderedDict
 from operator import itemgetter
 
@@ -9,10 +12,66 @@ from odoo.tools import groupby as groupbyelem
 
 from odoo.osv.expression import OR
 
+
+
 class CustomerPortalProcess(CustomerPortal):
 
+    @http.route("/submitted/task", type="http", auth="user", website=True)
+    def portal_submit_task(self,  **kw):
+        if kw.get("parent_id")=="0":
+            parentid=False
+        else:
+            task=request.env["project.task"].sudo().browse(int(kw.get("parent_id")))
+            parentid=task.id
+
+        project=request.env["project.project"].sudo().browse(int(kw.get("project_id")))
+
+        vals = {
+            "name": kw.get("name"),
+            "company_id": http.request.env.user.company_id.id,
+            "parent_id": parentid,
+            "project_id": project.id,
+            "partner_id": http.request.env.user.partner_id.id,
+            "description": kw.get("description"),
+        }
+
+        new_task = request.env["project.task"].sudo().create(vals)
+
+        return werkzeug.utils.redirect("my/tasks?filterby=" + kw.get("project_id"))
+
+    @http.route(['/new/task'], type='http', auth="user", website=True)
+    def portal_new_task(self, filterby=None, **kw):
+        values={
+        }
+
+        if not filterby or filterby=='all':
+            return request.render("project.portal_my_tasks", values)
+
+        project=request.env['project.project'].search([('id','=', int(filterby))])
+
+        tareas_padre_filters = {
+            '0': {'label': _('Ninguno')},
+
+        }
+
+        tareaspadre=request.env['project.task'].search([('project_id','=', int(filterby)),('parent_id','=',False)], order='name asc')
+        for task in tareaspadre:
+            tareas_padre_filters.update({
+                str(task.id): {'label': task.name}
+            })
+
+
+        values={
+            "filterby": filterby,
+            "project_name":project.name,
+            "project_id":project.id,
+            'tareas_padre_filters': OrderedDict(tareas_padre_filters.items()),
+        }
+
+        return request.render("project_portal_processcontrol.portal_create_task_processcontrol", values)
+
     @http.route(['/my/tasks', '/my/tasks/page/<int:page>'], type='http', auth="user", website=True)
-    def portal_my_tasks(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, search=None, search_in='content', groupby='project', **kw):
+    def portal_my_tasks(self, page=1, date_begin=None, date_end=None, sortby=None, stageby=None, filterby=None, search=None, search_in='content', groupby='project', **kw):
         values = self._prepare_portal_layout_values()
         searchbar_sortings = {
             'date': {'label': _('Newest'), 'order': 'create_date desc'},
@@ -21,6 +80,12 @@ class CustomerPortalProcess(CustomerPortal):
             'parent_id:' : {'label': _('Tarea Padre'), 'order': 'parent_id'},
             'update': {'label': _('Last Stage Update'), 'order': 'date_last_stage_update desc'},
         }
+
+        #crear valores del filtro para stage
+        stage_filters = {
+            'all': {'label': _('All'), 'domain': []},
+        }
+
         searchbar_filters = {
             'all': {'label': _('All'), 'domain': []},
         }
@@ -37,11 +102,24 @@ class CustomerPortalProcess(CustomerPortal):
             'parent_id': {'input': 'parent_id', 'label': _('Tarea Padre')},
         }
 
+
+
         # extends filterby criteria with project the customer has access to
         projects = request.env['project.project'].search([])
         for project in projects:
             searchbar_filters.update({
                 str(project.id): {'label': project.name, 'domain': [('project_id', '=', project.id)]}
+            })
+
+        # añadir las etapas de las tareas
+        if not filterby or filterby=='all':
+            tasks = request.env['project.task'].search([])
+        else:
+            tasks = request.env['project.task'].search([('project_id','=', int(filterby))])
+        #tasks = request.env['project.task'].search([searchbar_filters[filterby]['domain']])
+        for task in tasks:
+            stage_filters.update({
+                str(task.stage_id.id): {'label': task.stage_id.name, 'domain': [('stage_id', '=', task.stage_id.id)]}
             })
 
         # extends filterby criteria with project (criteria name is the project id)
@@ -55,6 +133,8 @@ class CustomerPortalProcess(CustomerPortal):
                 str(proj_id): {'label': proj_name, 'domain': [('project_id', '=', proj_id)]}
             })
 
+
+
         # default sort by value
         if not sortby:
             sortby = 'date'
@@ -63,6 +143,11 @@ class CustomerPortalProcess(CustomerPortal):
         if not filterby:
             filterby = 'all'
         domain = searchbar_filters[filterby]['domain']
+
+         # valor por defecto en stagebym y meter valor el dominio para filtrar
+        if not stageby:
+            stageby = 'all'
+        domain += stage_filters[stageby]['domain']
 
         # archive groups - Default Group By 'create_date'
         archive_groups = self._get_archive_groups('project.task', domain)
@@ -87,7 +172,7 @@ class CustomerPortalProcess(CustomerPortal):
         # pager
         pager = portal_pager(
             url="/my/tasks",
-            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'filterby': filterby, 'search_in': search_in, 'search': search, 'groupby': groupby },
+            url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'stageby': stageby, 'filterby': filterby, 'search_in': search_in, 'search': search, 'groupby': groupby },
             total=task_count,
             page=page,
             step=self._items_per_page
@@ -119,6 +204,8 @@ class CustomerPortalProcess(CustomerPortal):
             'sortby': sortby,
             'groupby': groupby,
             'searchbar_filters': OrderedDict(sorted(searchbar_filters.items())),
+            'stage_filters': OrderedDict(sorted(stage_filters.items())),
             'filterby': filterby,
+            'stageby': stageby,
         })
         return request.render("project.portal_my_tasks", values)
