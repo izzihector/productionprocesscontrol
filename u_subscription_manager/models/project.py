@@ -25,14 +25,13 @@ class ProjectTask(models.Model):
     @api.multi
     def write(self, vals):
         for task in self:
-            if vals.get('planned_hours', False) and not self.sales_hours:
+            if vals.get('planned_hours', False) and not self.sales_hours and not self.sale_line_id:
                 task.sales_hours = vals['planned_hours']
         return super(ProjectTask, self).write(vals)
     
     @api.model
     def create(self, vals_list):
         res = super(ProjectTask, self).create(vals_list)
-        res.sales_hours = res.planned_hours
         self._create_line_subscription(res)
         return res
 
@@ -44,7 +43,8 @@ class ProjectTask(models.Model):
         return super(ProjectTask, self).unlink()
 
     sales_hours = fields.Float(
-        'Sale hours'
+        'Sale hours',
+        copy=False
     )
 
     product_subscription = fields.One2many('product.subscription', 'task_id', string='Product subscription')

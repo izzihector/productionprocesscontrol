@@ -27,8 +27,6 @@ class HelpdeskTicket(models.Model):
         return record
 
     def _create_line_ticket(self, record):
-        print('Soy de ticekt')
-
         list_subscription = self.env['sale.subscription'].search([('partner_id', '=', record.partner_id.id)])
         line_subscription = list_subscription.mapped('recurring_invoice_line_ids')
         filter_line = line_subscription.filtered(lambda line: line.product_id.show_product == True)

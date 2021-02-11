@@ -80,3 +80,8 @@ class SaleOrderLine(models.Model):
         'sale.order.type',
         'Type'
     )
+
+    def _timesheet_create_task_prepare_values(self, project):
+        record= super(SaleOrderLine, self)._timesheet_create_task_prepare_values(project)
+        record['sales_hours']= self.product_uom_qty
+        return record
