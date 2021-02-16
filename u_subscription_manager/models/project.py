@@ -49,6 +49,7 @@ class ProjectTask(models.Model):
 
     product_subscription = fields.One2many('product.subscription', 'task_id', string='Product subscription')
     product_subscription_total = fields.Float(compute='_compute_product_subscription_total', string="Total", store=True)
+    information_date = fields.Datetime(string='Information date', default=fields.Datetime.now)
 
     @api.depends('product_subscription', 'product_subscription.quantity', 'product_subscription.price_subtotal')
     def _compute_product_subscription_total(self):
