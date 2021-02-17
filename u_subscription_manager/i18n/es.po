@@ -212,6 +212,12 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: u_subscription_manager
+#: model:ir.model.fields,field_description:u_subscription_manager.field_product_subscription__description_sale_subscription_line
+#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket__description_sale_subscription_line
+msgid "Description"
+msgstr "Descripción"
+
+#. module: u_subscription_manager
 #: model:ir.model.fields,help:u_subscription_manager.field_product_subscription__quantity
 #: model:ir.model.fields,help:u_subscription_manager.field_product_ticket__quantity
 msgid "Quantity that will be invoiced."
