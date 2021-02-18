@@ -9,7 +9,7 @@
 Modifications to account analytic accounts in sales
 ========================================
     """,
-    'depends': ['base', 'sale_subscription'],
+    'depends': ['base', 'analytic', 'sale'],
     'author': 'Unoobi',
     'website': 'http://www.unoobi.com',
     'data': [
