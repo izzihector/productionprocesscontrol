@@ -20,6 +20,7 @@ class ProductSubscription(models.Model):
     umo_id= fields.Many2one('uom.uom', string='Unit of measurement', related='sale_subscription_line_id.uom_id')
     price_unit= fields.Float(string='Unit price', related='sale_subscription_line_id.price_unit')
     price_subtotal= fields.Float(string='Subtotal', related='sale_subscription_line_id.price_subtotal')
+    description_sale_subscription_line= fields.Text(related='sale_subscription_line_id.name', string='Description')
 
 
 class ProductTicket(models.Model):
