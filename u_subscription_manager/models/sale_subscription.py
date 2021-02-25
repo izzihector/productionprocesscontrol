@@ -38,7 +38,7 @@ class SaleSubscription(models.Model):
         domain = [('recurring_next_date', '<=', current_date),
                   '|', ('in_progress', '=', True),
                   ('to_renew', '=', True)]
-        subscriptions = self.search(domain)
+        subscriptions = self.search(domain, limit=250)
         for sub in subscriptions:
             if sub.template_id.payment_mode in ('quotation_sale_order', 'confirmed_sale_order'):
                 values = sub._prepare_renewal_order_values()
