@@ -10,7 +10,9 @@
     "author": "Raul Carbonell",
     "license": "AGPL-3",
     "data": [
+        "views/portal.xml",
         "views/project_portal_tasks.xml",
+        "views/project_portal_projects.xml",
     ],
     "depends": [
         "base",
