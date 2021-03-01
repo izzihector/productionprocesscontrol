@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-28 22:31+0000\n"
-"PO-Revision-Date: 2021-01-28 22:31+0000\n"
+"POT-Creation-Date: 2021-02-08 16:51+0000\n"
+"PO-Revision-Date: 2021-02-08 16:51+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -84,12 +84,12 @@ msgstr "Tipo de pantalla"
 #. module: u_subscription_manager
 #: selection:sale.subscription.template,payment_mode:0
 msgid "Draft invoice"
-msgstr "Factura borrador"
+msgstr ""
 
 #. module: u_subscription_manager
 #: model:ir.model,name:u_subscription_manager.model_helpdesk_ticket
 msgid "Helpdesk Ticket"
-msgstr "Ticket del Servicio de Asistencia"
+msgstr "Tiquete del Servicio de Asistencia"
 
 #. module: u_subscription_manager
 #: model:ir.model.fields,field_description:u_subscription_manager.field_product_subscription__id
@@ -99,6 +99,12 @@ msgid "ID"
 msgstr ""
 
 #. module: u_subscription_manager
+#: model:ir.model.fields,field_description:u_subscription_manager.field_helpdesk_ticket__information_date
+#: model:ir.model.fields,field_description:u_subscription_manager.field_project_task__information_date
+msgid "Information date"
+msgstr "Fecha de informacion"
+
+#. module: u_subscription_manager
 #: selection:sale.subscription.template,payment_mode:0
 msgid "Invoice"
 msgstr "Factura"
@@ -106,12 +112,12 @@ msgstr "Factura"
 #. module: u_subscription_manager
 #: selection:sale.subscription.template,payment_mode:0
 msgid "Invoice & try to charge"
-msgstr "Factura e intenta cargar"
+msgstr ""
 
 #. module: u_subscription_manager
 #: selection:sale.subscription.template,payment_mode:0
 msgid "Invoice only on successful payment"
-msgstr "Factura solo por pago exitoso"
+msgstr ""
 
 #. module: u_subscription_manager
 #: model:ir.model.fields,field_description:u_subscription_manager.field_product_subscription____last_update
@@ -174,7 +180,7 @@ msgstr "Modo de pago"
 #. module: u_subscription_manager
 #: model:ir.model.fields,field_description:u_subscription_manager.field_sale_subscription__payment_term_id
 msgid "Payment Terms"
-msgstr "Plazos de pago"
+msgstr "Términos de pago"
 
 #. module: u_subscription_manager
 #: model:ir.model.fields,field_description:u_subscription_manager.field_product_subscription__product_id
@@ -210,6 +216,12 @@ msgstr "Proyecto"
 #: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket__quantity
 msgid "Quantity"
 msgstr "Cantidad"
+
+#. module: u_subscription_manager
+#: model:ir.model.fields,field_description:u_subscription_manager.field_product_subscription__description_sale_subscription_line
+#: model:ir.model.fields,field_description:u_subscription_manager.field_product_ticket__description_sale_subscription_line
+msgid "Description"
+msgstr "Descripción"
 
 #. module: u_subscription_manager
 #: model:ir.model.fields,help:u_subscription_manager.field_product_subscription__quantity
@@ -374,11 +386,6 @@ msgstr ""
 #. module: u_subscription_manager
 #: model:ir.model,name:u_subscription_manager.model_product_ticket
 msgid "product.ticket"
-msgstr ""
-
-#. module: u_subscription_manager
-#: model:ir.model,name:u_subscription_manager.model_product_ticket_task
-msgid "product.ticket.task"
 msgstr ""
 
 #. module: u_subscription_manager

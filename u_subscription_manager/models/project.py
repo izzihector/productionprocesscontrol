@@ -25,14 +25,13 @@ class ProjectTask(models.Model):
     @api.multi
     def write(self, vals):
         for task in self:
-            if vals.get('planned_hours', False) and not self.sales_hours:
+            if vals.get('planned_hours', False) and not self.sales_hours and not self.sale_line_id:
                 task.sales_hours = vals['planned_hours']
         return super(ProjectTask, self).write(vals)
     
     @api.model
     def create(self, vals_list):
         res = super(ProjectTask, self).create(vals_list)
-        res.sales_hours = res.planned_hours
         self._create_line_subscription(res)
         return res
 
@@ -44,11 +43,13 @@ class ProjectTask(models.Model):
         return super(ProjectTask, self).unlink()
 
     sales_hours = fields.Float(
-        'Sale hours'
+        'Sale hours',
+        copy=False
     )
 
     product_subscription = fields.One2many('product.subscription', 'task_id', string='Product subscription')
     product_subscription_total = fields.Float(compute='_compute_product_subscription_total', string="Total", store=True)
+    information_date = fields.Datetime(string='Information date', default=fields.Datetime.now)
 
     @api.depends('product_subscription', 'product_subscription.quantity', 'product_subscription.price_subtotal')
     def _compute_product_subscription_total(self):
@@ -57,7 +58,8 @@ class ProjectTask(models.Model):
         return
 
     def _create_line_subscription(self, record):
-        list_subscription= self.env['sale.subscription'].search([('partner_id', '=', record.partner_id.id)])
+        partner_ids = record.partner_id + record.partner_id.parent_id + record.partner_id.child_ids
+        list_subscription = self.env['sale.subscription'].search([('partner_id', 'in', partner_ids.mapped('id'))])
         line_subscription= list_subscription.mapped('recurring_invoice_line_ids')
         filter_line= line_subscription.filtered(lambda line: line.product_id.show_product == True)
 

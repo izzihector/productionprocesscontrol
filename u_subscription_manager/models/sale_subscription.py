@@ -33,7 +33,7 @@ class SaleSubscription(models.Model):
 
     @api.multi
     def _recurring_create_invoice(self, automatic=False):
-        res = super(SaleSubscription, self)._recurring_create_invoice(automatic)
+        res = super(SaleSubscription, self)._recurring_create_invoice(automatic=automatic)
         current_date = date.today()
         domain = [('recurring_next_date', '<=', current_date),
                   '|', ('in_progress', '=', True),
@@ -47,7 +47,7 @@ class SaleSubscription(models.Model):
                 order_id.order_line._compute_tax_id()
 
                 if sub.template_id.payment_mode == 'confirmed_sale_order':
-                    order_id.action_confirm()
+                    order_id.with_context(from_subscription=True).action_confirm()
 
                 next_date = sub.recurring_next_date or current_date
                 periods = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'years'}
