@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<record id="paper_format_pdf_partservices" model="report.paperformat">
+<!--<record id="paper_format_pdf_partservices" model="report.paperformat">
         <field name="name">paperformat.report.pdf.partservices</field>
         <field name="default" eval="True" />
         <field name="format">A4</field>
@@ -15,7 +15,7 @@
         <field name="header_line" eval="False" />
         <field name="header_spacing">30</field>
         <field name="dpi">80</field>
-    </record>
+    </record>-->
 
     <report 
             id="action_report_services_part"
@@ -24,7 +24,6 @@
             report_type="qweb-pdf"
             file="u_prpject_report.report_pdf_services_part" 
             name="u_project_report.report_pdf_services_part"
-			paperformat="paper_format_pdf_partservices"
             print_report_name="'Services Part'"
         />
 </odoo>
