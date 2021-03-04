@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<template id="report_services_part">
+	
+		<t t-call="u_project_report.external_layout_services_part">
+			<t t-foreach="docs" t-as="doc">
+			
+				<div class="page" style="margin-top:20px;">
+
+					<h5 id="title_task">
+						<span t-esc="doc.name" />
+					</h5>
+
+					<div class="col-auto mw-100 mb-2" t-if="doc.description" name="description">
+
+						<p class="m-0" t-field="doc.description" />
+					</div>
+
+					<style type="text/css">
+						.tg  {border-collapse:collapse;border-spacing:0;}
+						.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+						  overflow:hidden;padding:10px 5px;word-break:normal;}
+						.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+						  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+						.tg .tg-jpet{background-color:#f4f4f4;border-color:#ffffff;text-align:center;vertical-align:top}
+						.tg .tg-srtl{background-color:#3166ff;border-color:#ffffff;text-align:left;vertical-align:top}
+						.tg .tg-b5u0{background-color:#f4f4f4;border-color:#ffffff;text-align:center;vertical-align:top}
+					</style>
+					<table class="tg" style="undefined;table-layout: fixed; width: 483px">
+
+						<thead>
+							<tr>
+								<th class="tg-srtl">
+									<span style="font-weight:bold;color:#FFF">Fecha de Creada</span>
+								</th>
+								<th class="tg-jpet">
+									<span t-esc="doc.create_date" t-options='{"widget": "date"}' />
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tg-srtl">
+									<span style="font-weight:bold;color:#FFF">Estado</span>
+								</td>
+								<td class="tg-b5u0">Progreso</td>
+							</tr>
+							<tr>
+								<td class="tg-srtl">
+									<span style="font-weight:bold;color:#FFF">Horas Dedicadas</span>
+								</td>
+								<td class="tg-b5u0">14,2</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+					<!--<hr></hr>  -->
+
+				</div>
+			</t>
+		</t>
+	</template>
+
+	<template id="external_layout_services_part">
+		<!--External layout-->
+		<t t-if="not o" t-set="o" t-value="obj" />
+
+		<t t-if="not company">
+			<!-- Multicompany -->
+			<t t-if="company_id">
+				<t t-set="company" t-value="company_id" />
+			</t>
+			<t t-elif="o and 'company_id' in o">
+				<t t-set="company" t-value="o.company_id.sudo()" />
+			</t>
+			<t t-else="else">
+				<t t-set="company" t-value="res_company" />
+			</t>
+		</t>
+
+		<div class="header">
+			<div class="o_clean_header">
+				<div class="row">
+					<div class="col-3 mb4">
+						<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 145px;" alt="Logo" />
+					</div>
+					<div class="col-9 text-right" style="margin-top:22px;" name="moto">
+					PARTE DE SERVICIO
+						<br></br>
+						Marzo 3, 2021
+						<br></br>
+						<br></br>
+						<b>CLIENTE</b>
+						<br></br>
+						<span t-esc="o.project_id.name" />
+						<br></br>
+						<b>PROYECTO</b>
+						<br></br>
+						<span t-esc="o.project_id.name" />
+						<br></br>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="article o_report_layout_clean" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+			<!--<t t-call="web.address_layout" />-->
+			<t t-raw="0" />
+		</div>
+		
+		
+		<div class="footer o_clean_footer">
+			<div class="text-center" style="border-top: 1px solid #0075be;">
+				<h4 style="color: #0075be;">LA CONFIANZA HECHA SERVICIO</h4>
+				<ul class="list-inline mb4">
+					<li t-if="company.website" class="list-inline-item">
+						Email:
+						<span t-field="company.email" />
+					</li>
+					<li t-if="company.phone" class="list-inline-item">
+						Telf:
+						<span t-field="company.phone" />
+					</li>
+				</ul>
+
+				<div>
+					<label>Avda. Vía Augusta 85-87 3ª planta08174 Sant Cugat del VallésEspaña</label>
+				</div>
+
+				<div t-if="report_type == 'pdf'" class="text-muted">
+					Page:
+					<span class="page" />
+					/
+					<span class="topage" />
+				</div>
+			</div>
+		</div>
+	</template>
+
+
+	<template id="report_pdf_services_part">
+		<t t-call="web.html_container">
+			<t t-set="obj" t-value="docs[0]" />
+			<t t-call="u_project_report.report_services_part" t-lang="obj.partner_id.lang" />
+
+		</t>
+	</template>
+
+
+</odoo>
