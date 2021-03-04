@@ -3,8 +3,7 @@
     'name': "u_project_report",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        The purpose of this module is to create a report of service parts of the tasks of a project.""",
 
     'description': """
         Report Service part of tasks by projects.
@@ -20,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web', 'project'],
 
     # always loaded
     'data': [
