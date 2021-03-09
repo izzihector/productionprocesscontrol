@@ -22,19 +22,25 @@
         <div class="header" t-att-style="report_header_style">
             <div class="o_clean_header" style="border-bottom: 3px solid #0175be;">
             <div class="row">
-                <div class="col-6">
+                <div class="col-3">
                     <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
                 </div>
-                <div class="col-5 offset-1" name="company_address">
+                <div class="col-3 offset-1" name="company_address">
                     <ul class="list-unstyled">
-                        <strong><li>SERVICE PART</li></strong>
-                        <li><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b, %Y')"/></li>
+                        <strong><li>FECHA DE INFORME</li></strong>
+                        <li style="margin-left: 30px;"><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b, %Y')"/></li>
+                    </ul>
+                </div>
+
+				<div class="col-6 offset-1" name="company_address">
+                    <ul class="list-unstyled">
                         <strong><li>CLIENT</li></strong>
 						<li t-if="o.project_id.partner_id.name"><span t-field="o.project_id.partner_id.name"/></li>
 						 <strong><li>PROJECT</li></strong>
                         <li t-if="o.project_id.name"><span t-field="o.project_id.name"/></li>
                     </ul>
                 </div>
+
             </div>
             </div>
         </div>
@@ -84,19 +90,21 @@
 						
 						<p class="m-0" t-field="doc.description" />
 					</div>
-
+					
 
 					<style type="text/css">
 						.tg  {border-collapse:collapse;border-spacing:0;}
 						.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-						  overflow:hidden;padding:10px 5px;word-break:normal;}
+						  overflow:hidden;padding:3px 5px;word-break:normal;}
 						.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-						  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-						.tg .tg-jpet{background-color:#f4f4f4;border-color:#ffffff;text-align:center;vertical-align:top}
-						.tg .tg-srtl{background-color:#3166ff;border-color:#ffffff;text-align:left;vertical-align:top}
+						  font-weight:normal;overflow:hidden;padding:3px 5px;word-break:normal;}
+						.tg .tg-jpet{background-color:#0075be;border-color:#ffffff;text-align:center;vertical-align:top}
+						.tg .tg-srtl{background-color:#0075be;border-color:#ffffff;text-align:left;vertical-align:top}
 						.tg .tg-b5u0{background-color:#f4f4f4;border-color:#ffffff;text-align:center;vertical-align:top}
+						.o_report_layout_clean table tbody tr td {padding: 1px 1px;}
 					</style>
-					<table class="tg" style="undefined;table-layout: fixed; width: 483px">
+					
+					<table class="tg" style="undefined;table-layout: fixed; width: 483px; margin-left: 200px;">
 						<tbody>
 							<tr>
 								<td class="tg-srtl">
