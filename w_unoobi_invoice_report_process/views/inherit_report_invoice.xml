@@ -245,7 +245,7 @@
                                     Due Date:
                                     <span t-field="line.date_maturity"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
                                     Amount:
-                                    <span t-field="line.debit"/>
+                                    <span t-field="line.debit"/><br/>
                                 </t>
                             </t>
                             <span>For payment by transfer:</span><br/>
