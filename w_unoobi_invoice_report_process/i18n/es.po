@@ -29,10 +29,8 @@ msgstr "&amp;nbsp;<span>en</span>"
 
 #. module: w_unoobi_invoice_report_process
 #: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
-msgid "<br/>\n"
-"                            Due Date:"
-msgstr "<br/>\n"
-"Fecha vencimiento:"
+msgid "Due Date:"
+msgstr "Fecha vencimiento:"
 
 #. module: w_unoobi_invoice_report_process
 #: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
@@ -169,7 +167,7 @@ msgstr "Factura borrador"
 
 #. module: w_unoobi_invoice_report_process
 #: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
-msgid "Due Date:"
+msgid "Due Date:" 
 msgstr "Fecha Vencimiento"
 
 #. module: w_unoobi_invoice_report_process
