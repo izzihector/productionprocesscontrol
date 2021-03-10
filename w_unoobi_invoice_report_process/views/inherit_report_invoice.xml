@@ -238,6 +238,9 @@
                         <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
                             <span>Way to pay:</span>
                             <span t-field="o.payment_term_id.note"/><br/>
+
+								<p><t t-esc="o.move_id.line_ids"/></p><br/> <!-- print value -->
+								<p><t t-esc="o.move_id"/></p><br/> <!-- print value -->
                             
 								<t t-if="o.move_id.line_ids!=0">
 									<t t-foreach="o.move_id.line_ids" t-as="line">
