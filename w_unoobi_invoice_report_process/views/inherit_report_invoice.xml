@@ -240,9 +240,9 @@
                             <span t-field="o.payment_term_id.note"/><br/>
 
 								<p><t t-esc="o.move_id.line_ids[0]"/></p><br/> <!-- print value -->
-								<p><t t-esc="o.move_id[0]"/></p><br/> <!-- print value -->
+								<p><t t-esc="o.move_id"/></p><br/> <!-- print value -->
                             
-								<t t-if="o.move_id.line_ids[0]!=0">
+								<t t-if="o.move_id.line_ids!=0">
 									<t t-foreach="o.move_id.line_ids" t-as="line">
 		                                <t t-if="line.account_id.code == '430000'">
 		                                    Due Date:
