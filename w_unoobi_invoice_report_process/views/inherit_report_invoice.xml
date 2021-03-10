@@ -239,7 +239,7 @@
                             <span>Way to pay:</span>
                             <span t-field="o.payment_term_id.note"/><br/>
                             
-								<t t-if="o.o.move_id.line_ids!=0">
+								<t t-if="o.move_id.line_ids!=0">
 									<t t-foreach="o.move_id.line_ids" t-as="line">
 		                                <t t-if="line.account_id.code == '430000'">
 		                                    Due Date:
