@@ -239,7 +239,7 @@
                             <span>Way to pay:</span>
                             <span t-field="o.payment_term_id.note"/><br/>
                             
-								<t t-if="o.move_id == False">
+								<t t-if="o.move_id == false">
 									Due Date:
                             		<span t-field="o.date_due"/><br/>
 								</t>
