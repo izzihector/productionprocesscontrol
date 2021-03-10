@@ -32,8 +32,8 @@ msgstr "<span style=\"font-weight:bold;color:#FFF\">Fecha de Creada</span>"
 
 #. module: u_ticket_report
 #: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
-msgid "<span style=\"font-weight:bold;color:#FFF\">Open Time (hours)</span>"
-msgstr "<span style=\"font-weight:bold;color:#FFF\">Tiempo Abierto (horas)</span>"
+msgid "<span style=\"font-weight:bold;color:#FFF\">Dedicated Hours</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Horas Dedicadas</span>"
 
 #. module: u_ticket_report
 #: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
