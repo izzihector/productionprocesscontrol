@@ -94,7 +94,8 @@
 					<div class="col-auto mw-100 mb-2" t-if="doc.description" name="description">
 						<p class="m-0" t-field="doc.description" />
 					</div>
-
+					
+					<br/>
 
 					<style type="text/css">
 						.tg  {border-collapse:collapse;border-spacing:0;}
@@ -135,17 +136,18 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="tg-srtl" style="border-bottom: 3px solid #3166ff;">
+								<td class="tg-srtl" style="border-bottom: 0px solid #FFF;">
 									<span style="font-weight:bold;color:#FFF">Closing date</span>
 								</td>
-								<td class="tg-b5u0" style="border-bottom: 3px solid #3166ff;">
+								<td class="tg-b5u0" style="border-bottom: 0px solid #FFF;">
 									<span t-esc="doc.close_date" t-options='{"widget": "date"}'/>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-
-					<hr></hr>
+					
+					<br/>
+					<!--<hr></hr>-->
 					</t>
 				</div>
 		</t>
