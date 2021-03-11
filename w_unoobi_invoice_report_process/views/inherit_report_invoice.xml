@@ -238,8 +238,24 @@
                         <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
                             <span>Way to pay:</span>
                             <span t-field="o.payment_term_id.note"/><br/>
-                            Due Date:
-                            <span t-field="o.date_due"/><br/>
+
+								<t t-if="len(o.move_id.line_ids) > 0">
+									<t t-foreach="o.move_id.line_ids" t-as="line">
+		                                <t t-if="line.account_id.code == '430000'">
+		                                    Due Date:
+		                                    <span t-field="line.date_maturity"/>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+		                                    Amount:
+		                                    <span t-field="line.debit"/><br/>
+		                                </t>
+	                            	</t>
+								</t>
+								
+								<t t-else=""> 
+									Due Date:
+                            		<span t-field="o.date_due"/><br/>
+								</t>
+
+                            
                             <span>For payment by transfer:</span><br/>
                             <span>IBAN: ES63 2100 0046 2602 0050 5345</span><br/>
                             <span>BIC/CODIGO SWIFT CAIXESBBXXX</span>
