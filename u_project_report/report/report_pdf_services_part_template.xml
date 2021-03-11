@@ -35,8 +35,19 @@
 				<div class="col-6 offset-1">
                     <ul class="list-unstyled">
                         <strong><li>CLIENT</li></strong>
-						<li t-if="o.project_id.partner_id"><span t-field="o.project_id.partner_id.parent_id.name"/></li>
-						 <strong><li>PROJECT</li></strong>
+						<li>
+							<t t-if="o.project_id.partner_id.parent_id.name">
+								<span t-field="o.project_id.partner_id.parent_id.name"/>
+							</t>
+	                        <t t-else="">
+								<span t-esc="o.project_id.partner_id.name"/>
+							 </t>
+						</li>	
+
+						<!--<li t-if="o.project_id.partner_id">
+						<span t-field="o.project_id.partner_id.parent_id.name"/>
+						</li>-->
+						<strong><li>PROJECT</li></strong>
                         <li t-if="o.project_id.name"><span t-field="o.project_id.name"/></li>
                     </ul>
                 </div>

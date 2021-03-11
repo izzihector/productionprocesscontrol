@@ -52,8 +52,8 @@ msgstr "PARTE DE SERVICIO"
 
 #. module: u_project_report
 #: model:ir.actions.report,name:u_project_report.action_report_services_part
-msgid "Services Part"
-msgstr "Parte de Servicio"
+msgid "Task Report"
+msgstr "Informe de Tareas"
 
 #. module: u_project_report
 #: model_terms:ir.ui.view,arch_db:u_project_report.external_layout_services_part

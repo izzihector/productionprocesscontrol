@@ -58,7 +58,7 @@ msgstr "PARTE DE SERVICIO DE TICKET"
 #. module: u_ticket_report
 #: model:ir.actions.report,name:u_ticket_report.action_report_ticket
 msgid "Ticket Services Part"
-msgstr "Parte de Servicio de Ticket"
+msgstr "Informe de Tickets"
 
 #. module: u_ticket_report
 #: model_terms:ir.ui.view,arch_db:u_ticket_report.external_layout_services_part
