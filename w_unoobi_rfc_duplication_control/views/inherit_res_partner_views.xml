@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--SEARCH VIEW-->
+        <record id="view_filter_res_partner" model="ir.ui.view">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <search>
+                    <!--Groups-->
+                    <filter name="vat_group" string="Duplicate vat" context="{'group_by': 'vat'}"/>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_type,sale_order_type,model_sale_order_type,base.group_user,1,1,1,1
+product_subscription,product.subscription.group,model_product_subscription,,1,1,1,1
+product_ticket,product.ticket.group,model_product_ticket,,1,1,1,1
