@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = ['account.invoice.line']
+    _inherit = 'account.invoice.line'
 
     project_id = fields.Many2one('project.project', string='Proyecto', required=False)
 
