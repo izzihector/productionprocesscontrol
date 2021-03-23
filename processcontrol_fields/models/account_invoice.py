@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 
 class AccountInvoice(models.Model):
-    _inherit = ['account.invoice']
+    _inherit = 'account.invoice'
 
     numero_factura_sage = fields.Char(
         string='Numero Factura Sage',
