@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="project_portal_projects_processcontrol" inherit_id="project.portal_my_projects" >
+    <xpath expr="//t[@t-call='portal.portal_table']" position="replace">
+      <t t-if="projects" t-call="portal.portal_table">
+          <tbody>
+              <tr t-foreach="projects" t-as="project">
+                  <td>
+                    <a t-attf-href="/my/tasks?{{keep_query('debug', filterby=project.id)}}"><span t-field="project.name"/></a>
+                  </td>
+                  <td class="text-right">
+                      <a t-attf-href="/my/tasks?{{keep_query('debug', filterby=project.id)}}">
+                          <t t-esc="project.task_count"/>
+                          <t t-esc="project.label_tasks"/>
+                      </a>
+                  </td>
+              </tr>
+          </tbody>
+      </t>
+    </xpath>
+  </template>
+</odoo>
