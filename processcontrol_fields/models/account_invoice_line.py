@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = 'account.invoice.line'
+    _inherit = 'account.move.line'
 
     project_id = fields.Many2one('project.project', string='Proyecto', required=False)
 
@@ -25,4 +25,4 @@ class AccountInvoiceLine(models.Model):
         invoice_lines = super(AccountInvoiceLine, self).create(vals)
         invoice_lines.write({'project_id': project_id})
 
-        return invoice_lines
+        return invoice_lines 
