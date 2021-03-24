@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* u_ticket_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-04 23:47+0000\n"
+"PO-Revision-Date: 2021-03-04 23:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Closing date</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Fecha de Cierre</span>"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Condition</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Estado</span>"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Created Date</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Fecha de Creada</span>"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Dedicated Hours</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Horas Dedicadas</span>"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.report_services_part
+msgid "<strong style=\"color:#0075be\">CLIENT: </strong>"
+msgstr "<strong style=\"color:#0075be\">CLIENTE: </strong>"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.external_layout_services_part
+msgid "Logo"
+msgstr "Logo"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.external_layout_services_part
+msgid "SUPPORT TEAM"
+msgstr "EQUIPO DE SOPORTE"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.external_layout_services_part
+msgid "TICKET SERVICE PART"
+msgstr "PARTE DE SERVICIO DE TICKET"
+
+#. module: u_ticket_report
+#: model:ir.actions.report,name:u_ticket_report.action_report_ticket
+msgid "Ticket Services Part"
+msgstr "Informe de Tickets"
+
+#. module: u_ticket_report
+#: model_terms:ir.ui.view,arch_db:u_ticket_report.external_layout_services_part
+msgid "Tickets Breakdown"
+msgstr "Desglose de Tickets"
+
