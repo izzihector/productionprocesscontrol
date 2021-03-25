@@ -51,7 +51,7 @@
                         <span t-field="res_company.country_id.name"/>
                     </div>
                     <div class="col-6" name="partner_address">
-                        <span t-field="o.partner_id.name"/><br/>
+                        <span t-field="o.partner_id.parent_id.name"/><br/>
                         <span t-field="o.partner_id.street"/>
                         <span t-field="o.partner_id.street2"/><br/>
                         <span t-field="o.partner_id.zip"/>
