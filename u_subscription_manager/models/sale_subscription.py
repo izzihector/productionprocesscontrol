@@ -36,14 +36,14 @@ class SaleSubscription(models.Model):
         res = super(SaleSubscription, self)._recurring_create_invoice(automatic=automatic)
         current_date = date.today()
         domain = [('recurring_next_date', '<=', current_date),
-                  '|', ('in_progress', '=', True),
+                  '|', ('stage_category', '=', 'progress'),
                   ('to_renew', '=', True)]
         subscriptions = self.search(domain, limit=250)
         for sub in subscriptions:
             if sub.template_id.payment_mode in ('quotation_sale_order', 'confirmed_sale_order'):
                 values = sub._prepare_renewal_order_values()
                 order_id = self.env['sale.order'].create(values[sub.id])
-                order_id.subscription_id = sub.id
+                order_id.order_line.subscription_id = sub.id
                 order_id.order_line._compute_tax_id()
 
                 if sub.template_id.payment_mode == 'confirmed_sale_order':

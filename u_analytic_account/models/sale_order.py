@@ -17,7 +17,7 @@ class SaleOrder(models.Model):
                 ('partner_id', '=', order.partner_id.id),
                 ('group_id.is_sale_purchase_group', '=', True)])
             if analytic_id:
-                analytic_account_id = analytic_id
+                analytic_account_id = analytic_id[0]
             else:
                 if order.partner_id.parent_id:
                     name = '%s + %s' % (order.partner_id.parent_id.name, 'compra-venta')
