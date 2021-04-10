@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
         record= super(SaleOrder, self).action_confirm()
         archived_products= self.order_line.filtered(lambda x: x.product_id.active == False and len(x.product_id) == 1)
         if len(archived_products) >= 1:
-            raise ValidationError(_("The producooooots {} are archived".format(archived_products.mapped('product_id'))))
+            raise ValidationError(_("The products {} are archived".format(archived_products.mapped('name'))))
         return record
 
     #@api.multi
