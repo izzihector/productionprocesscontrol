@@ -10,19 +10,22 @@ class AccountInvoiceLine(models.Model):
 
     project_id = fields.Many2one('project.project', string='Proyecto', required=False)
 
-    @api.model
-    def create(self, vals):
-        project_id = False
-        try:
-            if (vals['project_id']):
-                project_id = vals['project_id']
-        except:
-            project_id = False
 
-       # else:
-            #raise exceptions.UserError(_("No se detecta origen"))
+    # PORQUE ESTO
+    # @api.model
+    # def create(self, vals):
+    #     project_id = vals.get('project_id', False)
+    #     if 'project_id' in vals:
+    #     try:
+    #         if (vals['project_id']):
+    #             project_id = vals['project_id']
+    #     except:
+    #         project_id = False
 
-        invoice_lines = super(AccountInvoiceLine, self).create(vals)
-        invoice_lines.write({'project_id': project_id})
+    #    # else:
+    #         #raise exceptions.UserError(_("No se detecta origen"))
 
-        return invoice_lines 
+    #     invoice_lines = super(AccountInvoiceLine, self).create(vals)
+    #     # invoice_lines.write({'project_id': project_id})
+
+    #     return invoice_lines 
