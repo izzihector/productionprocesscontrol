@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="inherit_sale_order_portal_content_inherit_sale_management" inherit_id="sale_management.sale_order_portal_content_inherit_sale_management">
+            <xpath expr="//section[@id='details']//table[@id='sales_order_table']/tbody[1]/t[2]/tr[1]/t[1]/td[2]" position="replace">
+                <td class="text-right">
+                    <div id="quote_qty">
+                        <span t-field="line.product_uom_qty"/>
+                        <!--<span t-field="line.product_uom" groups="uom.group_uom"/>-->
+                    </div>
+                </td>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

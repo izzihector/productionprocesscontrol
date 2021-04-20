@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_inherit_account_analytic_group_form">
+            <field name="name">view.inherit.account.analytic.group.form</field>
+            <field name="model">account.analytic.group</field>
+            <field name="inherit_id" ref="analytic.account_analytic_group_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="is_sale_purchase_group"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
