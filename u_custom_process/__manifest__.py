@@ -16,7 +16,7 @@
 
     'version': '14.0.0',
 
-    'depends': ['base', 'sale_management'],
+    'depends': ['base', 'sale_management', "sale_margin"],
 
     'data': [            
     ],
