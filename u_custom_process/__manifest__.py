@@ -16,8 +16,9 @@
 
     'version': '14.0.0',
 
-    'depends': ['base', 'sale_management', "sale_margin"],
+    'depends': ['base', 'sale_management', "sale_margin", "helpdesk"],
 
-    'data': [            
+    'data': [  
+        "views/helpdesk_views.xml",       
     ],
 }
