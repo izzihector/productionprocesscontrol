@@ -20,7 +20,7 @@ class SaleSubscription(models.Model):
         'Payment Terms'
     )
 
-    def _prepare_renewal_order_values(self):
+    def _prepare_renewal_order_values(self, discard_product_ids=False, new_lines_ids=False):
         res = super(SaleSubscription, self)._prepare_renewal_order_values()
         for index, line in enumerate(res[self.id]['order_line']):
             line[2]['project_id'] = self.recurring_invoice_line_ids[index].project_id.id
