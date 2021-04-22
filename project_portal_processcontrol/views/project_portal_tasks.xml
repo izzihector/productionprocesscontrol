@@ -96,10 +96,12 @@
           </t>
       </xpath>
       <xpath expr="//t[@t-call='portal.portal_searchbar']" position="after">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
+        <div class="row mb-2">
+            <div class="col-lg-4 col-md-4">
                 <a t-attf-href="/new/task/?{{ keep_query() }}" class="btn btn-primary" role="button">Nueva Tarea</a>
             </div>
+            <div class="col-lg-6 col-md-6" id="center-side-task"/>
+            <div class="col-lg-2 col-md-2" id="right-side-task"/>
         </div>
       </xpath>
     </template>

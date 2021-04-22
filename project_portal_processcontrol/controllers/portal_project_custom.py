@@ -150,7 +150,7 @@ class CustomerPortalProcess(CustomerPortal):
         domain += stage_filters[stageby]['domain']
 
         # archive groups - Default Group By 'create_date'
-        archive_groups = self._get_archive_groups('project.task', domain)
+        # archive_groups = self._get_archive_groups('project.task', domain)
         if date_begin and date_end:
             domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
 
@@ -194,7 +194,7 @@ class CustomerPortalProcess(CustomerPortal):
             'date_end': date_end,
             'grouped_tasks': grouped_tasks,
             'page_name': 'task',
-            'archive_groups': archive_groups,
+            # 'archive_groups': archive_groups,
             'default_url': '/my/tasks',
             'pager': pager,
             'searchbar_sortings': searchbar_sortings,
