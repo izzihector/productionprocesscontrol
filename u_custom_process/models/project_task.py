@@ -10,6 +10,12 @@ import math
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
+    opportunity_id = fields.Many2one('crm.lead')
+    process_type = fields.Selection(
+        [('normal', 'Normal'),('tech', 'Technical')],
+        default='normal'
+    )
+
     @api.model
     def create(self, vals):
         res = super(ProjectTask, self).create(vals)
