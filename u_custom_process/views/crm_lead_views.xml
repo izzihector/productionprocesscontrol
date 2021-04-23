@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="crm_lead_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.process.inherit.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <button name="%(u_custom_process.action_create_task_from_oportunity_wizard)d" string="Tarea Preventa"
+                            type="action" class="oe_highlight" context="{'default_opportunity_id': active_id, 'default_process_type': 'normal'}" attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False)]}"/>
+                    <button name="%(u_custom_process.action_create_task_from_oportunity_wizard)d" string="Consulta Técnica"
+                            type="action" class="oe_highlight" context="{'default_opportunity_id': active_id, 'default_process_type': 'tech'}" attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False)]}"/>
+                </xpath>  
+                <xpath expr="//div[@name='button_box']" position="inside">  
+                    <button name="action_view_tasks" type="object"
+                        class="oe_stat_button" icon="fa-tasks"
+                        attrs="{'invisible': [('type', '=', 'lead')]}">
+                        <div class="o_stat_info">
+                            <field name="task_count" class="o_stat_value"/>
+                            <span class="o_stat_text" attrs="{'invisible': [('task_count', '&lt;', 2)]}"> PreSale Tasks</span>
+                            <span class="o_stat_text" attrs="{'invisible': [('task_count', '&gt;', 1)]}"> PreSale Task</span>
+                        </div>
+                    </button>
+                    <button name="action_view_tasks_timesheet" type="object"
+                        class="oe_stat_button o_field_widget" icon="fa-calendar"
+                        attrs="{'invisible': [('type', '=', 'lead')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <div class="oe_inline">
+                                <span class="o_stat_value mr-1">
+                                    <field name="timesheet_ids_count" widget="statinfo" nolabel="1"/>
+                                </span>
+                            </div>
+                            <span class="o_stat_text" attrs="{'invisible': [('timesheet_ids_count', '&lt;', 2)]}"> Timesheets</span>
+                            <span class="o_stat_text" attrs="{'invisible': [('timesheet_ids_count', '&gt;', 1)]}"> Timesheet</span>
+                        </div>
+                    </button>
+                    <button name="action_view_tasks_tech" type="object"
+                        class="oe_stat_button" icon="fa-tasks"
+                        attrs="{'invisible': [('type', '=', 'lead')]}">
+                        <div class="o_stat_info">
+                            <field name="task_tech_count" class="o_stat_value"/>
+                            <span class="o_stat_text" attrs="{'invisible': [('task_tech_count', '&lt;', 2)]}"> Tech Tasks</span>
+                            <span class="o_stat_text" attrs="{'invisible': [('task_tech_count', '&gt;', 1)]}"> Tech Task</span>
+                        </div>
+                    </button>
+                    <button name="action_view_tasks_timesheet_tech" type="object"
+                        class="oe_stat_button" icon="fa-calendar"
+                        attrs="{'invisible': [('type', '=', 'lead')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <div class="oe_inline">
+                                <span class="o_stat_value mr-1">
+                                    <field name="tech_timesheet_ids_count" widget="statinfo" nolabel="1"/>
+                                </span>
+                                <!-- <span class="o_stat_value">
+                                    <field name="timesheet_encode_uom_id" class="o_stat_text" options="{'no_open' : True}"/>
+                                </span> -->
+                            </div>
+                            <span class="o_stat_text" attrs="{'invisible': [('tech_timesheet_ids_count', '&lt;', 2)]}"> Tech Timesheets</span>
+                            <span class="o_stat_text" attrs="{'invisible': [('tech_timesheet_ids_count', '&gt;', 1)]}"> Tech Timesheet</span>
+                        </div>
+                    </button>
+                </xpath>           
+
+            </field>
+        </record>
+
+
+</odoo>
