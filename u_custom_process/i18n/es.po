@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-22 15:14+0000\n"
-"PO-Revision-Date: 2021-04-22 11:20-0400\n"
+"POT-Creation-Date: 2021-04-26 00:15+0000\n"
+"PO-Revision-Date: 2021-04-25 20:15-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__tech_timesheet_ids_count
 #: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__timesheet_ids_count
 msgid "# Task"
-msgstr ""
+msgstr "# Tareas"
 
 #. module: u_custom_process
 #: model_terms:ir.ui.view,arch_db:u_custom_process.portal_searchbar_process_date
@@ -256,8 +256,11 @@ msgstr "Línea de pedido de venta"
 
 #. module: u_custom_process
 #: model:ir.model.fields,field_description:u_custom_process.field_helpdesk_ticket__comercial_id
+#: model_terms:ir.ui.view,arch_db:u_custom_process.process_helpdesk_ticket_view_search_analysis
+#: model_terms:ir.ui.view,arch_db:u_custom_process.process_helpdesk_ticket_view_search_analysis_closed
+#: model_terms:ir.ui.view,arch_db:u_custom_process.process_helpdesk_tickets_view_search
 msgid "Salesperson"
-msgstr "Comercial"
+msgstr "Comercial del Cliente"
 
 #. module: u_custom_process
 #: model_terms:ir.ui.view,arch_db:u_custom_process.res_config_settings_view_form

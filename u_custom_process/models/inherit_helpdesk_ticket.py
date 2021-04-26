@@ -8,7 +8,8 @@ class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
     comercial_id = fields.Many2one(
-        related="partner_id.user_id"
+        related="partner_id.user_id",
+        store=True
     )
 
     
