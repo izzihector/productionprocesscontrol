@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* u_project_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-04 21:55+0000\n"
+"PO-Revision-Date: 2021-03-04 21:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Condition</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Estado</span>"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Created Date</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Fecha de Creada</span>"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.report_services_part
+msgid "<span style=\"font-weight:bold;color:#FFF\">Dedicated Hours</span>"
+msgstr "<span style=\"font-weight:bold;color:#FFF\">Horas Dedicadas</span>"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.external_layout_services_part
+msgid "CLIENT"
+msgstr "CLIENTE"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.external_layout_services_part
+msgid "Logo"
+msgstr "Logo"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.external_layout_services_part
+msgid "PROJECT"
+msgstr "PROYECTO"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.external_layout_services_part
+msgid "SERVICE PART"
+msgstr "PARTE DE SERVICIO"
+
+#. module: u_project_report
+#: model:ir.actions.report,name:u_project_report.action_report_services_part
+msgid "Task Report"
+msgstr "Informe de Tareas"
+
+#. module: u_project_report
+#: model_terms:ir.ui.view,arch_db:u_project_report.external_layout_services_part
+msgid "Task Breakdown"
+msgstr "Desglose de Tareas"
+

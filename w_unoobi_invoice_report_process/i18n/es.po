@@ -1,0 +1,211 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* w_unoobi_invoice_report_process
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-11 22:25+0000\n"
+"PO-Revision-Date: 2021-01-11 22:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "&amp;nbsp;<span>on</span>"
+msgstr "&amp;nbsp;<span>en</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<br/>\n"
+"                            <span>For payment by transfer:</span><br/>\n"
+"                            <span>IBAN: ES63 2100 0046 2602 0050 5345</span><br/>\n"
+"                            <span>BIC/CODIGO SWIFT CAIXESBBXXX</span>"
+msgstr "<br/>\n"
+"                            <span>Para pago por transferencia:</span><br/>\n"
+"                            <span>IBAN: ES63 2100 0046 2602 0050 5345</span><br/>\n"
+"                            <span>BIC/CODIGO SWIFT CAIXESBBXXX</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<br/>\n"
+"                            Due Date:"
+msgstr "<br/>\n"
+"Fecha de Vencimieto:"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</span>\n"
+"                                    <span groups=\"account.group_show_line_subtotals_tax_included\">Total Price</span>"
+msgstr "<span groups=\"account.group_show_line_subtotals_tax_excluded\">Importe</span>\n"
+"                                    <span groups=\"account.group_show_line_subtotals_tax_included\">Precio Total</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Description</span>"
+msgstr "<span>Descripción</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Disc.(%)</span>"
+msgstr "<span>Desc.(%)</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Quantity</span>"
+msgstr "<span>Cantidad</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Source Document</span>"
+msgstr "<span>Documento de Origen</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Taxes</span>"
+msgstr "<span>Impuestos</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Unit Price</span>"
+msgstr "<span>Precio Unitario</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<span>Way to pay:</span>"
+msgstr "<span>Forma de pago:</span>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong class=\"text-center\">Scan me with your banking app.</strong><br/><br/>"
+msgstr "<strong class=\"text-center\">Para ser escaneado con la aplicación bancaria.</strong><br/><br/>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong class=\"text-center\">The SEPA QR Code informations are not set correctly.</strong><br/>"
+msgstr "<strong class=\"text-center\">Las informaciones del código QR SEPA no están configuradas correctamente..</strong><br/>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong style=\"color:#358FFA;\">Customer Code:</strong>"
+msgstr "<strong style=\"color:#358FFA;\">Codigo de cliente:</strong>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong style=\"color:#358FFA;\">Description:</strong>"
+msgstr "<strong style=\"color:#358FFA;\">Descripcion:</strong>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong style=\"color:#358FFA;\">Invoice Date:</strong>"
+msgstr "<strong style=\"color:#358FFA;\">Fecha de factura:</strong>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong style=\"color:#358FFA;\">Reference:</strong>"
+msgstr "<strong style=\"color:#358FFA;\">Referencia:</strong>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong style=\"color:#358FFA;\">Source:</strong>"
+msgstr "<strong style=\"color:#358FFA;\">Origen:</strong>"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Cancelled Invoice"
+msgstr "Factura cancelada"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Credit Note"
+msgstr "Rectificativa"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.external_layout_standard_customer
+msgid "De conformidad con lo establecido en la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán incorporados al sistema de tratamiento titularidad de PROCESS CONTROL SCCL con CIF F58162116 y domicilio social sito en AMADEU VIVES, nº 2, MOLINS DE REI, 08750 (BARCELONA), con la finalidad de poder remitirle la documentación que corresponda (presupuesto, albarán, factura, etc). En cumplimiento con la normativa vigente, C/ PROCESS CONTROL SCCL informa que los datos serán conservados durante el plazo legalmente establecido.\n"
+"                    Con la presente cláusula queda informado de que sus datos serán comunicados en caso de ser necesario a: administraciones públicas y a todas aquellas entidades con las que sea necesaria la comunicación con la finalidad de cumplir con la prestación del servicio anteriormente mencionado.\n"
+"                    El hecho de no facilitar los datos a las entidades mencionadas implica que no se pueda cumplir con la prestación de los servicios.\n"
+"                    A su vez, le informamos que puede contactar con el Delegado de Protección de Datos de PROCESS CONTROL SCCL, dirigiéndose por escrito a la dirección de correo RGPD@PROCESSCONTROL.ES o al teléfono 932296810\n"
+"                    PROCESS CONTROL SCCL informa que procederá a tratar los datos de manera lícita, leal, transparente, adecuada, pertinente, limitada, exacta y actualizada. Es por ello que PROCESS CONTROL SCCL se compromete a adoptar todas las medidas razonables para que estos se supriman o rectifiquen sin dilación cuando sean inexactos.\n"
+"                    Podrá ejercer los derechos de acceso, rectificación, limitación de tratamiento, supresión, portabilidad y oposición/revocación, en los términos que establece la normativa vigente en materia de protección de datos, dirigiendo su petición a la dirección postal C/ AMAEDU VIVES, nº 2 DE MOLINS DE REI, 08750  BARCELONA) o bien a través de correo electrónico RGPD@PROCESSCONTROL.ES.\n"
+"                    Podrá dirigirse a la Autoridad de Control competente para presentar la reclamación que considere oportuna."
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Draft Invoice"
+msgstr "Factura borrador"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.external_layout_standard_customer
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.external_layout_standard_customer
+msgid "Logo"
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "NIF:"
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.external_layout_standard_customer
+msgid "Page:\n"
+"                        <span class=\"page\"/>\n"
+"                        /\n"
+"                        <span class=\"topage\"/>"
+msgstr ""
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.external_layout_standard_customer
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Please use the following communication for your payment :"
+msgstr "Por favor utilice la siguiente referencia al realizar su pago: "
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Vendor Bill"
+msgstr "Factura de proveedor"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
+msgid "Vendor Credit Note"
+msgstr "Factura rectificativa de proveedor"
+
+#. module: w_unoobi_invoice_report_process
+#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.external_layout_standard_customer
+msgid "Web:"
+msgstr ""
+
