@@ -9,6 +9,9 @@
             <field name="name" position="after">
                 <field name="comercial_id"/>
             </field>
+            <filter name="team" position="after">
+                <filter string="Salesperson" name="saleperson" context="{'group_by':'comercial_id'}"/>
+            </filter>
         </field>
     </record>
 
@@ -20,6 +23,9 @@
             <field name="name" position="after">
                 <field name="comercial_id"/>
             </field>
+            <filter name="team" position="after">
+                <filter string="Salesperson" name="saleperson" context="{'group_by':'comercial_id'}"/>
+            </filter>
         </field>
     </record>
 
@@ -42,6 +48,9 @@
             <field name="name" position="after">
                 <field name="comercial_id"/>
             </field>
+            <filter name="team" position="after">
+                <filter string="Salesperson" name="saleperson" context="{'group_by':'comercial_id'}"/>
+            </filter>
         </field>
     </record>
     

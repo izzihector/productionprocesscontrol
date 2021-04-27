@@ -12,23 +12,25 @@ class SaleOrder(models.Model):
     
     def _prepare_invoice(self):
         res = super()._prepare_invoice()
-        subscription_id = self.mapped('order_line.subscription_id')[0]
-        date_start = subscription_id.recurring_next_date
-        date_stop = date_start + relativedelta(**{PERIODS[subscription_id.recurring_rule_type]: subscription_id.recurring_interval}) - relativedelta(days=1)
+        subscription_id = self.mapped('order_line.subscription_id')
+        if subscription_id:
+            subscription_id = subscription_id[0]
+            date_start = subscription_id.recurring_next_date
+            date_stop = date_start + relativedelta(**{PERIODS[subscription_id.recurring_rule_type]: subscription_id.recurring_interval}) - relativedelta(days=1)
 
-        lang = self.partner_invoice_id.lang
-        format_date = self.env['ir.qweb.field.date'].with_context(lang=lang).value_to_html
-        # Ugly workaround to display the description in the correct language
-        if lang:
-            self = self.with_context(lang=lang)
+            lang = self.partner_invoice_id.lang
+            format_date = self.env['ir.qweb.field.date'].with_context(lang=lang).value_to_html
+            # Ugly workaround to display the description in the correct language
+            if lang:
+                self = self.with_context(lang=lang)
 
-        period_msg = _("Invoicing period: %s - %s") % (format_date(fields.Date.to_string(date_start), {}), format_date(fields.Date.to_string(date_stop), {}))
-        section_line = [(0, 0, {
-            'name':  period_msg,
-            'display_type': 'line_section',
-            'sequence': 0
-        })]
-        res['invoice_line_ids'] = section_line
+            period_msg = _("Invoicing period: %s - %s") % (format_date(fields.Date.to_string(date_start), {}), format_date(fields.Date.to_string(date_stop), {}))
+            section_line = [(0, 0, {
+                'name':  period_msg,
+                'display_type': 'line_section',
+                'sequence': 0
+            })]
+            res['invoice_line_ids'] = section_line
         return res
 
 class SaleOrderLine(models.Model):
