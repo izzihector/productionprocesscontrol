@@ -35,17 +35,16 @@ class ProjectTask(models.Model):
         self._create_line_subscription(res)
         return res
 
-    @api.multi
-    def unlink(self):
-        for task in self:
-            if task.sales_hours != 0:
-                raise ValidationError(_("Task cannot be deleted!"))
-        return super(ProjectTask, self).unlink()
+#     @api.multi
+#     def unlink(self):
+#         for task in self:
+#             if task.sales_hours != 0:
+#                 raise ValidationError(_("Task cannot be deleted!"))
+#         return super(ProjectTask, self).unlink()
 
     sales_hours = fields.Float(
         'Sale hours',
-        copy=False
-    )
+        copy=False)
 
     product_subscription = fields.One2many('product.subscription', 'task_id', string='Product subscription')
     product_subscription_total = fields.Float(compute='_compute_product_subscription_total', string="Total", store=True)
