@@ -1,0 +1,324 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* u_custom_process
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-26 00:15+0000\n"
+"PO-Revision-Date: 2021-04-25 20:15-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es_ES\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__task_count
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__task_tech_count
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__tech_timesheet_ids_count
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__timesheet_ids_count
+msgid "# Task"
+msgstr "# Tareas"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.portal_searchbar_process_date
+#: model_terms:ir.ui.view,arch_db:u_custom_process.project_portal_tasks_process_print
+msgid "<i class=\"fa fa-print\"/> Imprimir"
+msgstr ""
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.crm_lead_view_form
+msgid ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('task_count', '&lt;', 2)]}\"> PreSale Tasks</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('task_count', '&gt;', 1)]}\"> PreSale Task</span>"
+msgstr ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('task_count', '&lt;', 2)]}\"> Tareas Preventa</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('task_count', '&gt;', 1)]}\"> Tarea Preventa</span>"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.crm_lead_view_form
+msgid ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('task_tech_count', '&lt;', 2)]}\"> Tech Tasks</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('task_tech_count', '&gt;', 1)]}\"> Tech Task</span>"
+msgstr ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('task_tech_count', '&lt;', 2)]}\"> Cons. Téc.</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('task_tech_count', '&gt;', 1)]}\"> Cons. Téc.</span>"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.crm_lead_view_form
+msgid ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('tech_timesheet_ids_count', '&lt;', 2)]}\"> Tech Timesheets</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('tech_timesheet_ids_count', '&gt;', 1)]}\"> Tech Timesheet</span>"
+msgstr ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('tech_timesheet_ids_count', '&lt;', 2)]}\"> Partes Horas Téc.</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('tech_timesheet_ids_count', '&gt;', 1)]}\"> Parte Horas Téc.</span>"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.crm_lead_view_form
+msgid ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('timesheet_ids_count', '&lt;', 2)]}\"> Timesheets</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('timesheet_ids_count', '&gt;', 1)]}\"> Timesheet</span>"
+msgstr ""
+"<span class=\"o_stat_text\" attrs=\"{'invisible': [('timesheet_ids_count', '&lt;', 2)]}\"> Partes Horas</span>\n"
+"                            <span class=\"o_stat_text\" attrs=\"{'invisible': [('timesheet_ids_count', '&gt;', 1)]}\"> Parte Horas</span>"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Línea Analítica"
+
+#. module: u_custom_process
+#: code:addons/u_custom_process/models/project_task.py:0
+#, python-format
+msgid "Can't task create to Archived project."
+msgstr "No se pueden crear tareas en proyectos archivados"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.view_form_create_task_from_oportunity_wizard_ui
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.crm_lead_view_form
+#: model_terms:ir.ui.view,arch_db:u_custom_process.view_form_create_task_from_oportunity_wizard_ui
+msgid "Consulta Técnica"
+msgstr ""
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.view_form_create_task_from_oportunity_wizard_ui
+msgid "Create"
+msgstr "Crear"
+
+#. module: u_custom_process
+#: model:ir.actions.act_window,name:u_custom_process.action_create_task_from_oportunity_wizard
+msgid "Create Task"
+msgstr "Crear tarea"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_account_analytic_line__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_helpdesk_ticket__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_res_company__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_advance_payment_inv__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_order__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_subscription__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: u_custom_process
+#: model:ir.model.fields,help:u_custom_process.field_crm_lead__date_deadline
+msgid "Estimate of the date on which the opportunity will be won."
+msgstr "Fecha estimada en la que la oportunidad será ganada."
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__date_deadline
+msgid "Expected Closing"
+msgstr "Cierre previsto"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_helpdesk_ticket
+msgid "Helpdesk Ticket"
+msgstr "Ticket de Mesa de Ayuda"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_account_analytic_line__id
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__id
+#: model:ir.model.fields,field_description:u_custom_process.field_helpdesk_ticket__id
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task__id
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__id
+#: model:ir.model.fields,field_description:u_custom_process.field_res_company__id
+#: model:ir.model.fields,field_description:u_custom_process.field_res_config_settings__id
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_advance_payment_inv__id
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_order__id
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_order_line__id
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_subscription__id
+msgid "ID"
+msgstr ""
+
+#. module: u_custom_process
+#: code:addons/u_custom_process/models/sale_order.py:0
+#: code:addons/u_custom_process/models/sale_subscription.py:0
+#, python-format
+msgid "Invoicing period: %s - %s"
+msgstr "Período de facturación: %s - %s"
+
+#. module: u_custom_process
+#: code:addons/u_custom_process/wizard/sale_make_invoice_advance.py:0
+#, python-format
+msgid "It has lines with zero cost."
+msgstr "Tiene líneas con precio de costo 0."
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_account_analytic_line____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_helpdesk_ticket____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_res_company____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_advance_payment_inv____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_order____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:u_custom_process.field_sale_subscription____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Iniciativa/Oportunidad"
+
+#. module: u_custom_process
+#: model:ir.model.fields.selection,name:u_custom_process.selection__project_task__process_type__normal
+#: model:ir.model.fields.selection,name:u_custom_process.selection__project_task_oportunity_wizard__process_type__normal
+msgid "Normal"
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task__opportunity_id
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__opportunity_id
+msgid "Opportunity"
+msgstr "Oportunidad"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task__process_type
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__process_type
+msgid "Process Type"
+msgstr "Tipo"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__project_id
+#: model_terms:ir.ui.view,arch_db:u_custom_process.res_config_settings_view_form
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__project_allowed_ids
+#: model:ir.model.fields,field_description:u_custom_process.field_res_company__project_allowed_ids
+#: model:ir.model.fields,field_description:u_custom_process.field_res_config_settings__project_allowed_ids
+#: model_terms:ir.ui.view,arch_db:u_custom_process.res_config_settings_view_form
+msgid "Project Allowed"
+msgstr "Proyectos permitidos"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Ventas. Anticipo pago factura"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_helpdesk_ticket__comercial_id
+#: model_terms:ir.ui.view,arch_db:u_custom_process.process_helpdesk_ticket_view_search_analysis
+#: model_terms:ir.ui.view,arch_db:u_custom_process.process_helpdesk_ticket_view_search_analysis_closed
+#: model_terms:ir.ui.view,arch_db:u_custom_process.process_helpdesk_tickets_view_search
+msgid "Salesperson"
+msgstr "Comercial del Cliente"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.res_config_settings_view_form
+msgid "Select allowed project to create task from oportunities."
+msgstr "Seleccione los proyectos que se permiten crear tareas desde oportunidades"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_sale_subscription
+msgid "Subscription"
+msgstr "Suscripción"
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.crm_lead_view_form
+#: model_terms:ir.ui.view,arch_db:u_custom_process.view_form_create_task_from_oportunity_wizard_ui
+msgid "Tarea Preventa"
+msgstr ""
+
+#. module: u_custom_process
+#: code:addons/u_custom_process/wizard/create_task_from_oportunity.py:0
+#: model:ir.model,name:u_custom_process.model_project_task
+#, python-format
+msgid "Task"
+msgstr "Tarea"
+
+#. module: u_custom_process
+#: model:ir.model.fields.selection,name:u_custom_process.selection__project_task__process_type__tech
+#: model:ir.model.fields.selection,name:u_custom_process.selection__project_task_oportunity_wizard__process_type__tech
+msgid "Technical"
+msgstr "Técnica"
+
+#. module: u_custom_process
+#: model:ir.model.fields,help:u_custom_process.field_helpdesk_ticket__comercial_id
+msgid "The internal user in charge of this contact."
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,help:u_custom_process.field_crm_lead__timesheet_encode_uom_id
+msgid ""
+"This will set the unit of measure used to encode timesheet. This will simply provide tools\n"
+"        and widgets to help the encoding. All reporting will still be expressed in hours (default value)."
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_crm_lead__timesheet_encode_uom_id
+msgid "Timesheet Encoding Unit"
+msgstr ""
+
+#. module: u_custom_process
+#: model:ir.model.fields,field_description:u_custom_process.field_project_task_oportunity_wizard__title
+msgid "Title"
+msgstr "Título"
+
+#. module: u_custom_process
+#: model:ir.model,name:u_custom_process.model_project_task_oportunity_wizard
+msgid "Wizard project Task Creation"
+msgstr ""
+
+#. module: u_custom_process
+#: model_terms:ir.ui.view,arch_db:u_custom_process.portal_searchbar_process_date
+msgid "YYYY-MM-DD"
+msgstr ""
