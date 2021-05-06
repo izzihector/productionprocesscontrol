@@ -24,7 +24,7 @@
         </template>
 
         <template id="external_layout_standard_customer">
-            <div class="header" t-att-style="report_header_style">
+            <div class="header o_clean_header" t-att-style="report_header_style">
                 <div class="row">
                     <div class="col-3 mb4">
                         <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="140px" height="90px"
@@ -46,13 +46,13 @@
                 </div>-->
             </div>
 
-            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name"
+            <div class="article o_report_layout_clean" t-att-data-oe-model="o and o._name"
                  t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
                 <t t-call="web.address_layout"/>
                 <t t-raw="0"/>
             </div>
 
-            <div class="footer o_standard_footer">
+            <div class="footer o_clean_footer">
                 <div class="last-page" style="font-size:7px; color:#A5A5A5;">
                     De conformidad con lo establecido en la normativa vigente en Protección de Datos de Carácter Personal, le informamos que sus datos serán incorporados al sistema de tratamiento titularidad de PROCESS CONTROL SCCL con CIF F58162116 y domicilio social sito en AMADEU VIVES, nº 2, MOLINS DE REI, 08750 (BARCELONA), con la finalidad de poder remitirle la documentación que corresponda (presupuesto, albarán, factura, etc). En cumplimiento con la normativa vigente, C/ PROCESS CONTROL SCCL informa que los datos serán conservados durante el plazo legalmente establecido.
                     Con la presente cláusula queda informado de que sus datos serán comunicados en caso de ser necesario a: administraciones públicas y a todas aquellas entidades con las que sea necesaria la comunicación con la finalidad de cumplir con la prestación del servicio anteriormente mencionado.
