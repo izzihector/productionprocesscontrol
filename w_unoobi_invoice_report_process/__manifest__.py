@@ -10,7 +10,7 @@
     'summary': """The design of the invoice report is customized (Process).""",
 
     'description': """
-        The design of the invoice report is customized (Process).
+        The design of the invoice report is customized (Process). 
     """,
 
     'author': 'UNOOBI ©',
