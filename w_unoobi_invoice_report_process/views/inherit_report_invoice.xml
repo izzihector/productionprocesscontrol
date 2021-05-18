@@ -178,7 +178,13 @@
                                         </td>
                                         <td t-if="display_discount"
                                             t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                            <span t-esc="'%.2f'% (line.price_unit * line.discount / 100 - line.price_unit)"/>
+                                            <t t-if="o.move_type == 'out_refund'">
+                                                <span t-esc="'%.2f'% ((line.price_unit * line.discount / 100) - line.price_unit)"/>
+                                            </t>
+                                            <t t-else="">
+                                                <span t-esc="'%.2f'% (((line.price_unit * line.discount / 100) - line.price_unit) * -1)"/>
+                                            </t>
+
                                         </td>
                                         <td t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_ids))"/>
