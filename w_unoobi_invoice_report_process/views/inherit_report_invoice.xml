@@ -176,7 +176,7 @@
                                                 <span t-esc="'%.2f'% (line.price_unit * -1)"/>
                                             </t>
                                             <t t-else="">
-                                                <span t-field="'%.2f'% line.price_unit"/>
+                                                <span t-esc="'%.2f'% line.price_unit"/>
                                             </t>
                                         </td>
                                         <td t-if="display_discount"
