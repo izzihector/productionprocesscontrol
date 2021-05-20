@@ -5,12 +5,12 @@
 #
 ############################################################################
 {
-    'name': 'Unoobi | Invoice Report (Process)',
+    'name': 'Unoobi | Custom Task',
 
-    'summary': """The design of the invoice report is customized (Process).""",
+    'summary': """Assign tasks to parent tasks that belong to the selected project (Project)""",
 
     'description': """
-        The design of the invoice report is customized (Process). 
+        Assign tasks to parent tasks that belong to the selected project (Process) 
     """,
 
     'author': 'UNOOBI ©',
@@ -19,14 +19,12 @@
 
     'category': 'Extra Tools',
 
-    'version': '14.0.0.1',
+    'version': '14.0.0.0',
 
-    'depends': ['base', 'account'],
+    'depends': ['base', 'project'],
 
     'data': [
-            'views/inherit_report_invoice.xml',
-            'views/inherit_external_layout_views.xml',
-            'views/layouts.xml',
+            'views/inherit_project_task_views.xml'
            ],
 
     # 'qweb': [
