@@ -175,7 +175,7 @@ msgstr "Período de facturación: %s - %s"
 #: code:addons/u_custom_process/wizard/sale_make_invoice_advance.py:0
 #, python-format
 msgid "It has lines with zero cost."
-msgstr "Tiene líneas con precio de costo 0."
+msgstr "Tiene líneas con precio de coste 0."
 
 #. module: u_custom_process
 #: model:ir.model.fields,field_description:u_custom_process.field_account_analytic_line____last_update

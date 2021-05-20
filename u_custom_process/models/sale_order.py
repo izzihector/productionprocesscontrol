@@ -47,10 +47,13 @@ class SaleOrderLine(models.Model):
         return res
 
     def write(self, vals):
+        older_price = self.purchase_price
+        margin = self.order_id.margin
         res = super(SaleOrderLine, self).write(vals)
         content = ""
         if vals.get("purchase_price"):
-            content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(vals.get("purchase_price")) + "<br/>"
+            content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(older_price) + "&#8594;" + "{:10.3f}".format(vals.get("purchase_price")) + "<br/>"
+            content = content + "  \u2022 Margen: " + "{:10.3f}".format(margin) + "&#8594;" + "{:10.3f}".format(self.order_id.margin) + "<br/>"
             self.order_id.message_post(body=content)
 
         return res  
