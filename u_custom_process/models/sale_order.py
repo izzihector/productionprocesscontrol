@@ -9,14 +9,16 @@ PERIODS = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'y
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
-    
+
     def _prepare_invoice(self):
         res = super()._prepare_invoice()
         subscription_id = self.mapped('order_line.subscription_id')
         if subscription_id:
             subscription_id = subscription_id[0]
             date_start = subscription_id.recurring_next_date
-            date_stop = date_start + relativedelta(**{PERIODS[subscription_id.recurring_rule_type]: subscription_id.recurring_interval}) - relativedelta(days=1)
+            date_stop = date_start + relativedelta(
+                **{PERIODS[subscription_id.recurring_rule_type]: subscription_id.recurring_interval}) - relativedelta(
+                days=1)
 
             lang = self.partner_invoice_id.lang
             format_date = self.env['ir.qweb.field.date'].with_context(lang=lang).value_to_html
@@ -24,14 +26,16 @@ class SaleOrder(models.Model):
             if lang:
                 self = self.with_context(lang=lang)
 
-            period_msg = _("Invoicing period: %s - %s") % (format_date(fields.Date.to_string(date_start), {}), format_date(fields.Date.to_string(date_stop), {}))
+            period_msg = _("Invoicing period: %s - %s") % (
+            format_date(fields.Date.to_string(date_start), {}), format_date(fields.Date.to_string(date_stop), {}))
             section_line = [(0, 0, {
-                'name':  period_msg,
+                'name': period_msg,
                 'display_type': 'line_section',
                 'sequence': 0
             })]
             res['invoice_line_ids'] = section_line
         return res
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
@@ -47,16 +51,19 @@ class SaleOrderLine(models.Model):
         return res
 
     def write(self, vals):
-        older_price = self.purchase_price
-        margin = self.order_id.margin
-        res = super(SaleOrderLine, self).write(vals)
-        content = ""
-        if vals.get("purchase_price"):
-            content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(older_price) + "&#8594;" + "{:10.3f}".format(vals.get("purchase_price")) + "<br/>"
-            content = content + "  \u2022 Margen: " + "{:10.3f}".format(margin) + "&#8594;" + "{:10.3f}".format(self.order_id.margin) + "<br/>"
-            self.order_id.message_post(body=content)
+        for i in self:
+            older_price = self.purchase_price
+            margin = self.order_id.margin
+            res = super(SaleOrderLine, self).write(vals)
+            content = ""
+            if vals.get("purchase_price"):
+                content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(
+                    older_price) + "&#8594;" + "{:10.3f}".format(vals.get("purchase_price")) + "<br/>"
+                content = content + "  \u2022 Margen: " + "{:10.3f}".format(margin) + "&#8594;" + "{:10.3f}".format(
+                    self.order_id.margin) + "<br/>"
+                self.order_id.message_post(body=content)
 
-        return res  
+        return res
 
     def _prepare_invoice_line(self, **optional_values):
         """
@@ -69,5 +76,5 @@ class SaleOrderLine(models.Model):
         if self.subscription_id:
             res.update({
                 'name': self.name
-            })            
+            })
         return res
