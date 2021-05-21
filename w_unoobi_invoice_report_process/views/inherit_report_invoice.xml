@@ -162,10 +162,7 @@
                                                 t-field="line.name"/></td>
                                         <td class="d-none"><span t-field="line.move_id.source_id"/></td>
                                         <td class="text-right">
-                                            <t t-if="o.move_type == 'out_refund' and o.state != 'cancel'">
-                                                <span t-esc="'%.2f'% (line.quantity * -1)"/>
-                                            </t>
-                                            <t t-elif="o.move_type == 'out_refund' and o.state == 'cancel'">
+                                            <t t-if="o.move_type == 'out_refund' and o.state == 'cancel'">
                                                 <span t-esc="'%.2f'% (line.quantity * -1)"/>
                                             </t>
                                             <t t-else="">
