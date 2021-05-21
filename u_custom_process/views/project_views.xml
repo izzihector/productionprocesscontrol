@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Task -->
+    <record id="inherit_view_task_form_archived" model="ir.ui.view">
+        <field name="name">project.task.form.archived</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='planned_hours']" position="after">
+                <field name="project_id_active" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='planned_hours']" position="attributes">
+                <attribute name="attrs">{'readonly': [('project_id_active', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
