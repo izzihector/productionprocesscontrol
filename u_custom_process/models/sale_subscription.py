@@ -20,8 +20,10 @@ class SaleSubscription(models.Model):
     def _prepare_invoice_lines(self, fiscal_position):
         res = super()._prepare_invoice_lines(fiscal_position)
         date_start = self.recurring_next_date
-        date_stop = date_start + relativedelta(**{PERIODS[self.recurring_rule_type]: self.recurring_interval}) - relativedelta(days=1)
-        period_msg = _("Invoicing period: %s - %s") % (format_date(fields.Date.to_string(date_start), {}), format_date(fields.Date.to_string(date_end), {}))
+        date_stop = date_start + relativedelta(**{PERIODS[self.recurring_rule_type]:
+                                                      self.recurring_interval}) - relativedelta(days=1)
+        period_msg = _("Invoicing period: %s - %s") % (format_date(fields.Date.to_string(date_start), {}),
+                                                       format_date(fields.Date.to_string(date_stop), {}))
         section_line = [(0, 0, {
             'name':  period_msg,
             'display_type': 'line_section'
