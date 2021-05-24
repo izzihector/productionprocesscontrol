@@ -13,8 +13,9 @@ Modifications to account analytic accounts in sales
     'author': 'Unoobi',
     'website': 'http://www.unoobi.com',
     'data': [
-        #'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'views/account_analytic_views.xml',
+        'views/account_move_views.xml',
     ],
     'qweb': [],
     'application': False,

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="u_view_inherit_account_move_form">
+            <field name="name">u.view.inherit.account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='journal_div']" position="after">
+                    <label for="analytic_account_id"  attrs="{'invisible': [('move_type', 'not in', ('in_invoice'))]}"/>
+                    <div name="analytic_account_id_div" attrs="{'invisible': [('move_type', 'not in', ('in_invoice'))]}">
+                        <field name="analytic_account_id"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
