@@ -32,7 +32,7 @@
         # === VIEWS
         "views/helpdesk_views.xml", 
         'views/assets.xml',
-        'views/portal.xml',      
+        # 'views/portal.xml',
         'views/helpdesk_portal_templates.xml',      
         'views/project_portal_tasks.xml',      
         'wizard/create_task_from_oportunity_view.xml',      
