@@ -16,16 +16,17 @@ class SaleOrder(models.Model):
 
         res = super(SaleOrder, self).write(vals)
         if vals.get('order_line'):
-            if vals.get('order_line')[0][2].get('purchase_price'):
-                content = ""
-                total_purchase_price = sum(x.purchase_price for x in self.order_line)
+            for x in vals.get('order_line'):
+                if x[2] and x[2].get('purchase_price'):
+                    content = ""
+                    total_purchase_price = sum(x.purchase_price for x in self.order_line)
 
-                content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(
-                    older_price) + "&#8594;" + "{:10.3f}".format(total_purchase_price) + "<br/>"
-                content = content + "  \u2022 Margen: " + "{:10.3f}".format(margin) \
-                          + "&#8594;" + "{:10.3f}".format(
-                    self.margin) + "<br/>"
-                self.message_post(body=content)
+                    content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(
+                        older_price) + "&#8594;" + "{:10.3f}".format(total_purchase_price) + "<br/>"
+                    content = content + "  \u2022 Margen: " + "{:10.3f}".format(margin) \
+                              + "&#8594;" + "{:10.3f}".format(
+                        self.margin) + "<br/>"
+                    self.message_post(body=content)
         return res
 
     def _prepare_invoice(self):
