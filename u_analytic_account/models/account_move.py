@@ -22,7 +22,8 @@ class AccountMoveLine(models.Model):
     def create(self, vals_list):
         move_id = self.env['account.move'].browse(vals_list.get('move_id', False))
         if move_id and move_id.analytic_account_id:
-            vals_list['analytic_account_id'] = move_id.analytic_account_id.id
+            if not vals_list.get('analytic_account_id', False):
+                vals_list['analytic_account_id'] = move_id.analytic_account_id.id
         return super(AccountMoveLine, self).create(vals_list)
 
 
