@@ -16,6 +16,20 @@ PERIODS = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'y
 class SaleSubscription(models.Model):
     _inherit = "sale.subscription"
     _description = "Subscription"
+
+    def write(self, vals):
+        older_price = sum(x.cost for x in self.recurring_invoice_line_ids)
+        res = super(SaleSubscription, self).write(vals)
+        if vals.get('recurring_invoice_line_ids'):
+            for x in vals.get('recurring_invoice_line_ids'):
+                if x[2] and x[2].get('cost'):
+                    content = ""
+                    total_purchase_price = sum(x.cost for x in self.recurring_invoice_line_ids)
+
+                    content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(
+                        older_price) + "&#8594;" + "{:10.3f}".format(total_purchase_price) + "<br/>"
+                    self.message_post(body=content)
+        return res
    
     def _prepare_invoice_lines(self, fiscal_position):
         res = super()._prepare_invoice_lines(fiscal_position)
