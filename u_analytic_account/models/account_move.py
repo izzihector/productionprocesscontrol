@@ -18,12 +18,15 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    @api.model
-    def create(self, vals_list):
-        move_id = self.env['account.move'].browse(vals_list.get('move_id', False))
-        if move_id and move_id.analytic_account_id:
-            if not vals_list.get('analytic_account_id', False):
-                vals_list['analytic_account_id'] = move_id.analytic_account_id.id
-        return super(AccountMoveLine, self).create(vals_list)
+    # TODO por ahora comentado hasta ver como afecta a las subscripciones, no deberia pero lo hace
+    # TODO buscar otra manera
+    # @api.model
+    # def create(self, vals_list):
+    #     res = super(AccountMoveLine, self).create(vals_list)
+    #     move_id = self.env['account.move'].browse(vals_list.get('move_id', False))
+    #     if move_id and move_id.analytic_account_id:
+    #         if not vals_list.get('analytic_account_id', False):
+    #             vals_list['analytic_account_id'] = move_id.analytic_account_id.id
+    #     return res
 
 
