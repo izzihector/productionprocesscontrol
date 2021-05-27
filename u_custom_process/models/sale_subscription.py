@@ -13,6 +13,36 @@ _logger = logging.getLogger(__name__)
 PERIODS = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'years'}
 
 
+class SaleSubscriptionLine(models.Model):
+    _inherit = 'sale.subscription.line'
+
+    @api.model
+    def create(self, vals_list):
+        sub_id = self.analytic_account_id
+        older_price = sum(x.cost for x in sub_id.recurring_invoice_line_ids)
+        res = super(SaleSubscriptionLine, self).create(vals_list)
+
+        total_purchase_price = sum(x.cost for x in sub_id.recurring_invoice_line_ids)
+        content = ""
+        content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(
+            older_price) + "&#8594;" + "{:10.3f}".format(total_purchase_price) + "<br/>"
+        res.analytic_account_id.message_post(body=content)
+        return res
+
+
+    def unlink(self):
+        sub_id = self.analytic_account_id
+        older_price = sum(x.cost for x in sub_id.recurring_invoice_line_ids)
+        super(SaleSubscriptionLine, self).unlink()
+
+        total_purchase_price = sum(x.cost for x in sub_id.recurring_invoice_line_ids)
+        content = ""
+        content = content + "  \u2022 Precio Costo: " + "{:10.3f}".format(
+            older_price) + "&#8594;" + "{:10.3f}".format(total_purchase_price) + "<br/>"
+        sub_id.message_post(body=content)
+
+
+
 class SaleSubscription(models.Model):
     _inherit = "sale.subscription"
     _description = "Subscription"
