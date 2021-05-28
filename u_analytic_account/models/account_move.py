@@ -14,19 +14,15 @@ class AccountMove(models.Model):
         'Analytic account'
     )
 
+    @api.model
+    def create(self, vals_list):
+        res = super(AccountMove, self).create(vals_list)
+        if res.move_type == 'in_invoice' and res.analytic_account_id:
+            for line in res.invoice_line_ids:
+                # Respetamos el valor si se define a mano
+                if not line.analytic_account_id:
+                    line.analytic_account_id = res.analytic_account_id.id
+        return res
 
-class AccountMoveLine(models.Model):
-    _inherit = 'account.move.line'
-
-    # TODO por ahora comentado hasta ver como afecta a las subscripciones, no deberia pero lo hace
-    # TODO buscar otra manera
-    # @api.model
-    # def create(self, vals_list):
-    #     res = super(AccountMoveLine, self).create(vals_list)
-    #     move_id = self.env['account.move'].browse(vals_list.get('move_id', False))
-    #     if move_id and move_id.analytic_account_id:
-    #         if not vals_list.get('analytic_account_id', False):
-    #             vals_list['analytic_account_id'] = move_id.analytic_account_id.id
-    #     return res
 
 
