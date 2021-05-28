@@ -32,6 +32,7 @@
         # === VIEWS
         "views/helpdesk_views.xml", 
         'views/assets.xml',
+        'views/sale_order.xml',
         # 'views/portal.xml',
         'views/helpdesk_portal_templates.xml',      
         'views/project_portal_tasks.xml',      

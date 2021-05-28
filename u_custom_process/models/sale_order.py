@@ -10,6 +10,11 @@ PERIODS = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'y
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    sub_template_id = fields.Many2one(
+        'sale.subscription.template',
+        'Subscription template'
+    )
+
     def write(self, vals):
         older_price = sum(x.purchase_price for x in self.order_line)
         margin = self.margin
