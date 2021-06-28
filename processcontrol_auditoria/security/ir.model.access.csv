@@ -2,4 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sale_order_subscription_report,Reporte Sale Order Suscripcion,processcontrol_auditoria.model_sale_order_subscription_report,,1,1,1,1
 access_sale_order_cost_zero,Reporte Sale Order Costo en Cero,processcontrol_auditoria.model_sale_order_cost_zero,,1,1,1,1
 access_project_without_sale_order_item,Project Without Sale Order Item,processcontrol_auditoria.model_project_without_sale_order_item,,1,1,1,1
-access_descargar_hojas,Descargar hojas,processcontrol_sale_order.model_descargar_hojas,,1,1,1,1
+access_descargar_hojas,Descargar hojas,processcontrol_auditoria.model_descargar_hojas,,1,1,1,1
