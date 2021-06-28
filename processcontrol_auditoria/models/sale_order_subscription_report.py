@@ -57,7 +57,7 @@ class sale_order_subscription_report(models.TransientModel):
 
     def get_subscription_without_sales(self):
         subscription_without_sales = []
-        in_process_stage_id = self.env['sale.subscription.stage'].search([('category', '=', 'progress')], limit=1).id
+        in_process_stage_id = self.env['sale.subscription.stage'].search([('sequence', '=', '1')], limit=1).id
         subscriptions = self.env['sale.subscription'].search([('stage_id', '=', in_process_stage_id), ('date_start', '<=', self.stop), '|', ('date', '>=', self.start), ('date', '=', False)])
         for sub in subscriptions:
             so_count = 0
