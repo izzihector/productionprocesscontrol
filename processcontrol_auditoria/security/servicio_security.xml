@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="module_audit_category" model="ir.module.category">
+        <field name="name">Audit</field>
+        <field name="sequence">21</field>
+    </record>
+
+    <record id="audit_group" model="res.groups">
+        <field name="name">See Audit Reports</field>
+        <field name="category_id" ref="module_audit_category"/>
+    </record>
+
+
+</odoo>
