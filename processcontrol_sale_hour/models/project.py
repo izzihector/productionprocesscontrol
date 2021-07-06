@@ -17,7 +17,7 @@ class Project(models.Model):
             for sol in project_sol:
                 if sol.product_uom:
                     if 'hora' in sol.product_uom.name:
-                        total_sh += float(sol.product_uom.name.rsplit(' hora')[0]) * sol.product_uom_qty
+                        total_sh += float(sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.product_uom_qty
                     else:
                         total_sh += sol.product_uom_qty
             project.total_sale_hour = total_sh
