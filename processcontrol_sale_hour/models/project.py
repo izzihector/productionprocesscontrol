@@ -26,7 +26,7 @@ class Project(models.Model):
     def _compute_total_work_hour(self):
         for project in self:
             total_wh = 0
-            aal_obj = self.env['account_analytic_line']
+            aal_obj = self.env['account.analytic.line']
             project_aal = aal_obj.search([('project_id', '=', project.id)])
             for aal in project_aal:
                 total_wh += aal.unit_amount
