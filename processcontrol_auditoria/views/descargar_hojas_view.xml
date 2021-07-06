@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="export_document" model="ir.ui.view">
+            <field name="name">Descargar Archivo</field>
+            <field name="model">descargar.hojas</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Hoja de Precios">
+                    <group>
+                        <field name="archivo_nombre" readonly="1"/>
+                        <field name="archivo_contenido" filename="archivo_nombre" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button string="Cerrar Ventana" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
