@@ -18,6 +18,7 @@
     # always loaded
     'data': [
         'views/project_view.xml',
+        'views/project_task_view.xml',
     ]
     # only loaded in demonstration mode
     # 'demo': [

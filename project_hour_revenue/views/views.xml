@@ -45,7 +45,7 @@
             <field name="priority">30</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='tag_ids']" position="after">
-                    <field name="horas_restantes_produccion_proyecto" string="Horas restantes proyecto"/>
+                    <field name="horas_restantes_produccion_proyecto" string="Horas restantes proyecto" invisible="True"/>
               </xpath>
             </field>
         </record>

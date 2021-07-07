@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_project_view_inherit_taks_hours" model="ir.ui.view">
+            <field name="name">project.project.view.task.form.inherit.hours</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                   <field name="total_sale_hour" widget="timesheet_uom" invisible="True"/>
+                       <field name="total_work_hour" widget="timesheet_uom" invisible="True"/>
+                      <field name="available_hour" widget="timesheet_uom"/>
+              </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
