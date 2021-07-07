@@ -13,7 +13,7 @@
     'version': '14.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'project', 'sale'],
+    'depends': ['base', 'project', 'sale','hr_timesheet'],
 
     # always loaded
     'data': [
