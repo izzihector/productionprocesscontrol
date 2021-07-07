@@ -32,5 +32,11 @@ class Project(models.Model):
                 total_wh += aal.unit_amount
             project.total_work_hour = total_wh
 
+    @api.depends('total_sale_hour', 'total_work_hour')
+    def _compute_available_hour(self):
+        for project in self:
+            project.available_hour = project.total_sale_hour - project.total_work_hour
+
     total_sale_hour = fields.Float(string='Total Sale Hour', compute='_compute_total_sale_hour')
     total_work_hour = fields.Float(string='Total Work Hour', compute='_compute_total_work_hour')
+    available_hour = fields.Float(string='Hours Available', compute='_compute_available_hour')
