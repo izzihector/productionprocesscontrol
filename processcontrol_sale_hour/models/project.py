@@ -76,6 +76,6 @@ class Task(models.Model):
                     total_wh += aal.unit_amount
             task.total_work_hour = total_wh
 
-    available_hour = fields.Float(string='Horas disponibles', compute='_compute_available_hour')
+    available_hour = fields.Float(string='Horas disponibles del proyecto', compute='_compute_available_hour')
     total_sale_hour = fields.Float(string='Horas vendidas', compute='_compute_total_sale_hour')
     total_work_hour = fields.Float(string='Horas trabajadas', compute='_compute_total_work_hour')
