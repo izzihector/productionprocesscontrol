@@ -37,6 +37,6 @@ class Project(models.Model):
         for project in self:
             project.available_hour = project.total_sale_hour - project.total_work_hour
 
-    total_sale_hour = fields.Float(string='Total Sale Hour', compute='_compute_total_sale_hour')
-    total_work_hour = fields.Float(string='Total Work Hour', compute='_compute_total_work_hour')
-    available_hour = fields.Float(string='Hours Available', compute='_compute_available_hour')
+    total_sale_hour = fields.Float(string='Total Horas vendidas', compute='_compute_total_sale_hour')
+    total_work_hour = fields.Float(string='Total horas trabajadas', compute='_compute_total_work_hour')
+    available_hour = fields.Float(string='Total horas disponibles', compute='_compute_available_hour')
