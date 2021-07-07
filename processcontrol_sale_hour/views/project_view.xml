@@ -20,7 +20,7 @@
             <field name="model">project.project</field>
             <field name="inherit_id" ref="hr_timesheet.project_invoice_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@analytic_account_id='partner_id']" position="after">
+                <xpath expr="//field[@name='analytic_account_id']" position="after">
                        <field name="total_sale_hour" widget="timesheet_uom"/>
                        <field name="total_work_hour" widget="timesheet_uom"/>
                       <field name="available_hour" widget="timesheet_uom"/>
