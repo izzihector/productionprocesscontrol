@@ -17,9 +17,9 @@ class Project(models.Model):
             for sol in project_sol:
                 if sol.product_uom:
                     if 'hora' in sol.product_uom.name:
-                        total_sh += float(sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.product_uom_qty
+                        total_sh += float(sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.qty_invoiced
                     else:
-                        total_sh += sol.product_uom_qty
+                        total_sh += sol.qty_invoiced
             project.total_sale_hour = total_sh
 
     @api.multi
@@ -54,9 +54,9 @@ class Task(models.Model):
                 for sol in project_sol:
                     if sol.product_uom:
                         if 'hora' in sol.product_uom.name:
-                            total_sh += float(sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.product_uom_qty
+                            total_sh += float(sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.qty_invoiced
                         else:
-                            total_sh += sol.product_uom_qty
+                            total_sh += sol.qty_invoiced
             task.total_sale_hour = total_sh
 
     @api.depends('total_sale_hour', 'total_work_hour')
@@ -76,6 +76,6 @@ class Task(models.Model):
                     total_wh += aal.unit_amount
             task.total_work_hour = total_wh
 
-    available_hour = fields.Float(string='Horas disponibles', compute='_compute_available_hour')
+    available_hour = fields.Float(string='Horas disponibles del proyecto', compute='_compute_available_hour')
     total_sale_hour = fields.Float(string='Horas vendidas', compute='_compute_total_sale_hour')
     total_work_hour = fields.Float(string='Horas trabajadas', compute='_compute_total_work_hour')
