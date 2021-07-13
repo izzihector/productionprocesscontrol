@@ -74,18 +74,19 @@ class sale_order_cost_zero(models.TransientModel):
     def sale_order_cost_in_zero_report(self):
         if self.exclude_category and not self.category_ids:
             raise UserError(_('Must selected a product category'))
-        sale_order_ids = self.env['sale.order'].search([('date_order', '>=', self.start), ('date_order', '<=', self.stop), ('state', '!=', 'cancel')])
+        sale_order_ids = self.env['sale.order'].search([('date_order', '>=', self.start), ('date_order', '<=', self.stop), ('state', 'not in', ('draft', 'sent', 'cancel'))])
         if not sale_order_ids:
             raise UserError(_('Dont found any Sale Order in that range of dates'))
         sales_info_list = []
         for so in sale_order_ids:
             for sol in so.order_line:
-                if not sol.purchase_price:
-                    if self.exclude_category:
-                        if sol.product_id.categ_id.id not in self.category_ids.ids:
+                if sol.product_id:
+                    if not sol.purchase_price:
+                        if self.exclude_category:
+                            if sol.product_id.categ_id.id not in self.category_ids.ids:
+                                sales_info_list.append([so.name, so.partner_id.name, so.date_order.strftime("%d/%m/%Y"), sol.product_id.name, sol.product_id.categ_id.name, sol.price_unit, sol.price_subtotal])
+                        else:
                             sales_info_list.append([so.name, so.partner_id.name, so.date_order.strftime("%d/%m/%Y"), sol.product_id.name, sol.product_id.categ_id.name, sol.price_unit, sol.price_subtotal])
-                    else:
-                        sales_info_list.append([so.name, so.partner_id.name, so.date_order.strftime("%d/%m/%Y"), sol.product_id.name, sol.product_id.categ_id.name, sol.price_unit, sol.price_subtotal])
         if not sales_info_list:
             raise UserError(_('Dont found any Sale Order with lines without cost in that range of dates'))
         excel = self.sale_order_cost_in_zero_excel(sales_info_list)
