@@ -23,7 +23,7 @@
         />
 
         <menuitem
-                id="menu_separetor_proyect_report"
+                id="menu_separator_project_report"
                 name="Proyectos"
                 sequence="2"
                 parent="menu_reportes_main"

@@ -40,7 +40,7 @@
         <menuitem
                 id="menu_project_without_sale_order_item"
                 name="Proyecto sin Pedido de Ventas"
-                parent="menu_separetor_proyect_report"
+                parent="menu_separator_project_report"
                 action="view_project_without_sale_order_item"
                 groups="processcontrol_auditoria.audit_group"
         />
