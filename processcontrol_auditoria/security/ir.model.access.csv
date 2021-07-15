@@ -3,3 +3,4 @@ access_sale_order_subscription_report,Reporte Sale Order Suscripcion,processcont
 access_sale_order_cost_zero,Reporte Sale Order Costo en Cero,processcontrol_auditoria.model_sale_order_cost_zero,,1,1,1,1
 access_project_without_sale_order_item,Project Without Sale Order Item,processcontrol_auditoria.model_project_without_sale_order_item,,1,1,1,1
 access_descargar_hojas,Descargar hojas,processcontrol_auditoria.model_descargar_hojas,,1,1,1,1
+access_time_sheet_analytic_account,Time Sheet Analytic Account,processcontrol_auditoria.model_time_sheet_analytic_account,,1,1,1,1

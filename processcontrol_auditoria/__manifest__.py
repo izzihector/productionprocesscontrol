@@ -26,6 +26,7 @@
         'views/sale_order_subscription_report_views.xml',
         'views/sale_order_cost_in_zero_views.xml',
         'views/project_without_sale_order_item_view.xml',
+        'views/time_sheet_analytic_account_view.xml',
         'views/descargar_hojas_view.xml',
     ]
     # only loaded in demonstration mode
