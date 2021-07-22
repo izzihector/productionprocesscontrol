@@ -68,7 +68,7 @@ class time_sheet_analytic_account(models.TransientModel):
         ts_info_list = []
         for ts in time_sheet:
             project = ts.project_id
-            if project and ts.account_id != project.analytic_account_id:
+            if project and project.active and ts.account_id != project.analytic_account_id:
                 ts_info_list.append([project.name, project.analytic_account_id.name if project.analytic_account_id else 'No tiene',
                                     ts.task_id.name if ts.task_id else 'No tiene', ts.name if ts.name else 'No tiene',
                                     ts.account_id.name if ts.account_id else 'No tiene'])

@@ -73,7 +73,7 @@ class project_without_sale_order_item(models.TransientModel):
         if self.exclude_project:
             projects = project_obj.search([('sale_line_id', '=', False), ('id', 'not in', self.projects_ids.ids)])
         else:
-            projects = project_obj.search([('sale_line_id', '=', False)])
+            projects = project_obj.search([('sale_line_id', '=', False), ('active', '=', True)])
         if self.type_report == 'project' and not projects:
             raise UserError(_('Dont found any Project without Sales Order Item'))
         project_info_list = []
@@ -131,7 +131,7 @@ class project_without_sale_order_item(models.TransientModel):
         if self.exclude_project:
             tasks = task_obj.search([('sale_line_id', '=', False), ('project_id', 'not in', self.projects_ids.ids)])
         else:
-            tasks = task_obj.search([('sale_line_id', '=', False)])
+            tasks = task_obj.search([('sale_line_id', '=', False), ('active', '=', True)])
         if self.type_report == 'task' and not tasks:
             raise UserError(_('Dont found any Tasks without Sales Order Item'))
         task_info_list = []
@@ -208,15 +208,16 @@ class project_without_sale_order_item(models.TransientModel):
             raise UserError(_('Dont found any time_sheets without Sales Order Item'))
         time_sheet_info_list = []
         for ts in time_sheet:
-            info = []
-            info.append(ts.date.strftime("%d/%m/%Y"))
-            info.append(ts.project_id.name if ts.project_id else 'No tiene')
-            info.append(ts.task_id.name if ts.task_id else 'No tiene')
-            info.append(ts.helpdesk_ticket_id.name if ts.helpdesk_ticket_id else 'No tiene')
-            info.append(ts.name)
-            info.append(ts.x_cliente_del_ticket.name if ts.x_cliente_del_ticket else 'No tiene')
-            info.append(dict(ts._fields['timesheet_invoice_type'].selection).get(ts.timesheet_invoice_type) if ts.timesheet_invoice_type else 'No tiene')
-            time_sheet_info_list.append(info)
+            if (not ts.project_id or ts.project_id.active) and (not ts.task_id or ts.task_id.active):
+                info = []
+                info.append(ts.date.strftime("%d/%m/%Y"))
+                info.append(ts.project_id.name if ts.project_id else 'No tiene')
+                info.append(ts.task_id.name if ts.task_id else 'No tiene')
+                info.append(ts.helpdesk_ticket_id.name if ts.helpdesk_ticket_id else 'No tiene')
+                info.append(ts.name)
+                info.append(ts.x_cliente_del_ticket.name if ts.x_cliente_del_ticket else 'No tiene')
+                info.append(dict(ts._fields['timesheet_invoice_type'].selection).get(ts.timesheet_invoice_type) if ts.timesheet_invoice_type else 'No tiene')
+                time_sheet_info_list.append(info)
         if time_sheet_info_list:
             self.time_sheet_without_sale_order_item_excel(wb, time_sheet_info_list)
 
