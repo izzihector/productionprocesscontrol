@@ -73,7 +73,7 @@ class project_without_sale_order_item(models.TransientModel):
         if self.exclude_project:
             projects = project_obj.search([('sale_line_id', '=', False), ('id', 'not in', self.projects_ids.ids)])
         else:
-            projects = project_obj.search([('sale_line_id', '=', False)])
+            projects = project_obj.search([('sale_line_id', '=', False), ('active', '=', True)])
         if self.type_report == 'project' and not projects:
             raise UserError(_('Dont found any Project without Sales Order Item'))
         project_info_list = []
@@ -131,7 +131,7 @@ class project_without_sale_order_item(models.TransientModel):
         if self.exclude_project:
             tasks = task_obj.search([('sale_line_id', '=', False), ('project_id', 'not in', self.projects_ids.ids)])
         else:
-            tasks = task_obj.search([('sale_line_id', '=', False)])
+            tasks = task_obj.search([('sale_line_id', '=', False), ('active', '=', True)])
         if self.type_report == 'task' and not tasks:
             raise UserError(_('Dont found any Tasks without Sales Order Item'))
         task_info_list = []
