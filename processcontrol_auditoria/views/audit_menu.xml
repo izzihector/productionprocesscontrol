@@ -3,9 +3,8 @@
     <data>
         <menuitem
                 id="menu_audit_root"
-                name="Auditoria"
+                name="Audit"
                 groups="processcontrol_auditoria.audit_group"
-                web_icon="processcontrol_auditoria,static/description/auditoria.jpg"
         />
 
         <menuitem
@@ -16,7 +15,7 @@
         />
 
         <menuitem
-                id="menu_separator_sale_order_report"
+                id="menu_separetor_sale_order_report"
                 name="Pedido de venta"
                 sequence="1"
                 parent="menu_reportes_main"

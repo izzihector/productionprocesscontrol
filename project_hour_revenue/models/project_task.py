@@ -26,7 +26,7 @@ class ProjectTask(models.Model):
         PT = self.env['project.task']
         SOL = self.env['sale.order.line']
         SSL = self.env['sale.subscription.line']
-        AIL = self.env['account.move.line']
+        AIL = self.env['account.invoice.line']
 
         horas_restantes_produccion = 0
         total_worked_hours = 0

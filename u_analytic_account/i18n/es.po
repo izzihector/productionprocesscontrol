@@ -41,10 +41,3 @@ msgstr "Es grupo de Compra-Venta"
 msgid "Sale Order"
 msgstr "Pedido de venta"
 
-#. module: u_analytic_account
-#: model:ir.model.fields,field_description:u_analytic_account.field_account_bank_statement_line__analytic_account_id
-#: model:ir.model.fields,field_description:u_analytic_account.field_account_move__analytic_account_id
-#: model:ir.model.fields,field_description:u_analytic_account.field_account_payment__analytic_account_id
-msgid "Analytic account"
-msgstr "Cuenta analítica"
-

@@ -7,9 +7,9 @@ from odoo.exceptions import ValidationError
 
 
 class HelpdeskTicket(models.Model):
-    _inherit = 'helpdesk.ticket'
+    _inherit = ['helpdesk.ticket']
 
-    #@api.multi
+    @api.multi
     def create_ticket(self):
         return {
             'name': _('Nueva Gestión'),

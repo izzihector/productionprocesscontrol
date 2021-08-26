@@ -19,9 +19,9 @@
 
     'category': 'Sale',
 
-    'version': '14.0.0',
+    'version': '1.0',
 
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale', 'sale_timesheet', 'sale_management'],
 
     'data': [
             'views/inherit_sale_order_views.xml',

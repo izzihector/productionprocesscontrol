@@ -19,11 +19,11 @@
 
     <report 
             id="action_report_services_part"
-            string="Informe de tareas"
+            string="Task Report"
            	model="project.task" 
             report_type="qweb-pdf"
-            file="u_project_report.report_pdf_services_part"
+            file="u_prpject_report.report_pdf_services_part" 
             name="u_project_report.report_pdf_services_part"
-            print_report_name="'Informe de tareas'"
+            print_report_name="'Task Report'"
         />
 </odoo>

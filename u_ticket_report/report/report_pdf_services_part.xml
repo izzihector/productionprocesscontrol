@@ -19,11 +19,11 @@
 
     <report 
             id="action_report_ticket"
-            string="Informe de tickets"
+            string="Tickets Report"
            	model="helpdesk.ticket" 
             report_type="qweb-pdf"
             file="u_ticket_report.report_pdf_services_part" 
             name="u_ticket_report.report_pdf_services_part"
-            print_report_name="'Informe de tickets'"
+            print_report_name="'Tickets Report'"
         />
 </odoo>

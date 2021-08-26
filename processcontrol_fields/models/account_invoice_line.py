@@ -6,26 +6,23 @@ from odoo.exceptions import ValidationError
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = 'account.move.line'
+    _inherit = ['account.invoice.line']
 
     project_id = fields.Many2one('project.project', string='Proyecto', required=False)
 
+    @api.model
+    def create(self, vals):
+        project_id = False
+        try:
+            if (vals['project_id']):
+                project_id = vals['project_id']
+        except:
+            project_id = False
 
-    # PORQUE ESTO
-    # @api.model
-    # def create(self, vals):
-    #     project_id = vals.get('project_id', False)
-    #     if 'project_id' in vals:
-    #     try:
-    #         if (vals['project_id']):
-    #             project_id = vals['project_id']
-    #     except:
-    #         project_id = False
+       # else:
+            #raise exceptions.UserError(_("No se detecta origen"))
 
-    #    # else:
-    #         #raise exceptions.UserError(_("No se detecta origen"))
+        invoice_lines = super(AccountInvoiceLine, self).create(vals)
+        invoice_lines.write({'project_id': project_id})
 
-    #     invoice_lines = super(AccountInvoiceLine, self).create(vals)
-    #     # invoice_lines.write({'project_id': project_id})
-
-    #     return invoice_lines 
+        return invoice_lines

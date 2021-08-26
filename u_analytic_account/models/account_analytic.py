@@ -10,6 +10,9 @@ class AccountAnalyticGroup(models.Model):
 
     @api.model
     def check_sale_purchase_group(self):
+        """
+        Esta funcion debe devolver error si no tenemos grupo marcado
+        """
         sale_purchase_group = self.search([('is_sale_purchase_group', '=', True)])
         if not sale_purchase_group:
             raise ValidationError(_('Error. A analytic group  must be defined as Sale-Purchase group'))
@@ -22,7 +25,7 @@ class AccountAnalyticGroup(models.Model):
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
-    #@api.multi
+    @api.multi
     def name_get(self):
         res = []
         for analytic in self:

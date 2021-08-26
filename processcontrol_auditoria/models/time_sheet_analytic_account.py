@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import fields, models, _, api
 from odoo.exceptions import UserError
 from xlwt import *
 from io import BytesIO
 import base64
-import pdb
 
 
 class time_sheet_analytic_account(models.TransientModel):
@@ -55,6 +54,7 @@ class time_sheet_analytic_account(models.TransientModel):
         return wb
 
     # Button
+    @api.multi
     def time_sheet_analytic_account_report(self):
         if self.exclude_project and not self.projects_ids:
             raise UserError(_('Must selected a project'))
@@ -64,7 +64,7 @@ class time_sheet_analytic_account(models.TransientModel):
         else:
             time_sheet = aal_obj.search([])
         if not time_sheet:
-            raise UserError (_("Don't found any time sheet"))
+            raise UserError(_("Don't found any time sheet"))
         ts_info_list = []
         for ts in time_sheet:
             project = ts.project_id

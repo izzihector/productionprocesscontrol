@@ -6,6 +6,6 @@ from odoo.exceptions import UserError, ValidationError
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'sale.subscription'
+    _inherit = ['sale.subscription']
 
     termino_pago = fields.Many2one('account.payment.term', string='Terminos de Pago', required=False)

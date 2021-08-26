@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import fields, models, _,api
 from odoo.exceptions import UserError
 from xlwt import *
 from io import BytesIO
@@ -57,7 +57,7 @@ class sale_order_subscription_report(models.TransientModel):
 
     def get_subscription_without_sales(self):
         subscription_without_sales = []
-        in_process_stage_id = self.env['sale.subscription.stage'].search([('category', '=', 'progress')], limit=1).id
+        in_process_stage_id = self.env['sale.subscription.stage'].search([('sequence', '=', '1')], limit=1).id
         subscriptions = self.env['sale.subscription'].search([('stage_id', '=', in_process_stage_id), ('date_start', '<=', self.stop), '|', ('date', '>=', self.start), ('date', '=', False)])
         for sub in subscriptions:
             so_count = 0
@@ -169,11 +169,12 @@ class sale_order_subscription_report(models.TransientModel):
 
         return wb
 
+    @api.multi
     def sale_order_subscription_report(self):
         subscription_type_id = self.env['sale.order.type'].search([('name', '=', u'Suscripción')], limit=1)
         if not subscription_type_id:
             raise UserError(_('Dont found the sale order type Subscription'))
-        sale_order_with_subscription_ids = self.env['sale.order'].search([('sale_order_type_id', '=', subscription_type_id.id), ('date_order', '>=', self.start), ('date_order', '<=', self.stop), ('state', 'not in', ('draft', 'sent', 'cancel'))])
+        sale_order_with_subscription_ids = self.env['sale.order'].search([('sale_order_type_id', '=', subscription_type_id.id), ('date_order', '>=', self.start), ('date_order', '<=', self.stop), ('state', '!=', 'cancel')])
         if not sale_order_with_subscription_ids:
             raise UserError(_('Dont found any Sale Order from subscription in that range of dates'))
         sales_info_list = []

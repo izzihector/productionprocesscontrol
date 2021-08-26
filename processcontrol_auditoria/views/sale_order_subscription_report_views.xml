@@ -39,7 +39,7 @@
         <menuitem
                 id="menu_sale_order_subscription_report"
                 name="Pedido de venta de subscripcion"
-                parent="menu_separator_sale_order_report"
+                parent="menu_separetor_sale_order_report"
                 action="view_sale_order_subscription_report"
                 groups="processcontrol_auditoria.audit_group"
         />

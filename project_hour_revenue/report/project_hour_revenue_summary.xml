@@ -60,7 +60,7 @@
                                         <span t-esc="project['x_studio_departamento']"/>
                                     </td>
                                     <td>
-                                        <span t-esc="project['comercial_id.name']"/>
+                                        <span t-esc="project['comercial']"/>
                                     </td>
                                 </tr>
                             </t>

@@ -53,11 +53,6 @@ msgstr "<span>Desc.(%)</span>"
 
 #. module: w_unoobi_invoice_report_process
 #: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
-msgid "<span>Disc. Unit Price</span>"
-msgstr "<span>Desc. Precio Unit.</span>"
-
-#. module: w_unoobi_invoice_report_process
-#: model_terms:ir.ui.view,arch_db:w_unoobi_invoice_report_process.inherit_report_invoice_document
 msgid "<span>Quantity</span>"
 msgstr "<span>Cantidad</span>"
 

@@ -19,7 +19,7 @@
 
     'category': 'Extra Tools',
 
-    'version': '14.0.0',
+    'version': '1.0',
 
     'depends': ['base', 'account'],
 

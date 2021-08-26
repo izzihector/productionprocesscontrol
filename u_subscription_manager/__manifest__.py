@@ -3,13 +3,13 @@
 
 {
     'name': 'Subscriptions management',
-    'version': '14.0.0',
+    'version': '1.0',
     'category': 'Sale',
     'description': """
 Modifications to subscriptions
 ========================================
     """,
-    'depends': ['base', 'sale_subscription', 'project', 'timesheet_grid', 'project_forecast', 'sale_margin', 'helpdesk','sale_project','sale','helpdesk_timesheet'],
+    'depends': ['base', 'sale_subscription', 'project', 'timesheet_grid', 'project_forecast', 'sale_margin', 'helpdesk'],
     'author': 'Unoobi',
     'website': 'http://www.unoobi.com',
     'data': [

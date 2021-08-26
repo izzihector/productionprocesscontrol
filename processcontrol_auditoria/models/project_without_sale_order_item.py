@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from xlwt import *
 from io import BytesIO
@@ -21,7 +21,7 @@ class project_without_sale_order_item(models.TransientModel):
         ('time_sheet', 'Parte de horas')], string='Tipo de Informe', required=True, default='all')
     exclude_project = fields.Boolean(string='Excluir Proyecto')
     description = fields.Text(
-        default='Reporte que según el Tipo de Informe que se seleccione realiza diferentes operaciones sobre los Proyectos, \n'
+        default='Reporte que según el tipo de informe que se seleccione realiza diferentes operaciones sobre los Proyectos, \n'
                 'Tareas y/o Parte de horas, si seleccionamos excluir proyectos y agregamos proyectos, estos se filtraran en el reporte\n'
                 'ya sea en ellos mismos o en las Tareas y Partes de Hora que pertenezcan.\n'
                 'Tipo de Informe: \n'
@@ -36,43 +36,37 @@ class project_without_sale_order_item(models.TransientModel):
 
     # Project
     @staticmethod
-    def get_project_ws_header(wb, ws_count):
+    def project_without_sale_order_item_excel(wb, project_info_list):
+        row = 0
         title = easyxf('font: name Calibri, bold True; alignment: horizontal left')
-        if ws_count:
-            ws_name = 'Proyectos sin Pedido de Ventas (' + str(ws_count) + ')'
-        else:
-            ws_name = 'Proyectos sin Pedido de Ventas'
-        ws = wb.add_sheet(ws_name, cell_overwrite_ok=True)
-        ws.write(0, 0, "Nombre del proyecto", title)
-        ws.write(0, 1, "Cliente", title)
-        ws.write(0, 2, "Responsable del proyecto", title)
-        ws.write(0, 3, "Tipo de proyecto", title)
+        lines = easyxf('font: name Calibri; alignment: horizontal left')
+        lines_error = easyxf('font: name Calibri; alignment: horizontal left; pattern: pattern solid,'
+                             ' fore_colour light_yellow;')
+        ws = wb.add_sheet('Proyectos sin Pedido de Ventas', cell_overwrite_ok=True)
+        ws.write(row, 0, "Nombre del proyecto", title)
+        ws.write(row, 1, "Cliente", title)
+        ws.write(row, 2, "Responsable del proyecto", title)
+        ws.write(row, 3, "Tipo de proyecto", title)
+        for info in project_info_list:
+            row += 1
+            ws.write(row, 0, info[0], lines)
+            if info[1] != 'No tiene':
+                ws.write(row, 1, info[1], lines)
+            else:
+                ws.write(row, 1, info[1], lines_error)
+            if info[2] != 'No tiene':
+                ws.write(row, 2, info[2], lines)
+            else:
+                ws.write(row, 2, info[2], lines_error)
+            if info[3] != 'No tiene':
+                ws.write(row, 3, info[3], lines)
+            else:
+                ws.write(row, 3, info[3], lines_error)
 
         ws.col(0).width += 4000
         ws.col(1).width += 3000
         ws.col(2).width += 4000
         ws.col(3).width += 3000
-
-        return ws
-
-    def project_without_sale_order_item_excel(self, wb, project_info_list):
-        ws_count = 0
-        row = 0
-        lines = easyxf('font: name Calibri; alignment: horizontal left')
-        lines_error = easyxf('font: name Calibri; alignment: horizontal left; pattern: pattern solid,'
-                             ' fore_colour light_yellow;')
-        ws = self.get_project_ws_header(wb, ws_count)
-        ws_count = 2
-        for info in project_info_list:
-            row += 1
-            if row == 30000:
-                ws = self.get_project_ws_header(wb, ws_count)
-                row = 1
-                ws_count += 1
-            ws.write(row, 0, info[0], lines)
-            ws.write(row, 1, info[1], lines if info[1] != 'No tiene' else lines_error)
-            ws.write(row, 2, info[2], lines if info[2] != 'No tiene' else lines_error)
-            ws.write(row, 3, info[3], lines if info[3] != 'No tiene' else lines_error)
 
     def get_project_without_sale_order_item(self, wb):
         project_obj = self.env['project.project']
@@ -97,46 +91,40 @@ class project_without_sale_order_item(models.TransientModel):
 
     # Task
     @staticmethod
-    def get_task_ws_header(wb, ws_count):
+    def task_without_sale_order_item_excel(wb, task_info_list):
+        row = 0
         title = easyxf('font: name Calibri, bold True; alignment: horizontal left')
-        if ws_count:
-            ws_name = 'Tareas sin Pedido de Ventas (' + str(ws_count) + ')'
-        else:
-            ws_name = 'Tareas sin Pedido de Ventas'
-        ws = wb.add_sheet(ws_name, cell_overwrite_ok=True)
-        ws.write(0, 0, "Nombre del proyecto", title)
-        ws.write(0, 1, "Cliente", title)
-        ws.write(0, 2, "Pedido de venta del proyecto", title)
-        ws.write(0, 3, "Nombre tarea", title)
-        ws.write(0, 4, "Asignado a", title)
+        lines = easyxf('font: name Calibri; alignment: horizontal left')
+        lines_error = easyxf('font: name Calibri; alignment: horizontal left; pattern: pattern solid,'
+                             ' fore_colour light_yellow;')
+        ws = wb.add_sheet('Tareas sin Pedido de Ventas', cell_overwrite_ok=True)
+        ws.write(row, 0, "Nombre del proyecto", title)
+        ws.write(row, 1, "Cliente", title)
+        ws.write(row, 2, "Pedido de venta del proyecto", title)
+        ws.write(row, 3, "Nombre tarea", title)
+        ws.write(row, 4, "Asignado a", title)
+        for info in task_info_list:
+            row += 1
+            ws.write(row, 0, info[0], lines)
+            if info[1] != 'No tiene':
+                ws.write(row, 1, info[1], lines)
+            else:
+                ws.write(row, 1, info[1], lines_error)
+            if info[2] != 'No tiene':
+                ws.write(row, 2, info[2], lines)
+            else:
+                ws.write(row, 2, info[2], lines_error)
+            ws.write(row, 3, info[3], lines)
+            if info[4] != 'No tiene':
+                ws.write(row, 4, info[4], lines)
+            else:
+                ws.write(row, 4, info[4], lines_error)
 
         ws.col(0).width += 4000
         ws.col(1).width += 3000
         ws.col(2).width += 5000
         ws.col(3).width += 6000
         ws.col(4).width += 3000
-
-        return ws
-
-    def task_without_sale_order_item_excel(self, wb, task_info_list):
-        ws_count = 0
-        row = 0
-        lines = easyxf('font: name Calibri; alignment: horizontal left')
-        lines_error = easyxf('font: name Calibri; alignment: horizontal left; pattern: pattern solid,'
-                             ' fore_colour light_yellow;')
-        ws = self.get_task_ws_header(wb, ws_count)
-        ws_count = 2
-        for info in task_info_list:
-            row += 1
-            if row == 30000:
-                ws = self.get_task_ws_header(wb, ws_count)
-                row = 1
-                ws_count += 1
-            ws.write(row, 0, info[0], lines)
-            ws.write(row, 1, info[1], lines if info[1] != 'No tiene' else lines_error)
-            ws.write(row, 2, info[2], lines if info[2] != 'No tiene' else lines_error)
-            ws.write(row, 3, info[3], lines)
-            ws.write(row, 4, info[4], lines if info[4] != 'No tiene' else lines_error)
 
     def get_task_without_sale_order_item(self, wb):
         task_obj = self.env['project.task']
@@ -163,20 +151,44 @@ class project_without_sale_order_item(models.TransientModel):
 
     # Time Sheet
     @staticmethod
-    def get_time_sheet_ws_header(wb, ws_count):
+    def time_sheet_without_sale_order_item_excel(wb, time_sheet_info_list):
+        row = 0
         title = easyxf('font: name Calibri, bold True; alignment: horizontal left')
-        if ws_count:
-            ws_name = 'Horas Ventas (' + str(ws_count) + ')'
-        else:
-            ws_name = 'Horas Ventas'
-        ws = wb.add_sheet(ws_name, cell_overwrite_ok=True)
-        ws.write(0, 0, "Fecha", title)
-        ws.write(0, 1, "Proyecto", title)
-        ws.write(0, 2, "Tarea", title)
-        ws.write(0, 3, "Tiquete del Servicio de Asistencia", title)
-        ws.write(0, 4, "Descripción", title)
-        ws.write(0, 5, "Cliente del ticket", title)
-        ws.write(0, 6, "Tipo facturable", title)
+        lines = easyxf('font: name Calibri; alignment: horizontal left')
+        lines_error = easyxf('font: name Calibri; alignment: horizontal left; pattern: pattern solid,'
+                             ' fore_colour light_yellow;')
+        ws = wb.add_sheet('Parte de Horas sin Pedido de Ventas', cell_overwrite_ok=True)
+        ws.write(row, 0, "Fecha", title)
+        ws.write(row, 1, "Proyecto", title)
+        ws.write(row, 2, "Tarea", title)
+        ws.write(row, 3, "Tiquete del Servicio de Asistencia", title)
+        ws.write(row, 4, "Descripción", title)
+        ws.write(row, 5, "Cliente del ticket", title)
+        ws.write(row, 6, "Tipo facturable", title)
+        for info in time_sheet_info_list:
+            row += 1
+            ws.write(row, 0, info[0], lines)
+            if info[1] != 'No tiene':
+                ws.write(row, 1, info[1], lines)
+            else:
+                ws.write(row, 1, info[1], lines_error)
+            if info[2] != 'No tiene':
+                ws.write(row, 2, info[2], lines)
+            else:
+                ws.write(row, 2, info[2], lines_error)
+            if info[3] != 'No tiene':
+                ws.write(row, 3, info[3], lines)
+            else:
+                ws.write(row, 3, info[3], lines_error)
+            ws.write(row, 4, info[4], lines)
+            if info[5] != 'No tiene':
+                ws.write(row, 5, info[5], lines)
+            else:
+                ws.write(row, 5, info[5], lines_error)
+            if info[6] != 'No tiene':
+                ws.write(row, 6, info[6], lines)
+            else:
+                ws.write(row, 5, info[5], lines_error)
 
         ws.col(0).width += 3000
         ws.col(1).width += 4000
@@ -185,31 +197,6 @@ class project_without_sale_order_item(models.TransientModel):
         ws.col(4).width += 8000
         ws.col(5).width += 3000
         ws.col(6).width += 3000
-
-        return ws
-
-    def time_sheet_without_sale_order_item_excel(self, wb, time_sheet_info_list):
-        ws_count = 0
-        row = 0
-        lines = easyxf('font: name Calibri; alignment: horizontal left')
-        lines_error = easyxf('font: name Calibri; alignment: horizontal left; pattern: pattern solid,'
-                             ' fore_colour light_yellow;')
-        ws = self.get_time_sheet_ws_header(wb, ws_count)
-        ws_count = 2
-        for info in time_sheet_info_list:
-            row += 1
-            if row == 30000:
-                break
-                ws = self.get_time_sheet_ws_header(wb, ws_count)
-                row = 1
-                ws_count += 1
-            ws.write(row, 0, info[0], lines)
-            ws.write(row, 1, info[1], lines if info[1] != 'No tiene' else lines_error)
-            ws.write(row, 2, info[2], lines if info[2] != 'No tiene' else lines_error)
-            ws.write(row, 3, info[3], lines if info[3] != 'No tiene' else lines_error)
-            ws.write(row, 4, info[4], lines)
-            ws.write(row, 5, info[5], lines if info[5] != 'No tiene' else lines_error)
-            ws.write(row, 6, info[6], lines if info[6] != 'No tiene' else lines_error)
 
     def get_time_sheet_without_sale_order_item(self, wb):
         aal_obj = self.env['account.analytic.line']
@@ -237,6 +224,7 @@ class project_without_sale_order_item(models.TransientModel):
         return time_sheet_info_list
 
     # Button
+    @api.multi
     def project_without_sale_order_item_report(self):
         if self.exclude_project and not self.projects_ids:
             raise UserError(_('Must selected a project'))
@@ -261,10 +249,6 @@ class project_without_sale_order_item(models.TransientModel):
         data = fp.read()
         fp.close()
         data_to_save = base64.encodebytes(data)
-        self.env.cr.execute("""
-                    DELETE
-                    FROM descargar_hojas;
-                """)
         wiz_id = self.env['descargar.hojas'].create({'archivo_nombre': file_name, 'archivo_contenido': data_to_save})
         return {
             'name': "Descargar Archivo",

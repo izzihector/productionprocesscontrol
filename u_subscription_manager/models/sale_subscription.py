@@ -20,7 +20,7 @@ class SaleSubscription(models.Model):
         'Payment Terms'
     )
 
-    def _prepare_renewal_order_values(self, discard_product_ids=False, new_lines_ids=False):
+    def _prepare_renewal_order_values(self):
         res = super(SaleSubscription, self)._prepare_renewal_order_values()
         for index, line in enumerate(res[self.id]['order_line']):
             line[2]['project_id'] = self.recurring_invoice_line_ids[index].project_id.id
@@ -31,22 +31,20 @@ class SaleSubscription(models.Model):
         res[self.id]['sale_order_type_id'] = self.template_id.sale_order_type_id.id
         return res
 
-    #@api.multi
+    @api.multi
     def _recurring_create_invoice(self, automatic=False):
         res = super(SaleSubscription, self)._recurring_create_invoice(automatic=automatic)
         current_date = date.today()
         domain = [('recurring_next_date', '<=', current_date),
-                  '|', ('stage_category', '=', 'progress'),
+                  '|', ('in_progress', '=', True),
                   ('to_renew', '=', True)]
         subscriptions = self.search(domain, limit=250)
         for sub in subscriptions:
             if sub.template_id.payment_mode in ('quotation_sale_order', 'confirmed_sale_order'):
                 values = sub._prepare_renewal_order_values()
                 order_id = self.env['sale.order'].create(values[sub.id])
-                order_id.description = sub.display_name
-                order_id.order_line.subscription_id = sub.id
+                order_id.subscription_id = sub.id
                 order_id.order_line._compute_tax_id()
-                order_id.sub_template_id = sub.template_id.id
 
                 if sub.template_id.payment_mode == 'confirmed_sale_order':
                     order_id.with_context(from_subscription=True).action_confirm()
@@ -132,7 +130,7 @@ class SaleSubscriptionLine(models.Model):
                             product_uom=False)
         return super(SaleSubscriptionLine, self).create(vals_list)
 
-    #@api.multi
+    @api.multi
     def write(self, values):
         if 'display_type' in values and self.filtered(
                 lambda line: line.display_type != values.get('display_type')):
@@ -148,7 +146,7 @@ class SaleSubscriptionTemplate(models.Model):
 
     payment_mode = fields.Selection(
         selection_add=[('quotation_sale_order', "Quotation"),
-                       ('confirmed_sale_order', 'Confirmed Sale Order')], ondelete={'quotation_sale_order': 'set default', 'confirmed_sale_order': 'set default'}
+                       ('confirmed_sale_order', 'Confirmed Sale Order')]
     )
     sale_order_type_id = fields.Many2one(
         'sale.order.type',

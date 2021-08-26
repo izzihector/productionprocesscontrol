@@ -7,8 +7,19 @@
             <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='planned_hours']" position="after">
-                    <field name="sales_hours" readonly="1" widget="float_time" invisible="1"/>
+                    <field name="sales_hours" readonly="1" widget="float_time"/>
 <!--                    <field name="was_changed" />-->
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_inherit_project_view_sales_hour_unoobi_form">
+            <field name="name">view.inherit.view.project.hours.unoobi.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="hr_timesheet.project_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_account_id']" position="after">
+                    <field name="sales_hours" widget="float_time"/>
+                    <field name="department_id" required="True"/>
                 </xpath>
             </field>
         </record>

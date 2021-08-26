@@ -27,7 +27,8 @@
             <div class="header" t-att-style="report_header_style">
                 <div class="row">
                     <div class="col-3 mb4">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 90px;" alt="Logo"/>
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="140px" height="90px"
+                             alt="Logo"/>
                     </div>
                     <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
                 </div>
@@ -61,8 +62,8 @@
                     Podrá ejercer los derechos de acceso, rectificación, limitación de tratamiento, supresión, portabilidad y oposición/revocación, en los términos que establece la normativa vigente en materia de protección de datos, dirigiendo su petición a la dirección postal C/ AMAEDU VIVES, nº 2 DE MOLINS DE REI, 08750  BARCELONA) o bien a través de correo electrónico RGPD@PROCESSCONTROL.ES.
                     Podrá dirigirse a la Autoridad de Control competente para presentar la reclamación que considere oportuna.
                 </div>
-                <div class="text-center" style="border-top: 2px solid #358FFA; font-size:12px;">
-                    <ul class="list-inline mb4">
+                <div class="text-center" style="border-top: 2px solid #358FFA; font-size:9px;">
+                    <ul class="list-inline" style="padding:0; margin:0;">
                         <li t-if="company.phone" class="list-inline-item">Phone:
                             <span t-field="company.phone"/>
                         </li>
@@ -76,13 +77,18 @@
                                 t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>:
                             <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/>
                         </li>
-                        <div t-if="report_type == 'pdf'" class="text-muted">
-                            Page:
-                            <span class="page"/>
-                            /
-                            <span class="topage"/>
-                        </div>
                     </ul>
+
+                    <div name="additional_information" style="padding:0; margin:0;">
+                        C.I.F./ VAT ID:  F58162116 Sociedad inscrita en el Reg. Territorial de Coop. De la Generalitat de Cat.  Hoja 1757, inscrip. 1ª
+                    </div>
+
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        /
+                        <span class="topage"/>
+                    </div>
                 </div>
             </div>
         </template>
