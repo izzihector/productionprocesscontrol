@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Account Banking Mandate",
+    "name": "Account Banking Mandate ",
     "summary": "Banking mandates",
     "version": "14.0.1.1.0",
     "license": "AGPL-3",
