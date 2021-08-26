@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sale_order_line_view_form_inherit_process" model="ir.ui.view">
+            <field name="name">sale_order_line_view_form_inherit_process</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority">32</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                     <field name="empleado_responsable_id" options="{'no_create_edit': True, 'no_create':True, 'no_open':True}" attrs="{'readonly': [('state', 'in', ('cancel','done'))]}"/>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '=', 'cancel')]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position = "attributes" >
+                    <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+                </xpath >
+                <button name="action_unlock" position="attributes">
+                    <attribute name="groups">w_unoobi_block_sales_orders.group_unlock_sell_orders</attribute>
+                </button>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='analytic_tag_ids']" position = "attributes" >
+                    <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='product_uom_qty']" position = "attributes" >
+                    <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='qty_delivered']" position = "attributes" >
+                    <attribute name="attrs">{'readonly':['|', ('state', '=', 'done'),('qty_delivered_method','!=','manual')],'column_invisible':[('parent.state','not in',('sale','done'))]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='customer_lead']" position = "attributes" >
+                    <attribute name="attrs">{'readonly':['|', ('state', '=', 'done'), ('parent.state','not in',('draft','sent','sale'))]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='price_unit']" position = "attributes" >
+                    <attribute name="attrs">{'readonly':['|', ('state', '=', 'done'), ('qty_invoiced','>',0)]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='tax_id']" position = "attributes" >
+                    <attribute name="attrs">{'readonly':['|', ('state', '=', 'done'), ('qty_invoiced','>',0)]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='discount']" position = "attributes" >
+                    <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='optional_products']/field[@name='sale_order_option_ids']/tree[1]/field[@name='discount']" position = "after" >
+                    <field name="price_subtotal" />
+                </xpath >
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='optional_products']/field[@name='sale_order_option_ids']" position = "after" >
+                    <group name="note_group" col="6" class="mt-2 mt-md-0">
+                        <group colspan="4">
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total_option">
+                            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                <label for="amount_total_option"/>
+                            </div>
+                            <field name="amount_total_option" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <div class="oe_clear"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

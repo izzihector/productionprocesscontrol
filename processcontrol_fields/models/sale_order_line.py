@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 
 class SaleOrderLine(models.Model):
-    _inherit = ['sale.order.line']
+    _inherit = 'sale.order.line'
 
     horas_reales = fields.Float(
         string='Horas Reales',

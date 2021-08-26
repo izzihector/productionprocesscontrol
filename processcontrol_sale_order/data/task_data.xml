@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="task_template" model="ir.config_parameter">
+            <field name="key">processcontrol_sale_order.task_template</field>
+            <field name="value" ref="processcontrol_sale_order.mail_template_task"/>
+        </record>
+
+    </data>
+</odoo>

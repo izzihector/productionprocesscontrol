@@ -57,7 +57,7 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    @api.multi
+    #@api.multi
     def _timesheet_service_generation(self):
         res = super(SaleOrderLine, self)._timesheet_service_generation()
         for line in self:

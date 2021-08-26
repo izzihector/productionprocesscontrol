@@ -11,10 +11,10 @@
     'author': "ProcessControl",
     'website': "http://www.processcontrol.es",
     'category': 'Revenues',
-    'version': '0.1',
+    'version': '14.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale_management','account','sale_subscription','helpdesk', 'project'],
+    'depends': ['base','sale_management','account','sale_subscription','helpdesk', 'project', 'crm'],
 
     # always loaded
     'data': [

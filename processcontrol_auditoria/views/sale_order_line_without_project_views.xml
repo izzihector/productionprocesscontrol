@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_order_line_without_project_report_view_form">
+            <field name="name">sale.order.line.without.project.report.form</field>
+            <field name="model">sale.order.line.without.project.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Pedidos de venta sin proyecto">
+                            <field name="start" style="width: 30%"/>
+                            <field name="stop" style="width: 30%"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <button class="oe_stat_button"
+                                    string="Excel"
+                                    name="sol_without_project_report"
+                                    type="object"
+                                    icon="fa-file-excel-o"
+                                    style="border: 1px solid #7C7BAD; border-radius: 3px; white-space: normal"
+                            />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_sale_order_line_without_project_report">
+            <field name="name">Sale Order Line Without Project Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line.without.project.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_order_line_without_project_report_view_form"/>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem
+                id="menu_sale_order_line_without_project_report"
+                name="Pedidos de venta sin proyecto"
+                parent="menu_separator_sale_order_report"
+                action="view_sale_order_line_without_project_report"
+                groups="processcontrol_auditoria.audit_group"
+        />
+    </data>
+</odoo>

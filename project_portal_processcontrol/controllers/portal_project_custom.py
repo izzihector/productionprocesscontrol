@@ -5,13 +5,13 @@ from collections import OrderedDict
 from operator import itemgetter
 
 from odoo import http, _
-from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 from odoo.tools import groupby as groupbyelem
+import base64
+from odoo.tools import pycompat
 
 from odoo.osv.expression import OR
-
 
 
 class CustomerPortalProcess(CustomerPortal):
@@ -37,15 +37,30 @@ class CustomerPortalProcess(CustomerPortal):
 
         new_task = request.env["project.task"].sudo().create(vals)
 
-        return werkzeug.utils.redirect("my/tasks?filterby=" + kw.get("project_id"))
+        if kw.get('attachment', False):
+            attached_files = request.httprequest.files.getlist('attachment')
+            for attachment in attached_files:
+                attached_file = attachment.read()
+
+                request.env['ir.attachment'].sudo().create({
+                    'name': attachment.filename,
+                    'res_model': 'project.task',
+                    'res_id': new_task.id,
+                    'type': 'binary',
+                    'datas': pycompat.to_text(base64.b64encode(attached_file))
+                })
+
+        return werkzeug.utils.redirect("/my/task/" + str(new_task.id) + "?")
 
     @http.route(['/new/task'], type='http', auth="user", website=True)
     def portal_new_task(self, filterby=None, **kw):
         values={
         }
-
         if not filterby or filterby=='all':
-            return request.render("project.portal_my_tasks", values)
+            return werkzeug.utils.redirect("/my/tasks")
+            #===================================================================
+            # return request.render("project.portal_my_tasks", values)
+            #===================================================================
 
         project=request.env['project.project'].search([('id','=', int(filterby))])
 
@@ -150,7 +165,7 @@ class CustomerPortalProcess(CustomerPortal):
         domain += stage_filters[stageby]['domain']
 
         # archive groups - Default Group By 'create_date'
-        archive_groups = self._get_archive_groups('project.task', domain)
+        # archive_groups = self._get_archive_groups('project.task', domain)
         if date_begin and date_end:
             domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
 
@@ -194,7 +209,7 @@ class CustomerPortalProcess(CustomerPortal):
             'date_end': date_end,
             'grouped_tasks': grouped_tasks,
             'page_name': 'task',
-            'archive_groups': archive_groups,
+            # 'archive_groups': archive_groups,
             'default_url': '/my/tasks',
             'pager': pager,
             'searchbar_sortings': searchbar_sortings,

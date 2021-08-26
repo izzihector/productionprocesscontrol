@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pc_hr_expense_type, Tipo de Gastos ,processcontrol_hr_expenses_type.model_pc_hr_expense_type,,1,1,1,1
+access_pc_plus_productividad, Plus Productividad ,processcontrol_hr_expenses_type.model_pc_plus_productividad,hr.group_hr_manager,1,1,1,1
+access_pc_sage_report, Sage Excel Report ,processcontrol_hr_expenses_type.model_pc_sage_report,hr.group_hr_manager,1,1,1,1

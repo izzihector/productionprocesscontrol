@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="pc_sage_report_view_form">
+            <field name="name">pc.sage.report.form</field>
+            <field name="model">pc.sage.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="SAGE">
+                            <field name="start" style="width: 30%"/>
+                            <field name="stop" style="width: 30%"/>
+                        </group>
+                        <group>
+                            <button class="oe_stat_button"
+                                    string="Excel"
+                                    name="sage_report"
+                                    type="object"
+                                    icon="fa-file-excel-o"
+                                    style="border: 1px solid #7C7BAD; border-radius: 3px; white-space: normal"
+                            />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="view_pc_sage_report">
+            <field name="name">SAGE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.sage.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="pc_sage_report_view_form"/>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem
+                id="menu_separator_sage"
+                name="SAGE"
+                parent="hr_expense.menu_hr_expense_reports"
+                groups="hr.group_hr_manager"
+        />
+
+        <menuitem
+                id="menu_export_excel_sage"
+                name="Exportar Excel"
+                parent="menu_separator_sage"
+                action="view_pc_sage_report"
+                groups="hr.group_hr_manager"
+        />
+
+    </data>
+</odoo>

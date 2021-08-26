@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_task_add_description,Project Task Add Description,processcontrol_sale_order.model_project_task_add_description,,1,1,1,1
+access_helpdesk_ticket_add_description,Helpdesk Ticket Add Description,processcontrol_sale_order.model_helpdesk_ticket_add_description,,1,1,1,1
+access_pc_import_empleado_responsable,Importar Empleados Responsables,processcontrol_sale_order.model_pc_import_empleado_responsable,,1,1,1,1

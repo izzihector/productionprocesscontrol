@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="processcontrol_product_template_form_inherited" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_template_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                    <attribute name="context">{}</attribute>
+              </xpath>
+            </field>
+        </record>
+
+        <record id="processcontrol_product_product_form_inherited" model="ir.ui.view">
+            <field name="name">processcontrol.product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_template_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                    <attribute name="context">{}</attribute>
+              </xpath>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

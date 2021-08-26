@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_data_pbi_rule_user,extractor.pbi.rule.user,model_data_pbi_extractor,base.group_user,0,0,0,0
-access_data_pbi_rule_user,extractor.pbi.rule.user,model_data_pbi_extractor,base.user_admin,1,1,1,1
-=======
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_data_pbi_rule_user,extractor.pbi.rule.user,model_data_pbi_extractor,base.group_user,0,0,0,0
-access_data_pbi_rule_user,extractor.pbi.rule.user,model_data_pbi_extractor,base.user_admin,1,1,1,1
->>>>>>> c891eea8783f47ecd61f27f0c60069bdb220e98f
