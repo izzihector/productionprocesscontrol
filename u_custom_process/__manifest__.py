@@ -6,6 +6,7 @@
 
     'description': """
         Customization to Process
+        1- Modificación Formulario Creación Tickets
     """,
 
     'author': 'UNOOBI ©',
@@ -18,11 +19,31 @@
 
     'depends': [
         'base',
-        'project',
-        'hr_timesheet'
+        'sale_management',
+        'hr',
+        "sale_margin",
+        "helpdesk",
+        "u_ticket_report",
+        "u_project_report",
+        'processcontrol_sale_order',
+        "project_portal_processcontrol"
     ],
 
-    'data': [
-    'views/project_views.xml'
+    'data': [  
+        # === SECURITY
+        "security/ir.model.access.csv",
+        # === VIEWS
+       # "views/helpdesk_views.xml",
+        'views/assets.xml',
+       # 'views/sale_order.xml',
+        'views/hr_departament.xml',
+        'views/portal.xml',
+        'views/project_portal_new_ticket_template.xml',
+        'views/helpdesk_portal_templates.xml',
+        'views/project_portal_tasks.xml',      
+        'wizard/create_task_from_oportunity_view.xml',      
+        'views/res_config_settings_views.xml',      
+        'views/crm_lead_views.xml',
+       # 'views/project_views.xml',
     ],
 }

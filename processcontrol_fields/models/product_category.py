@@ -6,7 +6,7 @@ from odoo.exceptions import ValidationError
 
 
 class ProductCategory(models.Model):
-    _inherit = ['product.category']
+    _inherit = 'product.category'
 
     category_for_project_closed = fields.Boolean(
         string='Categoria para proyecto cerrado',

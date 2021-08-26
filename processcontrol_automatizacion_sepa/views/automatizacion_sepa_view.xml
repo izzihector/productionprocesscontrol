@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="massive_initiative_view" model="ir.ui.view">
+            <field name="name">Mandatos Masivos</field>
+            <field name="model">pc.automatizacion.sepa</field>
+            <field name="arch" type="xml">
+                <form string="Mandatos Masivos">
+                    <group>
+                        <group>
+                            <field name="format"/>
+                            <field name="type"/>
+                            <field name="recurrent_sequence_type" attrs="{'invisible': [('type', '!=', 'recurrent')], 'required': [('type', '=', 'recurrent')]}"/>
+                        </group>
+                        <group>
+                            <field name="scheme"/>
+                            <field name="signature_date"/>
+                        </group>
+                    </group>
+                    <field name="need_partner" invisible="1"/>
+                    <span class="o_form_label" attrs="{'invisible': [('need_partner', '=', False)]}">Clientes</span>
+                    <field name="partner_ids" attrs="{'invisible': [('need_partner', '=', False)]}"/>
+                    <span class="o_form_label">Se crearan por cada cliente seleccionado un mandato si no tiene creado uno</span>
+                    <footer>
+                        <button string="Crear Mandatos" name="create_sepa" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_massive_initiative">
+            <field name="name">Mandatos Masivos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.automatizacion.sepa</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="massive_initiative_view"/>
+            <field name="target">new</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem
+                id="menu_pc_remesas"
+                name="Remesas"
+                parent="account.menu_finance_receivables"
+                sequence="51"
+        />
+
+        <menuitem
+                id="menu_massive_initiative"
+                name="Mandatos Masivos"
+                parent="processcontrol_automatizacion_sepa.menu_pc_remesas"
+                action="action_massive_initiative"
+        />
+
+        <record id="action_contact_create_lead" model="ir.actions.act_window">
+            <field name="name">Crear Mandatos Masivos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.automatizacion.sepa</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="massive_initiative_view"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="cp_sale_order_view_form">
+            <field name="name">cp.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="sub_template_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cp_sale_order_view_search">
+            <field name="name">cp.sale.order.search</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='customer']" position="after">
+                    <filter string="Subscription template"
+                            name="sub_template" domain="[]" context="{'group_by': 'sub_template_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="cp_sale_order_view_search_filter">
+            <field name="name">cp.sale.order.search</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='sales']" position="after">
+                    <field name="sub_template_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

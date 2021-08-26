@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem
+                id="menu_my_task_root"
+                name="Mis Tareas"
+                groups="project.group_project_user"
+                web_icon="processcontrol_sale_order,static/description/my_task.png"
+        />
+
+        <menuitem
+                id="menu_my_task_menu"
+                name="Mis Tareas"
+                parent="processcontrol_sale_order.menu_my_task_root"
+                groups="project.group_project_user"
+                action="project.action_view_all_task"
+        />
+
+    </data>
+</odoo>

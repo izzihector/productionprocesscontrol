@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="processcontrol_res_partner_form_inherited" model="ir.ui.view">
+            <field name="name">res.partner.processcontrol.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="nombre_fantasia" placeholder="Nombre fantasía"/>
+              </xpath>
+            </field>
+        </record>
+
+        <record id="processcontrol_res_partner_filter_inherited" model="ir.ui.view">
+            <field name="name">res.partner.processcontrol.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="nombre_fantasia"/>
+
+                    </field>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

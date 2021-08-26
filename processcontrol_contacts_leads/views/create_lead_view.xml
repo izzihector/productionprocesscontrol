@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="contact_create_lead_view" model="ir.ui.view">
+            <field name="name">Crear Iniciativa Contacto</field>
+            <field name="model">pc.contact.create.lead</field>
+            <field name="arch" type="xml">
+                <form string="Create Leads">
+
+                    <group>
+                        <field name="campaign_id" options="{'no_create_edit': True, 'no_create':True, 'no_open':True}"/>
+                    </group>
+                    <span class="o_form_label">Se crearan por cada cliente seleccionado una iniciativa</span>
+                    <footer>
+                        <button string="Crear Iniciativa" name="create_lead" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_contact_create_lead" model="ir.actions.act_window">
+            <field name="name">Crear Iniciativa Contacto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.contact.create.lead</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="contact_create_lead_view"/>
+            <field name="context">{}</field>
+            <field name="domain">[('customer', '=', True)]</field>
+            <field name="target">new</field>
+            <field name="help">This wizard will create a lead for each one of the contact selected.</field>
+            <field name="binding_model_id" ref="base.model_res_partner"/>
+        </record>
+
+        <record id="view_create_lead_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Contacts" sample="1" create="false">
+                    <field name="display_name" string="Name"/>
+                    <field name="function" invisible="1"/>
+                    <field name="phone" class="o_force_ltr" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="user_id" optional="show" widget="many2one_avatar_user" domain="[('share', '=', False)]"/>
+                    <field name="city" optional="show"/>
+                    <field name="state_id" optional="hide" readonly="1"/>
+                    <field name="country_id" optional="show" readonly="1"/>
+                    <field name="vat" optional="hide" readonly="1"/>
+                    <field name="category_id" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="parent_id" invisible="1" readonly="1"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_massive_initiative">
+            <field name="name">Iniciativas masivas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_create_lead_partner_tree"/>
+            <field name="filter" eval="True"/>
+        </record>
+
+
+        <menuitem
+        id="crm.crm_menu_leads"
+        name="Leads"
+        parent="crm.crm_menu_root"
+        groups="crm.group_use_lead"
+        sequence="5"/>
+
+        <menuitem
+                id="menu_pc_initiative"
+                name="Iniciativas"
+                parent="crm.crm_menu_leads"
+                action="crm.crm_lead_all_leads"
+                sequence="1"
+        />
+
+        <menuitem
+                id="menu_massive_initiative"
+                name="Iniciativas masivas"
+                parent="crm.crm_menu_leads"
+                action="action_massive_initiative"
+                sequence="2"
+        />
+
+    </data>
+</odoo>

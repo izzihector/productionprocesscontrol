@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_searchbar_process_date" inherit_id="portal.portal_searchbar" >
+        <xpath expr="//nav" position="after">
+
+            <t t-if="grouped_tickets" >
+                <nav t-attf-class="navbar navbar-light navbar-expand-lg border py-0 mb-2 o_portal_navbar {{classes if classes else ''}} {{'rounded' if breadcrumbs_searchbar else 'border-top-0' }}">
+
+                    <div class="pl-2 py-2 flex-grow-1 row ">
+                        <div class="col-lg-3">
+                            <a t-attf-href="/new/ticket/?{{ keep_query() }}" class="btn btn-primary" role="button">Nuevo ticket</a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" role="button" t-att-href="'/my/tickets/print_current_page?tickets='+str(grouped_tickets[0].ids)"><i class="fa fa-print"></i> Imprimir</a>
+                        </div>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="o_portal_navbar_content">
+                        <div class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-1 mt-1 mt-lg-1">
+                            <form class="form-inline o_portal_search_panel_dates">
+                                <div class="input-group input-group-sm w-100 pr-3">
+                                    <div  class="form-inline ml-lg-2">
+                                        <div class="form-group">
+
+                                            <div class="input-group date mr-2" id="date_begin_div" data-target-input="nearest">
+                                                <t t-set='date_formatted'><t t-options='{"widget": "date"}' /></t>
+                                                <input type="date" min="1900-01-01" name="date_begin" t-att-value="date_begin or date_formatted" class=" datetimepicker-input btn-sm form-control date_deadline" data-date-format="YYYY-MM-DD" placeholder="YYYY-MM-DD"/>
+                                            </div>
+
+                                            <div class="input-group date" id="date_end_div" data-target-input="nearest">
+                                                <t t-set='date_formatted'><t t-options='{"widget": "date"}' /></t>
+                                                <input type="date" min="1900-01-01" name="date_end" t-att-value="date_end or date_formatted" class="datetimepicker-input btn-sm form-control date_deadline" data-date-format="YYYY-MM-DD" placeholder="YYYY-MM-DD"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <span class="input-group-append">
+                                        <button class="btn btn-secondary search-submit" type="button">
+                                            <span class="fa fa-search"/>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </t>
+
+        </xpath>
+    </template>
+
+
+</odoo>

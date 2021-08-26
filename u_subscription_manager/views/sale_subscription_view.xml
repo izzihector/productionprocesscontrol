@@ -40,7 +40,7 @@
                     <field name="product_service_tracking" invisible="1"/>
                     <field name="order_line_id" invisible="1"/>
                     <field name="project_id"
-                           attrs="{'readonly':[('product_service_tracking','not in', ('task_global_project', 'task_new_project'))]}"/>
+                           attrs="{'readonly':[('product_service_tracking','not in', ('task_global_project', 'task_in_project'))]}"/>
                     <field name="cost"/>
                 </xpath>
 
@@ -52,8 +52,9 @@
             <field name="model">sale.subscription.template</field>
             <field name="inherit_id" ref="sale_subscription.sale_subscription_template_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='template_asset_category_id']" position="after">
-                    <field name="sale_order_type_id" attrs="{'invisible':[('payment_mode','not in', ('quotation_sale_order', 'confirmed_sale_order'))]}"/>
+                <xpath expr="//field[@name='payment_mode']" position="after">
+                    <field name="sale_order_type_id"
+                           attrs="{'invisible':[('payment_mode','not in', ('quotation_sale_order', 'confirmed_sale_order'))]}"/>
                 </xpath>
             </field>
         </record>

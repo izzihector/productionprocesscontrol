@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="quick_create_expense_form_pc" model="ir.ui.view">
+            <field name="name">hr.expense.form.quick_create</field>
+            <field name="model">hr.expense</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="expense_type_id" string="Tipo de Gasto"/>
+                          <field name="quantity" string="Cantidad"/>
+                        <field name="unit_amount" string="Precio"/>
+                         <field name="product_uom_id" string="Unidad de Medida"/>
+                        <field name="date" string="Fecha del gasto" required="1"/>
+                        <field name="name" string="Nombre"/>
+                        <field name="employee_id" string="Empleado"/>
+                        <field name="state" invisible="1"/>
+                        <field name="product_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="product_uom_category_id" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="processcontrol_hr_expense_sheet_form_inherited" model="ir.ui.view">
+            <field name="name">pc.hr.expense.form.sheet.inh</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//field[@name='accounting_date']" position="after">
+                         <field name="date_approval" attrs="{'invisible':[('date_approval','=',False)]}"/>
+                        <field name="payment_date" attrs="{'invisible':[('payment_date','=',False)]}"/>
+                 </xpath>
+
+            </field>
+        </record>
+
+        <record id="processcontrol_hr_expense_form_inherited" model="ir.ui.view">
+            <field name="name">pc.hr.expense.form.inh</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="show_without_upload_photo" invisible="1"/>
+                    <field name="expense_type_id" options="{'no_open': True,'no_create': True}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tax_ids']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="attributes">
+                    <attribute name="required">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_id']" position="before">
+                    <field name="without_upload_photo" attrs="{'invisible': [('show_without_upload_photo', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='analytic_tag_ids']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_expense.hr_expense_view_expenses_analysis_kanban" model="ir.ui.view">
+            <field name="name">hr.expense.kanban</field>
+            <field name="model">hr.expense</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_mobile hr_expense" sample="1" on_create="quick_create" quick_create_view="processcontrol_hr_expenses_type.quick_create_expense_form_pc">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="total_amount"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="activity_state"/>
+                    <field name="currency_id"/>
+                    <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <strong class="o_kanban_record_title"><span><t t-esc="record.name.value"/></span></strong>
+                                        <strong class="o_kanban_record_subtitle float-right"><span class="text-right"><field name="total_amount" widget="monetary"/></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row mt8">
+                                    <div class="col-6 text-muted">
+                                        <span><t t-esc="record.employee_id.value"/> <t t-esc="record.date.value"/></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="float-right text-right">
+                                            <field name="state" widget="label_selection" options="{'classes': {'draft': 'default', 'reported': 'primary', 'refused': 'danger', 'done': 'warning',
+                                            'approved': 'success'}}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="hr_expense.hr_expense_actions_my_unsubmitted" model="ir.actions.act_window">
+            <field name="name">My Expenses to Report</field>
+            <field name="res_model">hr.expense</field>
+            <field name="view_mode">kanban,tree,form,graph,pivot,activity</field>
+            <field name="search_view_id" ref="hr_expense.hr_expense_view_search"/>
+            <field name="context">{'search_default_my_expenses': 1, 'search_default_no_report': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_expense_receipt">
+                    Did you try the mobile app?
+                </p>
+                <p>Snap pictures of your receipts and let Odoo<br/> automatically create expenses for you.</p>
+                <p>
+                    <a href="https://apps.apple.com/be/app/odoo/id1272543640" target="_blank">
+                        <img alt="Apple App Store" class="img img-fluid h-100 o_expense_apple_store" src="/hr_expense/static/img/app_store.png"/>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.odoo.mobile" target="_blank" class="o_expense_google_store">
+                        <img alt="Google Play Store" class="img img-fluid h-100 o_expense_google_store" src="/hr_expense/static/img/play_store.png"/>
+                    </a>
+                </p>
+            </field>
+        </record>
+
+        <record id="hr_expense.hr_expense_actions_my_unsubmitted_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="hr_expense.hr_expense_view_expenses_analysis_kanban"/>
+            <field name="act_window_id" ref="hr_expense.hr_expense_actions_my_unsubmitted"/>
+        </record>
+
+        <record id="hr_expense.hr_expense_actions_my_unsubmitted_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="hr_expense.view_my_expenses_tree"/>
+            <field name="act_window_id" ref="hr_expense.hr_expense_actions_my_unsubmitted"/>
+        </record>
+
+    </data>
+</odoo>

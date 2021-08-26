@@ -38,17 +38,17 @@
 
 
 
-        <record id="project_project_view_task_form_simplified_inherit_tag_ids" model="ir.ui.view">
-            <field name="name">project.project.view.task.form.inherit.tag_ids</field>
-            <field name="model">project.task</field>
-            <field name="inherit_id" ref="project.view_task_form2"/>
-            <field name="priority">30</field>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='tag_ids']" position="after">
-                    <field name="horas_restantes_produccion_proyecto" string="Horas restantes proyecto" invisible="True"/>
-              </xpath>
-            </field>
-        </record>
+<!--        <record id="project_project_view_task_form_simplified_inherit_tag_ids" model="ir.ui.view">-->
+<!--            <field name="name">project.project.view.task.form.inherit.tag_ids</field>-->
+<!--            <field name="model">project.task</field>-->
+<!--            <field name="inherit_id" ref="project.view_task_form2"/>-->
+<!--            <field name="priority">30</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='partner_id']" position="after">-->
+<!--                    <field name="horas_restantes_produccion_proyecto" string="Horas restantes proyecto"/>-->
+<!--              </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
 
 
         <record id="project_project_view_form_simplified_inherit_proyect_type" model="ir.ui.view">
@@ -59,6 +59,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="type_project"/>
+                    <field name="alert_percentil_no_profitable"/>
+                    <field name="is_closed_project"/>
                 </xpath>
             </field>
         </record>
@@ -72,6 +74,8 @@
             <field name="arch" type="xml">
                 <field name="allow_timesheets" position="after">
                     <field name="type_project"/>
+                    <field name="alert_percentil_no_profitable"/>
+                    <field name="is_closed_project"/>
                 </field>
             </field>
         </record>

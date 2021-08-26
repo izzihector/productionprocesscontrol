@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_create_task_from_oportunity_wizard_ui" model="ir.ui.view">
+            <field name="name">create_task_from_oportunity_wizard.form.view</field>
+            <field name="model">project.task.oportunity.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <widget name="web_ribbon" title="Tarea Preventa" attrs="{'invisible': [('process_type', '!=', 'normal')]}"/>
+                        <widget name="web_ribbon" title="Consulta Técnica" bg_color="bg-danger" attrs="{'invisible': [('process_type', '!=', 'tech')]}" />
+                        <group>
+                            <group>
+                                <field name="title" required="True"/>
+                                <field name="project_allowed_ids" invisible="True"/>
+                                <field name="process_type" readonly="True"/>
+                                <field name="department_id" required="True"/>
+                                <field name="opportunity_id" invisible="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Create" name="create_task" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>                    
+                </form>
+            </field>
+        </record>
+
+        <record id= "action_create_task_from_oportunity_wizard" model="ir.actions.act_window">
+            <field name="name">Create Task</field>
+            <field name="res_model">project.task.oportunity.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    
+    <record id="res_partner_view_process" model="ir.ui.view">
+        <field name="name">res.partner.view.process</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="30" />
+        <field name="arch" type="xml">
+          <field name="vat" position="after">
+            <field name="product_type_id"/>
+            <field name="skype_check"/>
+          </field>
+        </field>
+      </record>
+
+  </data>
+</odoo>
