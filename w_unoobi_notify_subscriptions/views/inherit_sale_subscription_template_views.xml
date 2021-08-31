@@ -6,8 +6,8 @@
             <field name="model">sale.subscription.template</field>
             <field name="inherit_id" ref="sale_subscription.sale_subscription_template_view_form"/>
             <field name="arch" type="xml">
-                <field name="template_asset_category_id" position="after">
-                    <field name="create_activity"/>
+                <field name="journal_id" position="after">
+                    <field name="create_activity" required="True"/>
                 </field>
             </field>
         </record>

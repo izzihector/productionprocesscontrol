@@ -15,7 +15,7 @@ class ProjectHourRevenueReportWizard(models.TransientModel):
         [('Sistemas', 'Sistemas'), ('Software', 'Software')],
         string='Departamento')
 
-    @api.multi
+    #@api.multi
     def get_report(self):
         data = {
             'model': self._name,
@@ -102,8 +102,6 @@ class ProjectHourRevenueReportView(models.AbstractModel):
                 total_worked_hours = 0
                 tasks = project.task_ids
                 project_id = project.id
-
-                project['comercial'] = project.x_comercial_id.name
 
                 # Primero visitamos las tareas para obtener las horas imputadas y si estas tareas
                 # tienen lineas de venta, las recogemos con el fin de ir acumulando

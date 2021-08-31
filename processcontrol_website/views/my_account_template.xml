@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <template id="_assets_frontend_helpers" inherit_id="web._assets_frontend_helpers" name="Add button styles">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/processcontrol_website/static/src/scss/bootstrap_overridden_frontend.scss"/>
+            </xpath>
+        </template>
+
+        <template id="portal_docs_entry_pc" name="My Portal Docs Entry">
+            <a t-att-href="url" t-att-title="title" class="btn btn-primary myticketsButton">
+                <t t-esc="title"/>
+                <t t-if='count'>
+                    <span t-esc="count"/>
+                </t>
+                <t t-elif="placeholder_count">
+                    <span t-att-data-placeholder_count="placeholder_count">
+                        <i class="fa fa-spin fa-spinner"></i>
+                    </span>
+                </t>
+            </a>
+        </template>
+
+        <template name="My Portal" id="portal.portal_my_home">
+            <t t-call="portal.portal_layout">
+                <t t-set="my_details" t-value="True"/>
+                <div class="o_portal_my_home">
+                    <div class="oe_structure" id="oe_structure_portal_my_home_1"/>
+
+                    <h3>
+                        <font style="color: rgb(0, 117, 190);">
+                            <br/>
+                        </font>
+                        <font style="color: rgb(0, 117, 190);">Sus Documentos</font>
+                    </h3>
+                    <t t-call="processcontrol_website.portal_docs_entry_pc">
+                        <t t-set="title">Mis Tickets</t>
+                        <t t-set="url" t-value="'/my/tickets'"/>
+                        <t t-set="placeholder_count" t-value="'ticket_count'"/>
+                    </t>
+                    <div style="margin-top:10px;"/>
+                    <t t-call="processcontrol_website.portal_docs_entry_pc">
+                        <t t-set="title">Mis Tareas</t>
+                        <t t-set="url" t-value="'/my/tasks'"/>
+                        <t t-set="placeholder_count" t-value="'task_count'"/>
+                    </t>
+                    <div style="margin-top:10px;"/>
+                    <t t-call="processcontrol_website.portal_docs_entry_pc">
+                        <t t-set="title">Mis Proyectos</t>
+                        <t t-set="url" t-value="'/my/projects'"/>
+                        <t t-set="placeholder_count" t-value="'project_count'"/>
+                    </t>
+                    <div class="o_portal_docs list-group">
+                    </div>
+                </div>
+                <div class="oe_structure" id="oe_structure_portal_my_home_2"/>
+
+            </t>
+        </template>
+
+    </data>
+</odoo>

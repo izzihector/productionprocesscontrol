@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_sale_subscription" model="ir.actions.report">
+            <field name="name">Subscription Report</field>
+            <field name="model">sale.subscription</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">processcontrol_sale_order.report_sale_subscription</field>
+            <field name="report_file">processcontrol_sale_order.report_sale_subscription</field>
+            <field name="print_report_name">'Subscription %s Report' % (object.name)</field>
+            <field name="binding_model_id" ref="model_sale_subscription"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

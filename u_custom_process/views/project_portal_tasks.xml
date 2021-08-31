@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="project_portal_tasks_process_print" inherit_id="project_portal_processcontrol.project_portal_tasks_processcontrol" >
+      <xpath expr="//div[@id='right-side-task']" position="inside">
+          <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" role="button" t-att-href="grouped_tasks and '/my/tasks/print_current_page?tasks='+str(grouped_tasks[0].ids) or '#'"><i class="fa fa-print"></i> Print</a>
+      </xpath>
+    </template>
+</odoo>

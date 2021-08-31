@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+<!--        <record model="res.groups" id="group_can_archive_tasks">-->
+<!--            <field name="name">Can archive tasks</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

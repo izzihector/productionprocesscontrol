@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_edi_notify_unproduct_type" model="mail.template">
+            <field name="name">Helpdesk: Send email if not product type</field>
+            <field name="model_id" ref="helpdesk.model_helpdesk_ticket"/>
+            <field name="email_from">${(user.email_formatted) |safe}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="subject">Cliente sin servicios de soporte</field>
+            <field name="body_html" type="html">
+                <div>
+                    % set access_token = object.access_token
+                    % set partner = object.partner_id
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="width:100%;margin:0px auto;">
+                    <tbody>
+                        <tr><td valign="top" style="font-size:13px;">
+                            No tiene ningún servicio de soporte contratado y la actuación se le cobrará a 85 euros la hora 
+                        .<br/>           
+                        </td></tr>
+                        <tr><td style="text-align:center;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" summary="o_mail_notification" style="width:100%;margin: 32px 0px 32px 0px;">
+                                <tbody><tr><td style="font-size:13px;">
+                                    <strong>Diganos si continua con el proceso</strong><br/>
+                                    <span style="text-color:#888888">(click on one of these smileys)</span>
+                                </td></tr>
+                                <tr><td style="font-size:13px;">
+                                    <table style="width:100%;text-align:center;">
+                                        <tbody><tr>
+                                            <td>
+                                                <a href="/tickets/${access_token}/accept/${object.id}" class="btn btn-success">
+                                                <span>Aceptar</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="/tickets/${access_token}/reject/${object.id}" class="btn btn-danger">
+                                                <span>Rechazar</span>
+                                                </a>
+                                            </td>                            
+                                        </tr>
+                                    </tbody></table>
+                                </td></tr>
+                            </tbody></table>
+                        </td></tr>        
+                    </tbody>
+                    </table>
+                </div>
+                            
+            </field>            
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

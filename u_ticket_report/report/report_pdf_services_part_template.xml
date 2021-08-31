@@ -2,12 +2,12 @@
 <odoo>
 
 
- <template id="external_layout_services_part">
+	<template id="external_layout_services_part">
 
-	<t t-if="not o" t-set="o" t-value="obj" />
+		<t t-if="not o" t-set="o" t-value="obj" />
 
 		<t t-if="not company">
-			
+
 			<t t-if="company_id">
 				<t t-set="company" t-value="company_id" />
 			</t>
@@ -18,78 +18,78 @@
 				<t t-set="company" t-value="res_company" />
 			</t>
 		</t>
-		
-        <div class="header" t-att-style="report_header_style">
-            <div class="o_clean_header" style="border-bottom: 3px solid #0175be !important;">
-	            <div class="row">
-	                <div class="col-2">
-	                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
-	                </div>
-					
+
+		<div class="header" t-att-style="report_header_style">
+			<div class="o_clean_header" style="border-bottom: 3px solid #0175be !important;">
+				<div class="row">
+					<div class="col-2">
+						<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+					</div>
+
 					<div class="col-3 offset-1" name="company_address">
-	                    <ul class="list-unstyled">
-	                        <strong><li>FECHA DE INFORME</li></strong>
-	                        <li><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b, %Y')"/></li>
-	                    </ul>
-	                </div>
-	
-	                <div class="col-5 offset-1" name="company_address">
-	                    <ul class="list-unstyled">
-	                      	<strong><li>SUPPORT TEAM</li></strong>
-	                        <li t-if="o.team_id.name"><span t-field="o.team_id.name"/></li>
-	                    </ul>
-	                </div>
-	            </div>
-            </div>
-        </div>
+						<ul class="list-unstyled">
+							<strong><li>FECHA DE INFORME</li></strong>
+							<li><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %b, %Y')"/></li>
+						</ul>
+					</div>
 
-        <div class="article o_report_layout_clean"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <t t-call="web.address_layout"/>
-			<h4 style="color:#0075be">Tickets Breakdown</h4>
-            <t t-raw="0"/>
-        </div>
+					<div class="col-5 offset-1" name="company_address">
+						<ul class="list-unstyled">
+							<strong><li>EQUIPO DE SOPORTE</li></strong>
+							<li t-if="o.team_id.name"><span t-field="o.team_id.name"/></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="footer o_clean_footer" style="border-top: 3px solid #0075be;">
-	
-            <div class="row mt8">
-                <div class="col-3">
-                    <span t-field="company.report_footer"/>
-                </div>
-                <div class="col-4 text-right">
-                    <span class="company_address" t-field="company.partner_id"
-                        t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
-                </div>
-                <div class="col-4">
-                    <h4 class="mt0 mb0 text-uppercase" t-field="company.report_header" style="color:#0075be"/>
-                </div>
-                <div class="col-1">
-                    <ul t-if="report_type == 'pdf'" class="list-inline pagenumber float-right text-center" style="border: 3px solid #0075be;background-color: #0077cd;">
-                        <li class="list-inline-item"><strong><span class="page"/></strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </template>
+		<div class="article o_report_layout_clean"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+			<t t-call="web.address_layout"/>
+			<h4 style="color:#0075be">Tickets</h4>
+			<t t-raw="0"/>
+		</div>
+
+		<div class="footer o_clean_footer" style="border-top: 3px solid #0075be;">
+
+			<div class="row mt8">
+				<div class="col-3">
+					<span t-field="company.report_footer"/>
+				</div>
+				<div class="col-4 text-right">
+					<span class="company_address" t-field="company.partner_id"
+						  t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+				</div>
+				<div class="col-4">
+					<h4 class="mt0 mb0 text-uppercase" t-field="company.report_header" style="color:#0075be"/>
+				</div>
+				<div class="col-1">
+					<ul t-if="report_type == 'pdf'" class="list-inline pagenumber float-right text-center" style="border: 3px solid #0075be;background-color: #0077cd;">
+						<li class="list-inline-item"><strong><span class="page"/></strong></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</template>
 
 	<template id="report_services_part">
-	
+
 		<t t-call="u_ticket_report.external_layout_services_part">
-			
-			
-				<div class="page">
-				
+
+
+			<div class="page">
+				<t t-set="sum_hours" t-value="0" />
 				<t t-foreach="docs" t-as="doc" style="page-break-after: always;">
-				
+					<t t-set="sum_hours" t-value="sum_hours+doc.total_hours_spent" />
 					<h5 id="title_task">
 						<b><span t-esc="doc.name" /></b>
 					</h5>
-					
+
 					<div class="col-auto mw-100 mb-2" t-if="doc.partner_id.name" name="div_client">
-						<strong style="color:#0075be">CLIENT: </strong> 
-						 <t t-if="doc.partner_id.parent_id"><span t-esc="doc.partner_id.parent_id.name"/>, <span t-esc="doc.partner_id.name"/></t>
-                         <t t-else=""><span t-esc="doc.partner_id.name"/></t>
+						<strong style="color:#0075be">CLIENTE: </strong>
+						<t t-if="doc.partner_id.parent_id"><span t-esc="doc.partner_id.parent_id.name"/>, <span t-esc="doc.partner_id.name"/></t>
+						<t t-else=""><span t-esc="doc.partner_id.name"/></t>
 					</div>
-						
+
 
 					<div class="col-auto mw-100 mb-2" t-if="doc.description" name="description">
 						<p class="m-0" t-field="doc.description" />
@@ -98,20 +98,20 @@
 					<style type="text/css">
 						.tg  {border-collapse:collapse;border-spacing:0;}
 						.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-						  overflow:hidden;padding:10px 5px;word-break:normal;}
+						overflow:hidden;padding:10px 5px;word-break:normal;}
 						.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-						  font-weight:normal;overflow:hidden;padding:0px 5px;word-break:normal;}
+						font-weight:normal;overflow:hidden;padding:0px 5px;word-break:normal;}
 						.tg .tg-jpet{background-color:#0075be;border-color:#ffffff;text-align:center;vertical-align:top}
 						.tg .tg-srtl{background-color:#0075be;border-color:#ffffff;text-align:left;vertical-align:top}
 						.tg .tg-b5u0{background-color:#f4f4f4;border-color:#ffffff;text-align:center;vertical-align:top}
 						.o_report_layout_clean table tbody tr td {padding: 1px 1px;}
 					</style>
-					
+
 					<table class="tg" style="undefined;table-layout: fixed; width: 483px; margin-left: 200px;">
 						<tbody>
 							<tr>
 								<td class="tg-srtl">
-									<span style="font-weight:bold;color:#FFF">Created Date</span>
+									<span style="font-weight:bold;color:#FFF">Fecha de creación</span>
 								</td>
 								<td class="tg-b5u0">
 									<span t-esc="doc.create_date" t-options='{"widget": "date"}' />
@@ -119,7 +119,7 @@
 							</tr>
 							<tr>
 								<td class="tg-srtl">
-									<span style="font-weight:bold;color:#FFF">Condition</span>
+									<span style="font-weight:bold;color:#FFF">Estado</span>
 								</td>
 								<td class="tg-b5u0">
 									<span t-esc="doc.stage_id.name"/>
@@ -127,7 +127,7 @@
 							</tr>
 							<tr>
 								<td class="tg-srtl">
-									<span style="font-weight:bold;color:#FFF">Dedicated Hours</span>
+									<span style="font-weight:bold;color:#FFF">Horas dedicadas</span>
 								</td>
 								<td class="tg-b5u0">
 									<span t-esc="doc.timecheet_unit_amount" t-options='{"widget": "float_time"}'/>
@@ -135,7 +135,7 @@
 							</tr>
 							<tr>
 								<td class="tg-srtl" style="border-bottom: 0px solid #FFF;">
-									<span style="font-weight:bold;color:#FFF">Closing date</span>
+									<span style="font-weight:bold;color:#FFF">Fecha de cierre</span>
 								</td>
 								<td class="tg-b5u0" style="border-bottom: 0px solid #FFF;">
 									<span t-esc="doc.close_date" t-options='{"widget": "date"}'/>
@@ -143,15 +143,23 @@
 							</tr>
 						</tbody>
 					</table>
-					
+
 					<br/>
 					<!--<hr></hr>-->
-					</t>
+				</t>
+				<div class="col-auto mw-100 mb-2" t-if="docs" name="total_tickey">
+					<strong style="color:#0075be">TOTAL TICKETS: </strong>
+					<span t-esc="len(docs)"/>
 				</div>
+				<div class="col-auto mw-100 mb-2" t-if="docs" name="total_tickey">
+					<strong style="color:#0075be">TOTAL TIEMPO DEDICADO: </strong>
+					<span t-esc="'{0:02.0f}:{1:02.0f}'.format(*divmod(sum_hours * 60, 60))"/>
+				</div>
+			</div>
 		</t>
 	</template>
 
-	
+
 
 
 	<template id="report_pdf_services_part">

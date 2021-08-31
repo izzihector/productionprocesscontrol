@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pc_plus_productividad_view_tree" model="ir.ui.view">
+            <field name="name">pc.plus.productividad.tree</field>
+            <field name="model">pc.plus.productividad</field>
+            <field name="arch" type="xml">
+                <tree string="Plus Productividad">
+                    <field name="date"/>
+                    <field name="employee_id" />
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="pc_plus_productividad_view_form">
+            <field name="name">pc.plus.productividad.form</field>
+            <field name="model">pc.plus.productividad</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Plus Productividad">
+                                <field name="date"/>
+                                <field name="employee_id" options="{'no_open': True,'no_create': True}"/>
+                                <field name="amount"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                    <div class="o_attachment_preview"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_pc_plus_productividad">
+            <field name="name">Plus Productividad</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.plus.productividad</field>
+            <field name="view_mode">tree,form</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem
+                id="menu_root_pc_plus_productividad"
+                name="Plus Productividad"
+                parent="hr.menu_hr_root"
+                sequence="95"
+        />
+
+        <menuitem
+                id="menu_pc_plus_productividad"
+                name="Plus Productividad"
+                parent="menu_root_pc_plus_productividad"
+                action="action_pc_plus_productividad"
+        />
+
+    </data>
+</odoo>
