@@ -19,5 +19,5 @@ class SaleOrderLine(models.Model):
     def _timesheet_create_project(self):
         record= super(SaleOrderLine, self)._timesheet_create_project()
         if self.order_id.description != False:
-            record.name= self.order_id.name + ' - ' + self.order_id.description
+            record.name= self.order_id.name + ' : ' + self.order_id.description
         return record

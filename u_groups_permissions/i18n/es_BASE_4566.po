@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* u_groups_permissions
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-16 16:09+0000\n"
+"PO-Revision-Date: 2021-06-16 16:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_archive_uom
+msgid "Can not archive UdM"
+msgstr "No puede archivar UdM"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_archive_project_and_task
+msgid "Can not archive projects or tasks"
+msgstr "No puede archivar proyectos o tareas"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_create_uom
+msgid "Can not create UdM"
+msgstr "No puede crear UdM"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_delete_uom
+msgid "Can not delete UdM"
+msgstr "No puede eliminar UdM"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_delete_sale_order
+msgid "Can not delete sale order"
+msgstr "No puede eliminar presupuestos"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_delete_task
+msgid "Can not delete task"
+msgstr "No puede eliminar tareas"
+
+#. module: u_groups_permissions
+#: model:res.groups,name:u_groups_permissions.group_can_not_delete_ticket
+msgid "Can not delete ticket"
+msgstr "No puede eliminar tickets"
+
+#. module: u_groups_permissions
+#: model:ir.module.category,name:u_groups_permissions.u_permissions_groups
+msgid "Can not do this operation"
+msgstr "No puede realizar esta operación"
+
+#. module: u_groups_permissions
+#: model:ir.model.fields,field_description:u_groups_permissions.field_helpdesk_ticket__display_name
+#: model:ir.model.fields,field_description:u_groups_permissions.field_project_project__display_name
+#: model:ir.model.fields,field_description:u_groups_permissions.field_project_task__display_name
+#: model:ir.model.fields,field_description:u_groups_permissions.field_sale_order__display_name
+#: model:ir.model.fields,field_description:u_groups_permissions.field_uom_uom__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/uom.py:0
+#, python-format
+msgid "Error. Only a system manager can perform this action"
+msgstr "Error. Solo un administrador del sistema puede realizar la operación"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/project_task.py:0
+#, python-format
+msgid "Error. You do not have permissions for archive projects"
+msgstr "Error. No tiene permisos para archivar proyectos"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/project_task.py:0
+#, python-format
+msgid "Error. You do not have permissions for archive tasks"
+msgstr "Error. No tiene permisos para archivar tareas"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/uom.py:0
+#, python-format
+msgid "Error. You do not have permissions for create UoMs"
+msgstr "rror. No tiene permisos para crear UdMs"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/uom.py:0
+#, python-format
+msgid "Error. You do not have permissions for delete UoMs"
+msgstr "Error. No tiene permisos para eliminar UdMs"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/sale_order.py:0
+#, python-format
+msgid "Error. You do not have permissions for delete sale orders"
+msgstr "Error. No tiene permisos para eliminar presupuestos"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/project_task.py:0
+#, python-format
+msgid "Error. You do not have permissions for delete tasks"
+msgstr "Error. No tiene permisos para eliminar tareas"
+
+#. module: u_groups_permissions
+#: code:addons/u_groups_permissions/models/helpdesk.py:0
+#, python-format
+msgid "Error. You do not have permissions for delete tickets"
+msgstr "Error. No tiene permisos para eliminar tickets"
+
+#. module: u_groups_permissions
+#: model:ir.model,name:u_groups_permissions.model_helpdesk_ticket
+msgid "Helpdesk Ticket"
+msgstr "Ticket de Mesa de Ayuda"
+
+#. module: u_groups_permissions
+#: model:ir.model.fields,field_description:u_groups_permissions.field_helpdesk_ticket__id
+#: model:ir.model.fields,field_description:u_groups_permissions.field_project_project__id
+#: model:ir.model.fields,field_description:u_groups_permissions.field_project_task__id
+#: model:ir.model.fields,field_description:u_groups_permissions.field_sale_order__id
+#: model:ir.model.fields,field_description:u_groups_permissions.field_uom_uom__id
+msgid "ID"
+msgstr ""
+
+#. module: u_groups_permissions
+#: model:ir.model.fields,field_description:u_groups_permissions.field_helpdesk_ticket____last_update
+#: model:ir.model.fields,field_description:u_groups_permissions.field_project_project____last_update
+#: model:ir.model.fields,field_description:u_groups_permissions.field_project_task____last_update
+#: model:ir.model.fields,field_description:u_groups_permissions.field_sale_order____last_update
+#: model:ir.model.fields,field_description:u_groups_permissions.field_uom_uom____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: u_groups_permissions
+#: model:ir.model,name:u_groups_permissions.model_uom_uom
+msgid "Product Unit of Measure"
+msgstr "Unidad de medida del producto"
+
+#. module: u_groups_permissions
+#: model:ir.model,name:u_groups_permissions.model_project_project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: u_groups_permissions
+#: model:ir.model,name:u_groups_permissions.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: u_groups_permissions
+#: model:ir.model,name:u_groups_permissions.model_project_task
+msgid "Task"
+msgstr "Tarea"

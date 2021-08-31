@@ -21,7 +21,7 @@ msgid "Description"
 msgstr "Descripción"
 
 #. module: w_unoobi_sale_description_timesheet
-#: model_terms:ir.ui.view,arch_db:w_unoobi_sale_description_timesheet.inherit_sale_order_form_quote
+#: model_terms:ir.ui.view,arch_db:w_unoobi_sale_description_timesheet.inherit_sale_order_form_quote_1
 msgid "Sale Description"
 msgstr "Descripción"
 

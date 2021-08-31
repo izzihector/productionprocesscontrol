@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">   
+
+   <!--  <template id="portal_helpdesk_ticket_process" name="Helpdesk Ticket Process" inherit_id="helpdesk.portal_helpdesk_ticket" priority="50">
+        <xpath expr="//t/div[1]" position="before">
+            <div class="row mb-2">
+                <div class="col-lg-4 col-md-4">
+                </div>
+                <div class="col-lg-6 col-md-6"/>
+                <div class="col-lg-2 col-md-2">
+                    <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" role="button" t-att-href="'/my/tickets/print_current_page?tickets='+str(grouped_tickets[0].ids)"><i class="fa fa-print"></i> Imprimir</a>
+                </div>
+            </div>
+        </xpath>
+    </template>-->
+
+</data>
+</odoo>

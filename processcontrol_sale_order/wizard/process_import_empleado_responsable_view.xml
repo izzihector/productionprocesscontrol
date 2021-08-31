@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="import_empledo_responsable_view" model="ir.ui.view">
+            <field name="name">Importar Empleados Responsables</field>
+            <field name="model">pc.import.empleado.responsable</field>
+            <field name="arch" type="xml">
+                <form string="Importar Empleados Responsables">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="archive"/>
+                                <field name="dont_found" attrs="{'invisible': [('dont_found', '=', False)]}"/>
+                                <field name="updated" attrs="{'invisible': [('updated', '=', False)]}"/>
+                                <span>
+                            <b>Se espera un excel de esta manera:</b>
+                            <br/>
+                            <br/>
+                            <style>
+                                table#t01, td#td01, th {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                text-align: center;
+                                }
+                            </style>
+                            <table id="t01">
+                                <tbody>
+                                    <tr>
+                                        <th>      Nombre       </th>
+                                        <th>      Empleado        </th>
+                                    </tr>
+                                    <tr>
+                                        <td id="td01">SO1234</td>
+                                        <td id="td01">Agustin Forbes</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="td01">SO1532</td>
+                                        <td id="td01">Carolina Fernandez</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="td01">SO6346</td>
+                                        <td id="td01">Agustin Forbes</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </span>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Importar" name="import_empledo_responsable" type="object" default_focus="1" class="btn-primary"/>
+                            <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_import_empledo_responsable">
+            <field name="name">Importar Empleados Responsables</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.import.empleado.responsable</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="import_empledo_responsable_view"/>
+            <field name="target">main</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem
+                id="menu_import_empledo_responsable"
+                name="Importar Empleados Responsables"
+                parent="sale.sale_order_menu"
+                action="action_import_empledo_responsable"
+                sequence="5"
+                groups="base.group_system"
+        />
+
+    </data>
+</odoo>

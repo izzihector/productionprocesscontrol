@@ -4,7 +4,7 @@
     "name": "Portal Remove Comercial",
     "summary":
          "Eliminar sección comercial de la Home del Portal",
-    "version": "13.0.1.0.0",
+    "version": "14.0.0",
     "category": "undefined",
     "website": "",
     "author": "Raul Carbonell",

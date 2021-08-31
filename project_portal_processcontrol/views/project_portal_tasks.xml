@@ -1,106 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="portal_create_task_processcontrol" name="New Task">
-      <t t-call="portal.portal_layout">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h1 class="text-center">Crear Tarea</h1>
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Crear Tarea</h1>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <form action="/submitted/task" method="POST" class="form-horizontal mt32" enctype="multipart/form-data">
-          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-          <div class="form-group">
-            <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
-            <div class="col-md-12 col-sm-12">
-              <input type="text" class="form-control" name="name" t-attf-value="#{name}" required="True"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 col-sm-4 control-label" for="project_name">Project</label>
-            <div class="col-md-12 col-sm-12">
-              <input type="text" class="form-control" name="project_name" required="True"  t-attf-value="#{project_name}" readonly="True" />
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-12 col-sm-12">
-              <input type="hidden" name="project_id" t-attf-value="#{project_id}"/>
-            </div>
-          </div>
-          <div class="form-group">
-              <label class="col-md-3 col-sm-4 control-label" for="parent_id">Tarea Padre</label>
-              <select class="form-control" name="parent_id" id="parent_id">
-                  <t t-foreach="tareas_padre_filters" t-as="option">
-                       <option t-attf-value="#{option}" t-esc="tareas_padre_filters[option].get('label')"></option>
-                  </t>
-              </select>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 col-dm-4 control-label" for="description">Description</label>
-            <div class="col-md-12 col-sm-12">
-              <textarea class="form-control" name="description" style="min-height: 120px" required="True"></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
-              <button class="btn btn-primary btn-lg">Nueva Tarea</button>
-            </div>
-          </div>
-        </form>
-      </t>
+            <form action="/submitted/task" method="POST" class="form-horizontal mt32" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="name">Name</label>
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" name="name" t-attf-value="#{name}" required="True"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="project_name">Project</label>
+                    <div class="col-md-12 col-sm-12">
+                        <input type="text" class="form-control" name="project_name" required="True"  t-attf-value="#{project_name}" readonly="True" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12">
+                        <input type="hidden" name="project_id" t-attf-value="#{project_id}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="parent_id">Tarea Padre</label>
+                    <select class="form-control" name="parent_id" id="parent_id">
+                        <t t-foreach="tareas_padre_filters" t-as="option">
+                            <option t-attf-value="#{option}" t-esc="tareas_padre_filters[option].get('label')"></option>
+                        </t>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-dm-4 control-label" for="description">Description</label>
+                    <div class="col-md-12 col-sm-12">
+                        <textarea class="form-control" name="description" style="min-height: 120px" required="True"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-dm-4 control-label" for="description">Adjunto</label>
+                    <div class="col-md-12 col-sm-12">
+                        <input type="file" class="form-control o_website_form_input" name="attachment" widget="many2many_binary" multiple="True"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                        <button class="btn btn-primary btn-lg">Nueva Tarea</button>
+                    </div>
+                </div>
+            </form>
+        </t>
     </template>
 
     <template id="project_portal_tasks_processcontrol" inherit_id="project.portal_my_tasks" >
-      <xpath expr="//t[@t-call='portal.portal_table']" position="replace">
-          <t t-call="portal.portal_table">
-            <t t-foreach="grouped_tasks" t-as="tasks">
-                <thead>
-                    <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
-                        <th t-if="groupby == 'none'">Name</th>
-                          <th t-elif="groupby == 'parent_id'">
-                          <em class="font-weight-normal text-muted">Tarea Padre:</em>
-                          <span t-field="tasks[0].sudo().parent_id.name"/>
-                        </th>
-                        <th t-else="">
-                            <em class="font-weight-normal text-muted"><span t-field="tasks[0].sudo().project_id.label_tasks"/> for project:</em>
-                            <span t-field="tasks[0].sudo().project_id.name"/></th>
-                        <th class="text-left">Tarea Padre</th>
-                        <th class="text-center">Stage</th>
-                        <th class="text-left">Ref</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <t t-foreach="tasks" t-as="task">
-                        <tr>
-                            <td>
-                                <a t-attf-href="/my/task/#{task.id}?{{ keep_query() }}"><span t-field="task.name"/></a>
-                            </td>
-                            <td t-if="task.parent_id" class="text-left">
-                                <span t-esc="task.parent_id.name"/>
-                            </td>
-                            <td t-else="not task.parent_id" class="text-left">
-                              <span> </span>
-                            </td>
-                            <td class="text-center">
-                                <span class="badge badge-pill badge-info" title="Current stage of the task" t-esc="task.stage_id.name" />
-                            </td>
-                            <td class="text-left">
-                                #<span t-esc="task.id"/>
-                            </td>
+        <xpath expr="//t[@t-call='portal.portal_table']" position="replace">
+            <t t-call="portal.portal_table">
+                <t t-foreach="grouped_tasks" t-as="tasks">
+                    <thead>
+                        <tr t-attf-class="{{'thead-light' if not groupby == 'none' else ''}}">
+                            <th t-if="groupby == 'none'">Name</th>
+                            <th t-elif="groupby == 'parent_id'">
+                                <em class="font-weight-normal text-muted">Tarea Padre:</em>
+                                <span t-field="tasks[0].sudo().parent_id.name"/>
+                            </th>
+                            <th t-else="">
+                                <em class="font-weight-normal text-muted"><span t-field="tasks[0].sudo().project_id.label_tasks"/> for project:</em>
+                                <span t-field="tasks[0].sudo().project_id.name"/></th>
+                            <th class="text-left">Tarea Padre</th>
+                            <th class="text-center">Stage</th>
+                            <th class="text-left">Ref</th>
                         </tr>
-                    </t>
-                </tbody>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="tasks" t-as="task">
+                            <tr>
+                                <td>
+                                    <a t-attf-href="/my/task/#{task.id}?{{ keep_query() }}"><span t-field="task.name"/></a>
+                                </td>
+                                <td t-if="task.parent_id" class="text-left">
+                                    <span t-esc="task.parent_id.name"/>
+                                </td>
+                                <td t-else="not task.parent_id" class="text-left">
+                                    <span> </span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge badge-pill badge-info" title="Current stage of the task" t-esc="task.stage_id.name" />
+                                </td>
+                                <td class="text-left">
+                                    #<span t-esc="task.id"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
             </t>
-          </t>
-      </xpath>
-      <xpath expr="//t[@t-call='portal.portal_searchbar']" position="after">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <a t-attf-href="/new/task/?{{ keep_query() }}" class="btn btn-primary" role="button">Nueva Tarea</a>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="after">
+            <div class="row mb-2">
+                <div class="col-lg-4 col-md-4">
+                    <a t-attf-href="/new/task/?{{ keep_query() }}" class="btn btn-primary" role="button">Nueva Tarea</a>
+                </div>
+                <div class="col-lg-6 col-md-6" id="center-side-task"/>
+                <div class="col-lg-2 col-md-2" id="right-side-task"/>
             </div>
-        </div>
-      </xpath>
+        </xpath>
     </template>
 </odoo>

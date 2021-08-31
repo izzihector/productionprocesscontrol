@@ -4,27 +4,28 @@
 
         <record model="ir.ui.view" id="inherit_helpdesk_ticket_view_form">
             <field name="model">helpdesk.ticket</field>
-            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
             <field name="arch" type="xml">
-                 <xpath expr="//form[1]/sheet[1]/notebook[1]" position='inside'>
-                     <page string="Subscription" name="subscription">
-                         <div>
-                             <field name="product_ticket">
-                                 <tree string="Subscription" editable="0" delete="0" create="0">
-                                     <field name="product_id" readonly="True" optional="show"/>
-                                     <!--<field name="subscription_id" readonly="True" optional="show"/>-->
-									 <field name="description_sale_subscription_line" readonly="True" optional="show"/>
-                                     <field name="quantity" readonly="True" optional="show"/>
-                                     <field name="umo_id" readonly="True" optional="show"/>
-                                 </tree>
-                             </field>
-                             <group class="oe_subtotal_footer oe_right">
-                                 <field name="information_date" class="oe_subtotal_footer_separator"
-                                        modifiers="{'readonly': true}"/>
-                             </group>
-                         </div>
-                     </page>
-                </xpath>
+                <notebook position="inside">
+                        <page string="Subscription" name="subscription">
+                            <div>
+                                <field name="product_ticket">
+                                    <tree string="Subscription" editable="0" delete="0" create="0">
+                                        <field name="product_id" readonly="True" optional="show"/>
+                                        <!--<field name="subscription_id" readonly="True" optional="show"/>-->
+                                        <field name="description_sale_subscription_line" readonly="True" optional="show"/>
+                                        <field name="quantity" readonly="True" optional="show"/>
+                                        <field name="umo_id" readonly="True" optional="show"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="information_date" class="oe_subtotal_footer_separator"
+                                           modifiers="{'readonly': true}"/>
+                                </group>
+                            </div>
+                        </page>
+
+                </notebook>
             </field>
         </record>
 
