@@ -5,9 +5,9 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 class CrmLead(models.Model):
-	_inherit = ['crm.lead']
+	_inherit = 'crm.lead'
 
-	@api.multi
+	#@api.multi
 	def create_ticket(self):
 		return{
 			'name': _('Crear Ticket'),

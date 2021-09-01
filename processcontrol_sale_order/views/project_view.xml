@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--Project Views-->
+        <record id="view_processcontrol_project_project_filter" model="ir.ui.view">
+            <field name="name">project.project.select</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_project_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="replace"/>
+                <field name="name" position="before">
+                    <field name="partner_id" string="Customer" filter_domain="[('partner_id', 'child_of', self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cant_create_project_edit_view">
+            <field name="name">project.project.cant.create</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_account_id']" position="after">
+                    <field name="total_sale_hour" widget="timesheet_uom" readonly="True"/>
+                    <field name="total_work_hour" widget="timesheet_uom" readonly="True"/>
+                    <field name="available_hour" widget="timesheet_uom" readonly="True"/>
+                    <field name="sales_hours" widget="float_time" invisible="1"/>
+                    <field name="department_id" required="True"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page name="task_stages" string="Etapas de Tareas">
+                        <group name="type_id">
+                            <field name="type_ids" options="{'no_open': True,'no_create': True}">
+                                <tree string="Etapas de Tareas" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="fold"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='project_project_view_tree' model='ir.ui.view'>
+            <field name="name">project.project.tree.inh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after" >
+                    <field name="total_sale_hour" widget="timesheet_uom"  sum="Total horas vendidas"/>
+                    <field name="total_work_hour" widget="timesheet_uom"  sum="Total horas trabajadas"/>
+                    <field name="available_hour" widget="timesheet_uom"  sum="Total horas disponibles"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_project_view_pivot" model="ir.ui.view">
+            <field name="name">project.project.view.pivot</field>
+            <field name="model">project.project</field>
+            <field name="arch" type="xml">
+                <pivot string="Pipeline Analysis" disable_linking="True">
+                    <field name="name"/>
+                    <field name="total_sale_hour" type="measure" widget="timesheet_uom"/>
+                    <field name="total_work_hour" type="measure" widget="timesheet_uom"/>
+                    <field name="available_hour" type="measure" widget="timesheet_uom"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">kanban,form,tree,pivot</field>
+            <field name="view_id" ref="project.view_project_kanban"/>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="target">main</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No projects found. Let's create one!
+                </p><p>
+                Projects regroup tasks on the same topic and each have their own dashboard.
+            </p>
+            </field>
+        </record>
+
+        <!--Tasks Views-->
+
+        <record model="ir.ui.view" id="send_mail_project_task_form_view">
+            <field name="name">project.task.send.mail</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position='inside'>
+                    <button name="action_task_report_send" string="Send by Email" type="object" class="btn-primary" help="Send mail to followers, can add another recipient"/>
+                    <button name="%(action_project_task_add_description)d" type="action" string="Add Description" class="btn-primary" help="Add a new line in the description field"/>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="department_id" readonly="1"/>
+                    <field name="total_sale_hour" widget="timesheet_uom" invisible="True"/>
+                    <field name="total_work_hour" widget="timesheet_uom" invisible="True"/>
+                    <field name="available_hour" widget="timesheet_uom" readonly="True"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='user_id']" position="attributes">-->
+<!--                    <attribute name="domain">-->
+<!--                        []-->
+<!--                    </attribute>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+        <record id='project_task_view_tree_inh' model='ir.ui.view'>
+            <field name="name">project.task.tree.inh</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after" >
+                    <field name="department_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_processcontrol_project_task_filter_inh" model="ir.ui.view">
+            <field name="name">project.task.inh</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='group_create_date']" position="before" >
+                    <filter string="Departamento" name="departament" context="{'group_by': 'department_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

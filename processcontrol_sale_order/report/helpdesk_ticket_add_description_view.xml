@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="helpdesk_ticket_add_description_view">
+            <field name="name">helpdesk.ticket.add.description.form</field>
+            <field name="model">helpdesk.ticket.add.description</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Add" name="add_description" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_helpdesk_ticket_add_description" model="ir.actions.act_window">
+            <field name="name">Ticket Add Description</field>
+            <field name="res_model">helpdesk.ticket.add.description</field>
+            <field name="binding_model_id" ref="model_helpdesk_ticket_add_description"/>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="helpdesk_ticket_add_description_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.ui.view" id="helpdesk_ticket_view_form">
+            <field name="name">helpdesk.ticket.add.description</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='assign_ticket_to_self']" position='after'>
+                    <button name="%(processcontrol_sale_order.action_helpdesk_ticket_add_description)d" type="action" string="Add Description" class="btn-primary" help="Add a new line in the description field"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

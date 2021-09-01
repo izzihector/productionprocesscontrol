@@ -19,7 +19,7 @@
 
     'category': 'Contacts',
 
-    'version': '1.0',
+    'version': '14.0.0',
 
     'depends': ['base', 'contacts'],
 

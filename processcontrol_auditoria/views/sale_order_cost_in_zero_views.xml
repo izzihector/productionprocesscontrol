@@ -41,7 +41,7 @@
         <menuitem
                 id="menu_sale_order_cost_zero"
                 name="Listado de precios en 0"
-                parent="menu_separetor_sale_order_report"
+                parent="menu_separator_sale_order_report"
                 action="view_sale_order_cost_zero"
                 groups="processcontrol_auditoria.audit_group"
         />

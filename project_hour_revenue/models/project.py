@@ -8,18 +8,6 @@ from odoo.exceptions import ValidationError
 class Project(models.Model):
     _inherit = 'project.project'
 
-    total_horas_contratadas = fields.Integer(
-        string='Total Horas Contratadas',
-        required=False)
-
-    horas_restantes_produccion = fields.Integer(
-        string='Total Horas Restantes Produccion',
-        required=False)
-
-    total_horas_imputadas = fields.Integer(
-        string='Total Horas Imputadas',
-        required=False)
-
     alert_percentil_no_profitable = fields.Integer(
         string='Porcentaje de riesgo',
         required=False)
@@ -32,8 +20,4 @@ class Project(models.Model):
 
     is_closed_project = fields.Boolean(
         string='Is closed Project',
-        required=False)
-
-    comercial = fields.Char(
-        string='Comercial Informe',
         required=False)

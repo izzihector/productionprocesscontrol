@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="process_helpdesk_tickets_view_search" model="ir.ui.view">
+        <field name="name">process.helpdesk.ticket.search</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="comercial_id"/>
+            </field>
+            <filter name="team" position="after">
+                <filter string="Salesperson" name="saleperson" context="{'group_by':'comercial_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="process_helpdesk_ticket_view_search_analysis_closed" model="ir.ui.view">
+        <field name="name">process.helpdesk.ticket.search</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_search_analysis_closed"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="comercial_id"/>
+            </field>
+            <filter name="team" position="after">
+                <filter string="Salesperson" name="saleperson" context="{'group_by':'comercial_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="process_helpdesk_ticket_view_form" model="ir.ui.view">
+        <field name="name">process.helpdesk.ticket.form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="email_cc" position="after">
+                <field name="comercial_id"/>
+            </field>            
+        </field>
+    </record>
+
+    <record id="process_helpdesk_ticket_view_search_analysis" model="ir.ui.view">
+        <field name="name">.process.helpdesk.ticket.search</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_search_analysis"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="comercial_id"/>
+            </field>
+            <filter name="team" position="after">
+                <filter string="Salesperson" name="saleperson" context="{'group_by':'comercial_id'}"/>
+            </filter>
+        </field>
+    </record>
+    
+</odoo>

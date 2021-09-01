@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _,api
+from odoo import fields, models, _
 from odoo.exceptions import UserError
 from xlwt import *
 from io import BytesIO
@@ -70,7 +70,6 @@ class sale_order_cost_zero(models.TransientModel):
 
         return wb
 
-    @api.multi
     def sale_order_cost_in_zero_report(self):
         if self.exclude_category and not self.category_ids:
             raise UserError(_('Must selected a product category'))

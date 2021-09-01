@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="processcontrol_res_groups_form_inherited" model="ir.ui.view">
+            <field name="name">res.groups.processcontrol.form</field>
+            <field name="model">res.groups</field>
+            <field name="inherit_id" ref="base.view_groups_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='share']" position="after">
+                    <field name="exclude_category" invisible="1"/>
+                    <field name="category_ids" attrs="{'invisible': [('exclude_category', '=', False)]}"/>
+              </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
