@@ -9,7 +9,7 @@
                     <button name="%(u_custom_process.action_create_task_from_oportunity_wizard)d" string="Tarea Preventa"
                             type="action" class="oe_highlight" context="{'default_opportunity_id': active_id, 'default_process_type': 'normal'}" attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False)]}"/>
                     <button name="%(u_custom_process.action_create_task_from_oportunity_wizard)d" string="Consulta Técnica"
-                            type="action" class="oe_highlight" context="{'default_opportunity_id': active_id, 'default_process_type': 'tech'}" attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False)]}"/>
+                            type="action" class="oe_highlight" context="{'default_opportunity_id': active_id, 'default_process_type': 'tech'}" invisible="True"/> <!-- attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False)]}" -->
                 </xpath>  
                 <xpath expr="//div[@name='button_box']" position="inside">  
                     <button name="action_view_tasks" type="object"

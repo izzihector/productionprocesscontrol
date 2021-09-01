@@ -7,6 +7,17 @@ from odoo.exceptions import ValidationError
 import math
 
 
+class Project(models.Model):
+    _inherit = 'project.project'
+
+    @api.model
+    def create(self, vals):
+        res = super(Project, self).create(vals)
+        if res.user_id and res.user_id.employee_id and res.user_id.employee_id.department_id:
+            res.department_id = res.user_id.employee_id.department_id.id
+        return res
+
+
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 

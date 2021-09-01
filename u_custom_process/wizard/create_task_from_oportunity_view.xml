@@ -13,7 +13,7 @@
                             <group>
                                 <field name="title" required="True"/>
                                 <field name="project_allowed_ids" invisible="True"/>
-                                <field name="process_type" readonly="True"/>
+                                <field name="process_type" readonly="True" invisible="True"/>
                                 <field name="department_id" required="True"/>
                                 <field name="opportunity_id" invisible="True"/>
                             </group>
