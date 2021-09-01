@@ -13,7 +13,7 @@
               </xpath>
 
                 <xpath expr="//field[@name='user_id']" position="attributes">
-                    <attribute name="required">1</attribute>
+                    <attribute name="required">True</attribute>
               </xpath>
 
             </field>
