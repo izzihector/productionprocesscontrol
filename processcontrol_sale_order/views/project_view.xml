@@ -103,6 +103,14 @@
                     <field name="total_work_hour" widget="timesheet_uom" invisible="True"/>
                     <field name="available_hour" widget="timesheet_uom" readonly="True"/>
                 </xpath>
+
+                  <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                    <page name="studio_page_n9GDa" string="Resolución">
+                         <group name="studio_group_n9GDa" string="En el siguiente apartado informaremos la solución que ha implantado el técnico en el cliente.">
+                        <field name="x_resolucion" widget="html"/>
+                    </group>
+                </page>
+                  </xpath>
 <!--                <xpath expr="//field[@name='user_id']" position="attributes">-->
 <!--                    <attribute name="domain">-->
 <!--                        []-->
@@ -129,6 +137,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='group_create_date']" position="before" >
                     <filter string="Departamento" name="departament" context="{'group_by': 'department_id'}"/>
+                    <filter string="Tarea padre" name="parent_task" context="{'group_by': 'parent_id'}"/>
                 </xpath>
             </field>
         </record>

@@ -6,6 +6,10 @@
             <field name="model">helpdesk.ticket</field>
             <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
             <field name="arch" type="xml">
+                <field name="partner_email" position="after">
+                    <field name="partner_phone" readonly="True"/>
+                </field>
+
                 <notebook position="inside">
                         <page string="Subscription" name="subscription">
                             <div>
@@ -26,6 +30,19 @@
                         </page>
 
                 </notebook>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="inherit_helpdesk_ticket_view_tree">
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+            <field name="arch" type="xml">
+            <field name="team_id" position="before">
+                  <field name="create_date"/>
+                 <field name="tag_ids" widget="many2many_tags"/>
+            </field>
+
             </field>
         </record>
 
