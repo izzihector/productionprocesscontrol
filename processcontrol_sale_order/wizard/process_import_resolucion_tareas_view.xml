@@ -51,7 +51,7 @@
                 name="Importar Resolucion Tareas"
                 parent="sale.sale_order_menu"
                 action="action_import_resolucion_tareas"
-                sequence="5"
+                sequence="6"
                 groups="base.group_system"
         />
         
