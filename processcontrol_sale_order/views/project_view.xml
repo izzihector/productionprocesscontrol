@@ -133,6 +133,7 @@
 
               <xpath expr="//field[@name='sequence']" position="after">
                 <field name="create_date"/>
+                  <field name="partner_id"/>
               </xpath>
               <xpath expr="//field[@name='planned_hours']" position="after">
                 <field name="effective_hours" string="Horas Imputadas" widget="float_time" sum="Horas dedicadas"/>
