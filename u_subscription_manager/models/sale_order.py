@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 
 class SaleOrderType(models.Model):
     _name = 'sale.order.type'
+    _description = 'sale.order.type'
 
     name = fields.Char(
         'Name'
