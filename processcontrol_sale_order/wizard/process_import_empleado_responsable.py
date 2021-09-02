@@ -135,7 +135,7 @@ class PCImportResolucionTareas(models.TransientModel):
                         else:
                             self.dont_found = 'Tarea con ID %s se encontro mas de una vez' % sheet.cell_value(row, 0)
                         continue
-                    task_id.x_description = sheet.cell_value(row, 1)
+                    task_id.x_resolucion = sheet.cell_value(row, 1)
                     count_so += 1
             if count_so:
                 self.updated = 'Se actualizaron %s tareas' % count_so
