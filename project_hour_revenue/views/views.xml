@@ -50,6 +50,17 @@
             </field>
         </record>
 
+        <record id="processcontrol_sale_order_project_view_task_search" model="ir.ui.view">
+            <field name="name">processcontrol_sale_order_project_view_task_search</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <filter name="project" position="after">
+                    <filter string="Tarea padre" name="parent_task" context="{'group_by': 'parent_id'}"/>
+                </filter>
+            </field>
+        </record>
+        
 
         <record id="project_project_view_form_simplified_inherit_proyect_type" model="ir.ui.view">
             <field name="name">project.project.view.form.simplified.inherit.proyect_type</field>

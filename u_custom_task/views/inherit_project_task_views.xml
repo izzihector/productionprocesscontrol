@@ -9,10 +9,6 @@
                 <xpath expr="//field[@name='parent_id']" position="attributes" >
                     <attribute name="domain">[('parent_id', '=', False),('project_id', '=', project_id),('id', '!=', id)]</attribute>
                 </xpath>
-
-                <filter name="project" position="after">
-                    <filter string="Tarea padre" name="parent_task" context="{'group_by': 'parent_id'}"/>
-                </filter>
             </field>
         </record>
     </data>

@@ -14,6 +14,7 @@ class HelpdeskTicket(models.Model):
     product_ticket = fields.One2many('product.ticket', 'ticket_id', string='Product ticket')
     product_ticket_total = fields.Float(compute='_compute_product_ticket_total', string="Total", store=True)
     information_date = fields.Datetime(string='Information date', default=fields.Datetime.now)
+    partner_phone = fields.Char(string=u'Teléfono',related='partner_id.phone',store=True)
 
     @api.depends('product_ticket', 'product_ticket.quantity', 'product_ticket.price_subtotal')
     def _compute_product_ticket_total(self):
