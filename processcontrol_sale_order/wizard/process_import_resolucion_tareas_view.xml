@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="import_resolucion_tareas_view" model="ir.ui.view">
+            <field name="name">Importar Empleados Responsables</field>
+            <field name="model">pc.import.resolucion.tareas</field>
+            <field name="arch" type="xml">
+                <form string="Importar Empleados Responsables">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="archive"/>
+                                <field name="dont_found" attrs="{'invisible': [('dont_found', '=', False)]}"/>
+                                <field name="updated" attrs="{'invisible': [('updated', '=', False)]}"/>
+                                <span>
+                            <b>Se espera un excel de esta manera:</b>
+                            <br/>
+                            <br/>
+                            <style>
+                                table#t01, td#td01, th {
+                                border: 1px solid black;
+                                border-collapse: collapse;
+                                text-align: center;
+                                }
+                            </style>
+                        </span>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Importar" name="import_resolucion_tareas" type="object" default_focus="1" class="btn-primary"/>
+                            <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_import_resolucion_tareas">
+            <field name="name">Importar Resolucion Tareas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pc.import.resolucion.tareas</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="import_resolucion_tareas_view"/>
+            <field name="target">main</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem
+                id="menu_import_resolucion_tareas"
+                name="Importar Resolucion Tareas"
+                parent="sale.sale_order_menu"
+                action="action_import_resolucion_tareas"
+                sequence="6"
+                groups="base.group_system"
+        />
+        
+
+    </data>
+</odoo>

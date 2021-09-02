@@ -21,6 +21,11 @@ class PCImportEmpleadoResponsable(models.TransientModel):
         and search the sale.order by name and if it found one update the field empleado_responable_id
         else add the SaleOrderName in dont_found
         """
+        """
+        This function recieve and excel with 2 column : SaleOrderName / Empleado Responsable
+        and search the sale.order by name and if it found one update the field empleado_responable_id
+        else add the SaleOrderName in dont_found
+        """
         self.dont_found = False
         if not self.archive:
             raise UserError('Debe subir su archivo primero')
@@ -31,54 +36,36 @@ class PCImportEmpleadoResponsable(models.TransientModel):
                 raise ValidationError(u'ERROR: {}'.format(e))
             sheet = book.sheets()[0]
             count_so = 0
-            sale_order_obj = self.env['sale.order']
-            users_obj = self.env['res.users']
+            project_task_obj = self.env['project.task']
             for row in range(sheet.nrows):
                 if row == 0:
-                    if sheet.cell_value(row, 0) != 'Nombre':
+                    if sheet.cell_value(row, 0) != 'ID':
                         raise UserError('Se espera columna "Nombre" en A1')
-                    if sheet.cell_value(row, 1) != 'Empleado':
+                    if sheet.cell_value(row, 1) != 'Resolucion':
                         raise UserError('Se espera columna "Empleado" en B1')
                 else:
                     if not sheet.cell_value(row, 0):
                         if self.dont_found:
-                            self.dont_found += '\n' + ('No se encontro pedido de venta en la fila %s' % str(row+1))
+                            self.dont_found += '\n' + ('No se encontro el ID en la fila %s' % str(row+1))
                         else:
-                            self.dont_found = 'No se encontro pedido de venta en la fila %s' % str(row+1)
+                            self.dont_found = ' No se encontro el ID en la fila %s' % str(row+1)
                         continue
-                    so = sale_order_obj.search([('name', '=', sheet.cell_value(row, 0))])
-                    if not so:
+                    task_id = project_task_obj.search([('id', '=', sheet.cell_value(row, 0))])
+                    if not task_id:
                         if self.dont_found:
-                            self.dont_found += '\n' + ('El pedido de venta %s no se encontro' % sheet.cell_value(row, 0))
+                            self.dont_found += '\n' + ('No se encontro la tarea con ID %s' % sheet.cell_value(row, 0))
                         else:
-                            self.dont_found = 'El pedido de venta %s no se encontro' % sheet.cell_value(row, 0)
+                            self.dont_found = 'No se encontro la tarea con ID %s' % sheet.cell_value(row, 0)
                         continue
-                    if len(so) > 1:
+                    if len(task_id) > 1:
                         if self.dont_found:
-                            self.dont_found += '\n' + ('El pedido de venta %s se encontro mas de una vez' % sheet.cell_value(row, 0))
+                            self.dont_found += '\n' + ('Tarea con ID %s se encontro mas de una vez' % sheet.cell_value(row, 0))
                         else:
-                            self.dont_found = 'El pedido de venta %s se encontro mas de una vez' % sheet.cell_value(row, 0)
+                            self.dont_found = 'Tarea con ID %s se encontro mas de una vez' % sheet.cell_value(row, 0)
                         continue
-                    if not sheet.cell_value(row, 1):
-                        if self.dont_found:
-                            self.dont_found += '\n' + ('No se encontro empleado en la fila %s' % str(row+1))
-                        else:
-                            self.dont_found = 'No se encontro empleado en la fila %s' % str(row+1)
-                        continue
-                    empleado_responsable = users_obj.search([('name', '=', sheet.cell_value(row, 1))])
-                    if not empleado_responsable:
-                        if self.dont_found:
-                            self.dont_found += '\n' + ('El usuario %s no se encontro' % sheet.cell_value(row, 1))
-                        else:
-                            self.dont_found = 'El usuario %s no se encontro' % sheet.cell_value(row, 1)
-                        continue
-                    if len(empleado_responsable) > 1:
-                        if self.dont_found:
-                            self.dont_found += '\n' + ('El usuario %s se encontro mas de una vez' % sheet.cell_value(row, 1))
-                        else:
-                            self.dont_found = 'El usuario %s se encontro mas de una vez' % sheet.cell_value(row, 1)
-                        continue
-                    so.empleado_responsable_id = empleado_responsable.id
+                    self.env.cr.execute('UPDATE project_task SET x_resolucion = %s WHERE id=%s',(sheet.cell_value(row, 1),task_id.id,))
                     count_so += 1
             if count_so:
-                self.updated = 'Se actualizaron %s pedidos de venta' % count_so
+                self.updated = 'Se actualizaron %s tareas' % count_so
+
+
