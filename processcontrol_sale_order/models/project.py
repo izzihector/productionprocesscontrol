@@ -153,6 +153,7 @@ class Task(models.Model):
             'context': ctx,
         }
 
+        x_resolucion = fields.Text(string=u'Resolución')
 
 class Project(models.Model):
     _inherit = 'project.project'
