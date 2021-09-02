@@ -7,7 +7,7 @@
     'category': 'Sale',
     'description': """
 Modifications to account analytic accounts in sales
-========================================
+===================================================
     """,
     'depends': ['base', 'sale_subscription'],
     'author': 'Unoobi',
