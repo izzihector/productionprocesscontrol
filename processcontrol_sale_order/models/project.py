@@ -8,6 +8,8 @@ from odoo.exceptions import UserError
 class Task(models.Model):
     _inherit = "project.task"
 
+    x_resolucion = fields.Text(string=u'Resolución')
+
     @api.model
     def create(self, vals):
         """
@@ -153,7 +155,7 @@ class Task(models.Model):
             'context': ctx,
         }
 
-        x_resolucion = fields.Text(string=u'Resolución')
+
 
 class Project(models.Model):
     _inherit = 'project.project'
