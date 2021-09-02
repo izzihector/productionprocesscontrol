@@ -43,6 +43,20 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="view_move_line_tree_date_due">
+            <field name="name">account.move.line.date.due</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="matching_number" position="after">
+                    <field name="date_maturity"/>
+
+                </field>
+
+            </field>
+        </record>
+
 
     </data>
 </odoo>
