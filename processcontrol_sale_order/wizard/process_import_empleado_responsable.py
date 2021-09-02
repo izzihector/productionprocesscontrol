@@ -63,7 +63,7 @@ class PCImportEmpleadoResponsable(models.TransientModel):
                         else:
                             self.dont_found = 'Tarea con ID %s se encontro mas de una vez' % sheet.cell_value(row, 0)
                         continue
-                    task_id.x_resolucion = sheet.cell_value(row, 1)
+                    self.env.cr.execute('UPDATE FROM project_task SET x_resolucion = %s WHERE id=%s',(sheet.cell_value(row, 1),task_id.id,))
                     count_so += 1
             if count_so:
                 self.updated = 'Se actualizaron %s tareas' % count_so
