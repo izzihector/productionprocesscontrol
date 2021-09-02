@@ -96,8 +96,8 @@ class CustomerPortal(CustomerPortal):
         if date_begin and date_end:
             domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
 
-        if request.env.user.partner_id:
-            domain += [('partner_id', '=', request.env.user.partner_id.id)]
+        #if request.env.user.partner_id:
+            #domain += [('partner_id', '=', request.env.user.partner_id.id)]
 
         # search
         if search and search_in:
