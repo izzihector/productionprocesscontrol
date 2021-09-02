@@ -9,6 +9,13 @@ class Task(models.Model):
     _inherit = "project.task"
 
     x_resolucion = fields.Text(string=u'Resolución')
+    x_total_horas_pendientes_padre_hijo = fields.Float('Horas restantes',compute='compute_total_horas_pendientes',readonly=True)
+
+    @api.depends('planned_hours','effective_hours')
+    def compute_total_horas_pendientes(self):
+        for rec in self:
+            rec.x_total_horas_pendientes_padre_hijo = rec.planned_hours - rec.effective_hours
+
 
     @api.model
     def create(self, vals):
