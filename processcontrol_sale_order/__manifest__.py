@@ -71,6 +71,7 @@
         'report/purchase_order_report_templates.xml',
         'report/helpdesk_ticket_add_description_view.xml',
         'wizard/process_import_empleado_responsable_view.xml',
+        'wizard/process_import_resolucion_tareas_view.xml',
         'report/account_report_invoice_templates.xml',
         'report/sale_subscription_report.xml',
         'report/sale_subscription_report_template.xml',
