@@ -28,7 +28,7 @@
                     <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
                 </xpath >
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='purchase_price']" position = "attributes" >
-                    <attribute name="attrs">{'readonly': [('state', 'in', ('done','cancel'))]}</attribute>
+                    <attribute name="attrs">{'readonly': [('state', '=', 'cancel')]}</attribute>
                 </xpath >
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='qty_delivered']" position = "attributes" >
                     <attribute name="attrs">{'readonly':['|', ('state', '=', 'done'),('qty_delivered_method','!=','manual')],'column_invisible':[('parent.state','not in',('sale','done'))]}</attribute>

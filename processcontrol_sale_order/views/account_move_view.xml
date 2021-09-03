@@ -11,7 +11,7 @@
                 <field name="journal_id" position="attributes">
                     <attribute name="domain">[]</attribute>
                 </field>
-
+                
             </field>
         </record>
 

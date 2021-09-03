@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
-from datetime import datetime
+from odoo import fields, models
+from datetime import datetime, timedelta
 
 
 class HelpdeskTicketAddDescription(models.TransientModel):
@@ -19,8 +19,8 @@ class HelpdeskTicketAddDescription(models.TransientModel):
             user_id = self.env['res.users'].browse(self.env.context.get('uid', False))
             today_datetime = datetime.today()
             if ticket_id.description:
-                ticket_id.description += '\n' + user_id.name + ' - ' + today_datetime.strftime(
+                ticket_id.description += '\n' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
                     "%d/%m/%Y - %H:%M:%S") + '\n' + self.description
             else:
-                ticket_id.description = user_id.name + ' - ' + today_datetime.strftime(
+                ticket_id.description = '\n' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
                     "%d/%m/%Y - %H:%M:%S") + '\n' + self.description

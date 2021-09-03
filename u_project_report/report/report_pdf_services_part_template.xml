@@ -136,6 +136,14 @@
 								</td>
 							</tr>
 							<tr>
+							<td class="tg-srtl" style="border-bottom: 0px solid #ffffff;">
+									<span style="font-weight:bold;color:#FFF">Horas dedicadas</span>
+								</td>
+								<td class="tg-b5u0" style="border-bottom: 0px solid #ffffff;">
+									<span t-esc="doc.effective_hours" t-options='{"widget": "float_time"}'/>
+								</td>
+							</tr>
+							<tr>
 								<td class="tg-srtl" style="border-bottom: 0px solid #ffffff;">
 									<span style="font-weight:bold;color:#FFF">Asignada a</span>
 								</td>
