@@ -18,4 +18,9 @@ class project_task_add_description(models.TransientModel):
             task_id = self.env['project.task'].browse(active_id)
             user_id = self.env['res.users'].browse(self.env.context.get('uid', False))
             today_datetime = datetime.today()
-            task_id.description += '<p>' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime("%d/%m/%Y - %H:%M:%S") + '</p>' + self.description
+            if task_id.description:
+                task_id.description += '\n' + '<p>' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
+                    "%d/%m/%Y - %H:%M:%S") + '</p>' + self.description + '\n'
+            else:
+                task_id.description += '<p>' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
+                    "%d/%m/%Y - %H:%M:%S") + '</p>' + self.description + '\n'
