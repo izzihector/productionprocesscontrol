@@ -114,7 +114,7 @@
 
                     <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
 
-                    <table class="table table-sm o_main_table" style="border-bottom: 2px solid #0075be; border-top: 2px solid #0075be;" name="invoice_line_table">
+                    <table class="table table-sm o_main_table" style="border-bottom: 4px solid #0075be; border-top: 4px solid #0075be;" name="invoice_line_table">
                         <thead>
                             <tr style="color:#358FFA">
                                 <th name="th_description" class="text-left"><span>Description</span></th>
@@ -191,8 +191,8 @@
                     <div class="clearfix">
                         <div id="total" class="row">
                             <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
-                                <table class="table table-sm" style="page-break-inside: avoid;">
-                                    <tr class="border-black o_subtotal" style="">
+                                <table class="table table-sm" style="page-break-inside: avoid; border-bottom: 4px solid #0075be;">
+                                    <tr>
                                         <td><strong style="color:#358FFA;">Subtotal</strong></td>
                                         <td class="text-right">
                                             <span t-field="o.amount_untaxed"/>
@@ -219,7 +219,7 @@
                                             </t>
                                         </tr>
                                     </t>
-                                    <tr class="border-black o_total">
+                                    <tr >
                                         <td><strong style="color:#358FFA;">Total</strong></td>
                                         <td class="text-right">
                                             <span class="text-nowrap" t-field="o.amount_total"/>
