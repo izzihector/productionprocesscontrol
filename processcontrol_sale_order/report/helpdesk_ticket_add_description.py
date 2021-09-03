@@ -22,5 +22,5 @@ class HelpdeskTicketAddDescription(models.TransientModel):
                 ticket_id.description += '\n' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
                     "%d/%m/%Y - %H:%M:%S") + '\n' + self.description
             else:
-                ticket_id.description = user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
+                ticket_id.description = '\n' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
                     "%d/%m/%Y - %H:%M:%S") + '\n' + self.description

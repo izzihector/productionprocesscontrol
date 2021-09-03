@@ -22,5 +22,5 @@ class project_task_add_description(models.TransientModel):
                 task_id.description += '\n' + '<p>' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
                     "%d/%m/%Y - %H:%M:%S") + '</p>' + self.description + '\n'
             else:
-                task_id.description += '<p>' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
+                task_id.description += '\n'+ '<p>' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
                     "%d/%m/%Y - %H:%M:%S") + '</p>' + self.description + '\n'

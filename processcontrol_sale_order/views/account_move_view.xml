@@ -12,6 +12,8 @@
                     <attribute name="domain">[]</attribute>
                 </field>
 
+                <field name="date" position="after">
+                    <field name="date_maturity" attrs="{'invisible': [('move_type', '!=', 'entry')]}"/>
             </field>
         </record>
 
