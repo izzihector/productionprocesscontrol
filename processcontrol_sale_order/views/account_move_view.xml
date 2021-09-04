@@ -28,6 +28,11 @@
 
                 </field>
 
+                <field name="invoice_date_due" position="after">
+                    <field name="invoice_origin"/>
+
+                </field>
+
             </field>
         </record>
 
