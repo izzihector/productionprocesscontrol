@@ -9,6 +9,29 @@ from datetime import date
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    def _search_invoice_ids(self, operator, value):
+        invoice_ids=[]
+        if operator == 'in' and value:
+            invoice_ids = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
+            if invoice_ids:
+                return [('id', 'in', invoice_ids.ids)]
+            else:
+                return [('id', 'in', invoice_ids)]
+        return ['&', ('order_line.invoice_lines.move_id.move_type', 'in',('out_invoice', 'out_refund')), ('order_line.invoice_lines.move_id', operator, value)]
+
+
+    @api.depends('order_line.invoice_lines')
+    def _get_invoiced(self):
+        # The invoice_ids are obtained thanks to the invoice lines of the SO
+        # lines, and we also search for possible refunds created directly from
+        # existing invoices. This is necessary since such a refund is not
+        # directly linked to the SO.
+        for order in self:
+            invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
+            #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
+            order.invoice_ids = invoices
+            order.invoice_count = len(invoices)
+
     @api.depends('sale_order_option_ids.price_subtotal')
     def _amount_all_option(self):
         for order in self:
