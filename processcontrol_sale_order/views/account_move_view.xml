@@ -11,7 +11,9 @@
                 <field name="journal_id" position="attributes">
                     <attribute name="domain">[]</attribute>
                 </field>
-
+                <field name="invoice_origin" position="attributes">
+                    <attribute name="invisible">False</attribute>
+                </field>
             </field>
         </record>
 

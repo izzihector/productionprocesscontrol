@@ -10,7 +10,6 @@ class AccountMove(models.Model):
 
     numero_factura_sage = fields.Char()
 
-
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
