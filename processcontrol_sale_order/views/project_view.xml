@@ -140,7 +140,7 @@
                   <field name="x_total_horas_pendientes_padre_hijo" widget="float_time" sum="x_total_horas_pendientes_padre_hijo" string="Horas Restantes"/>
                 <field name="activity_date_deadline" string="Fecha Inicio Actividad"/>
                 <xpath expr="//field[@name='date_deadline']" position="move"/>
-                <field name="date_end" widget="date" string="Fecha Finalizado"/>
+                  <field name="date_deadline" widget="date" string="Fecha límite"/>
               </xpath>
               <xpath expr="//field[@name='stage_id']" position="after">
                 <field name="tag_ids" widget="many2many_tags"/>
