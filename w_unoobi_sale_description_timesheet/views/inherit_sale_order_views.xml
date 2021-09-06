@@ -17,5 +17,27 @@
             </field>
         </record>
 
+        <record id="inherit_sale_order_tree_inh_quote_1" model="ir.ui.view">
+			<field name="name">sale.order.form.sale.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+					<field name="name" position="after">
+                        <field name="description" placeholder="Sale Description"/>
+                    </field>
+            </field>
+        </record>
+
+        <record id="inherit_sale_order_tree_quoatation_inh_quote_1" model="ir.ui.view">
+			<field name="name">sale.order.tree.description.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+					<field name="name" position="after">
+                        <field name="description" placeholder="Sale Description"/>
+                    </field>
+            </field>
+        </record>
+
     </data>
 </odoo>
