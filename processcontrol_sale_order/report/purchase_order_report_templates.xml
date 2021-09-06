@@ -43,7 +43,7 @@
                 </div>
 
                    <!-- Is there a discount on at least one line? -->
-                <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+                <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
 
                 <table class="table table-sm o_main_table" style="border-bottom: 4px solid #0075be; border-top: 4px solid #0075be;">
                     <thead>
