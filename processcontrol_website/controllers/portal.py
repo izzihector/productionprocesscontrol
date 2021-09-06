@@ -19,7 +19,7 @@ class CustomerPortal(CustomerPortal):
         values['task_count'] = '(' + str(request.env['project.task'].search_count([])) + ')'
         if request.env.user.partner_id:
             values['ticket_count'] = '(' + str(request.env['helpdesk.ticket'].search_count(['|', ('message_partner_ids', 'child_of', [request.env.user.partner_id.commercial_partner_id.id]),
-             ('message_partner_ids', 'in', [request.env.user.partner_id])])) + ')'
+             ('message_partner_ids', 'in', [request.env.user.partner_id.id])])) + ')'
         else:
             values['ticket_count'] = '(' + str(request.env['helpdesk.ticket'].search_count([])) + ')'
         return values
