@@ -159,26 +159,6 @@
                 </xpath>
             </field>
         </record>
-
-        <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
-            <field name="name">Tareas</field>
-            <field name="res_model">project.task</field>
-            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
-            <field name="domain">[('project_id', '=', active_id)]</field>
-            <field name="context">{
-                'pivot_row_groupby': ['user_id'],
-                'default_project_id': active_id,
-            }</field>
-            <field name="search_view_id" ref="project.view_task_search_form"/>
-            <field name="view_id" ref="project.view_task_tree2"/>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    No tasks found. Let's create one!
-                </p><p>
-                    To get things done, use activities and status on tasks.<br/>
-                    Chat in real time or by email to collaborate efficiently.
-                </p>
-            </field>
-        </record>
+        
     </data>
 </odoo>
