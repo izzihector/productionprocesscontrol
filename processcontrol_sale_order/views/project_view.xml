@@ -9,8 +9,8 @@
             <field name="inherit_id" ref="project.view_project_project_filter"/>
             <field name="arch" type="xml">
                 <field name="partner_id" position="replace"/>
-                <field name="name" position="before">
-                    <field name="partner_id" string="Customer" filter_domain="[('partner_id', 'child_of', self)]"/>
+                <field name="name" position="after">
+                    <field name="partner_id" string="Cliente" filter_domain="[('partner_id', 'child_of', self)]"/>
                 </field>
             </field>
         </record>
