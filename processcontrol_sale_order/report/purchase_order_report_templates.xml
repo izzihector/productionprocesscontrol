@@ -41,8 +41,9 @@
                         <p t-field="o.date_order" class="m-0"/>
                     </div>
                 </div>
-                
 
+                <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
+                
                 <table class="table table-sm o_main_table" style="border-bottom: 4px solid #0075be; border-top: 4px solid #0075be;">
                     <thead>
                         <tr style="color: #0075be !important;">
