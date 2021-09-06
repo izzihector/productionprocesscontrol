@@ -42,8 +42,7 @@
                     </div>
                 </div>
 
-                <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
-                
+
                 <table class="table table-sm o_main_table" style="border-bottom: 4px solid #0075be; border-top: 4px solid #0075be;">
                     <thead>
                         <tr style="color: #0075be !important;">
@@ -52,10 +51,7 @@
                             <th name="th_date_req" class="text-center"><strong style="color: #0075be !important;">Date Req.</strong></th>
                             <th name="th_quantity" class="text-right"><strong style="color: #0075be !important;">Quantity</strong></th>
                             <th name="th_price_unit" class="text-right"><strong style="color: #0075be !important;">Price</strong></th>
-                            <th t-if="display_discount" class="text-right">
-                                <span>Disc</span>
-                                <t t-set="colspan" t-value="colspan+1"/>
-                            </th>
+                            <th name="th_discount" class="text-right"><strong style="color: #0075be !important;">Desc</strong></th>
                             <th name="th_amount" class="text-right"><strong style="color: #0075be !important;">Amount</strong></th>
                         </tr>
                     </thead>
@@ -83,7 +79,7 @@
                                     <td class="text-right">
                                         <span t-field="line.price_unit"/>
                                     </td>
-                                    <td t-if="line.discount" class="text-right">
+                                    <td class="text-right">
                                         <span t-field="line.discount"/>
                                         <span>%</span>
                                     </td>
