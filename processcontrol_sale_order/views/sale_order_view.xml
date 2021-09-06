@@ -69,6 +69,17 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="opportunity_sale_order_view_search_filter">
+            <field name="name">opportunity.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_crm.sale_view_inherit123"/>
+            <field name="arch" type="xml">
+                <field name="opportunity_id" position="attributes">
+                    <attribute name="groups"></attribute>
+                </field>
+            </field>
+
+        </record>
 
         <record model="ir.ui.view" id="description_sale_order_view_search_filter">
             <field name="name">description.sale.order.search</field>
