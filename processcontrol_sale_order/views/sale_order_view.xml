@@ -48,6 +48,11 @@
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='optional_products']/field[@name='sale_order_option_ids']/tree[1]/field[@name='discount']" position = "after" >
                     <field name="price_subtotal" />
                 </xpath >
+
+                <xpath expr="//group[@name='sale_reporting']" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='optional_products']/field[@name='sale_order_option_ids']" position = "after" >
                     <group name="note_group" col="6" class="mt-2 mt-md-0">
                         <group colspan="4">
@@ -63,5 +68,17 @@
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="description_sale_order_view_search_filter">
+            <field name="name">description.sale.order.search</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="description" />
+                    </field>
+            </field>
+        </record>
+        
     </data>
 </odoo>
