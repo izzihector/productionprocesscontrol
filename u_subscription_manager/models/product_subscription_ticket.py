@@ -10,6 +10,7 @@ from odoo.exceptions import except_orm, ValidationError
 
 class ProductSubscription(models.Model):
     _name = 'product.subscription'
+    _description = 'product.subscription'
 
     name= fields.Char('Name')
     task_id = fields.Many2one('project.task', string='Task', required=True, ondelete='cascade', index=True, copy=False)
@@ -26,6 +27,7 @@ class ProductSubscription(models.Model):
 class ProductTicket(models.Model):
     _inherit = 'product.subscription'
     _name = 'product.ticket'
+    _description = 'product.ticket'
 
     #El campo 'task_id' no es requerido en este modelo
     task_id = fields.Many2one('project.task', string='Task', required=False, ondelete='cascade', index=True, copy=False)

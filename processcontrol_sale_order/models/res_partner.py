@@ -14,6 +14,6 @@ class ResPartner(models.Model):
                         child.user_id = values['user_id']
         return res
 
-    nombre_fantasia= fields.Char(u'Nombre fantasía', help=u'Nombre fantasía', track_visibility='onchange')
-    user_id = fields.Many2one('res.users', string='Comercial',domain=[('share','=',False)], track_visibility='onchange')
+    nombre_fantasia= fields.Char(u'Nombre fantasía', help=u'Nombre fantasía', tracking=True)
+    user_id = fields.Many2one('res.users', string='Comercial',domain=[('share','=',False)], tracking=True)
 

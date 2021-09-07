@@ -7,6 +7,7 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 
 class ProjectHourRevenueReportWizard(models.TransientModel):
     _name = 'project.hour.revenue.report.wizard'
+    _description = 'project.hour.revenue.report.wizard'
 
     date_start = fields.Date(string='Start Date', required=True, default=fields.Date.today)
     date_end = fields.Date(string='End Date', required=True, default=fields.Date.today)
@@ -37,6 +38,7 @@ class ProjectHourRevenueReportView(models.AbstractModel):
         _name = Use prefix `report.` along with `module_name.report_name`
     """
     _name = 'report.project_hour_revenue.revenue_summary_report_view'
+    _description = 'report.project_hour_revenue.revenue_summary_report_view'
 
     @api.model
     def _get_report_values(self, docids, data=None):

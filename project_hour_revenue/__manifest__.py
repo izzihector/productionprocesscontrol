@@ -18,7 +18,7 @@
 
     # always loaded
     'data': [
-        #'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         #'data/data.xml',
        # 'wizard/project_hour_revenue_summary_wizard.xml',
         #'report/project_hour_revenue_summary.xml',

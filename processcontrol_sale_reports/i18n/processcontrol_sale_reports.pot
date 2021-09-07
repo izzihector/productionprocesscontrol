@@ -1,0 +1,51 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* processcontrol_sale_reports
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20210316\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-11 18:06+0000\n"
+"PO-Revision-Date: 2021-05-11 18:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__margin_delivered
+msgid "Margin (Delivered)"
+msgstr ""
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__margin_invoiced
+msgid "Margin (Invoiced)"
+msgstr ""
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__margin_ordered
+msgid "Margin (Ordered)"
+msgstr ""
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__qty_delivered_uor
+msgid "Qty Delivered (Reference)"
+msgstr ""
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__qty_invoiced_uor
+msgid "Qty Invoiced (Reference)"
+msgstr ""
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__product_uom_qty_uor
+msgid "Qty Ordered (Reference)"
+msgstr ""
+
+#. module: processcontrol_sale_reports
+#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__qty_to_invoice_uor
+msgid "Qty To Invoice (Reference)"
+msgstr ""
