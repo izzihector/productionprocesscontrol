@@ -38,7 +38,10 @@
                 <xpath expr="//button[@name='assign_ticket_to_self']" position='after'>
                     <button name="%(processcontrol_sale_order.action_helpdesk_ticket_add_description)d" type="action" string="Add Description" class="btn-primary" help="Add a new line in the description field"/>
                 </xpath>
+                <field name="team_id" position="before">
+                    <field name="create_date" readonly="True"/>
 
+                </field>
                 <field name="email_cc" position="after">
                     <field name="project_id"/>
                     <field name="task_id"/>
