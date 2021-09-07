@@ -90,5 +90,3 @@ class HelpdeskTicket(models.Model):
             content = ''
         self.message_post(body=content)
         return super(HelpdeskTicket, self).write(values)
-
-    cliente_id = fields.Many2one('helpdesk_ticket_id.partner_id','res.partner',store=True)
