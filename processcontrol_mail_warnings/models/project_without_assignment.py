@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
-from datetime import date
+from datetime import date, timedelta
 
 
 class Project(models.Model):
