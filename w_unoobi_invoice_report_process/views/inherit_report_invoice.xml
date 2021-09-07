@@ -52,7 +52,14 @@
                         <span t-field="res_company.country_id.name"/>
                     </div>
                     <div class="col-6" name="partner_address">
-                        <span t-field="o.partner_id.name"/><br/>
+                        <div t-if="o.partner_id.parent_id" class="mt16">
+                          <strong><span t-field="o.partner_id.parent_id.name"/></strong><br/>
+                        </div>
+                           <div t-else="" class="mt16">
+                                 <span t-field="o.partner_id.name"/>
+                            <br/>
+                        </div>
+
                         <span t-field="o.partner_id.street"/>
                         <span t-field="o.partner_id.street2"/><br/>
                         <span t-field="o.partner_id.zip"/>
@@ -67,7 +74,7 @@
                             <br/>
                         </div>
 
-                    </div>
+                    </>
                     <!--<t t-set="address">
                         <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
                         <div t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></div>
