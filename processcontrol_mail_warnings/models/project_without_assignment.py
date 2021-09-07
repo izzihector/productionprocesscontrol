@@ -14,7 +14,7 @@ class Project(models.Model):
         for project in project_without_assignment_less_than_seven_days_ids:
             base_url = self.env['ir.config_parameter'].get_param('web.base.url')
             base_url += '/web?#id=%s&action=393&model=%s&view_type=form&menu_id=236' % (project.id, project._name)
-            message_body += '   - Proyecto: <a href="%s">%s</a> del cliente %s' % (base_url,project.name, project.partner_id.name)
+            message_body += '   - Proyecto: <a href="%s">%s</a> del cliente %s. Creado el: %s' % (base_url,project.name, project.partner_id.name, project.create_date )
             message_body += '<br/>'
         return message_body
 
@@ -24,7 +24,7 @@ class Project(models.Model):
         for project in project_without_assignment_more_than_seven_days_ids:
             base_url = self.env['ir.config_parameter'].get_param('web.base.url')
             base_url += '/web?#id=%s&action=393&model=%s&view_type=form&menu_id=236' % (project.id, project._name)
-            message_body += '   - Proyecto: <a href="%s">%s</a> del cliente %s' % (base_url,project.name, project.partner_id.name)
+            message_body += '   - Proyecto: <a href="%s">%s</a> del cliente %s. Creado el: %s' % (base_url,project.name, project.partner_id.name, project.create_date)
             message_body += '<br/>'
         return message_body
 
