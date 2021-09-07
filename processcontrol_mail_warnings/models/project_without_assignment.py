@@ -31,11 +31,11 @@ class Project(models.Model):
     def cron_project_without_assignment(self):
         project_project_obj = self.env['project.project']
         less_seven_days = date.today() - timedelta(days=7)
-        project_without_assignment_less_than_seven_days_ids = project_project_obj.search([('create_date', '>=', less_seven_days),('user_id','=',False)])
+        project_without_assignment_less_than_seven_days_ids = project_project_obj.search([('create_date', '>=', less_seven_days),('create_date','<=',date.today()),('user_id','=',False)],order='create_date asc')
         if project_without_assignment_less_than_seven_days_ids:
-            project_without_assignment_more_than_seven_days_ids = project_project_obj.search([('ids', 'not in', project_without_assignment_less_than_seven_days_ids.ids),('user_id','=',False)])
+            project_without_assignment_more_than_seven_days_ids = project_project_obj.search([('ids', 'not in', project_without_assignment_less_than_seven_days_ids.ids),('user_id','=',False)],order='create_date asc')
         else:
-            project_without_assignment_more_than_seven_days_ids = project_project_obj.search([('user_id', '=', False)])
+            project_without_assignment_more_than_seven_days_ids = project_project_obj.search([('user_id', '=', False)],order='create_date asc')
 
         if project_without_assignment_less_than_seven_days_ids:
             users_to_send = 'carolina.fernandez@processcontrol.es'
