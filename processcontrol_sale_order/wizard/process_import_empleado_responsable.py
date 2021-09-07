@@ -10,6 +10,7 @@ import base64
 
 class PCImportEmpleadoResponsable(models.TransientModel):
     _name = 'pc.import.empleado.responsable'
+    _description = 'pc.import.empleado.responsable'
 
     dont_found = fields.Text(string='No encontrados')
     updated = fields.Text(string="Actualizados")

@@ -9,8 +9,8 @@ import pdb
 class HrExpenseSheet(models.Model):
     _inherit = "hr.expense.sheet"
 
-    date_approval = fields.Date(string=u'Fecha de aprobación', track_visibility='onchange', readonly=True)
-    payment_date = fields.Date(string='Fecha de pago', track_visibility='onchange', readonly=True)
+    date_approval = fields.Date(string=u'Fecha de aprobación', tracking=True, readonly=True)
+    payment_date = fields.Date(string='Fecha de pago', tracking=True, readonly=True)
 
     def write(self, values):
         if 'state' in values:

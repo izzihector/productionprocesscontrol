@@ -12,9 +12,9 @@ class PCPlusProductividad(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Plus Productividad')
-    date = fields.Date(string='Fecha', required=True, track_visibility='always')
-    employee_id = fields.Many2one('hr.employee', 'Empleado', required=True, track_visibility='always')
-    amount = fields.Float(string='Importe', required=True, track_visibility='always')
+    date = fields.Date(string='Fecha', required=True, tracking=True)
+    employee_id = fields.Many2one('hr.employee', 'Empleado', required=True, tracking=True)
+    amount = fields.Float(string='Importe', required=True, tracking=True)
 
     @api.model
     def create(self, vals):

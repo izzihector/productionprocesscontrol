@@ -11,7 +11,7 @@ class HrExpense(models.Model):
     _inherit = "hr.expense"
     _description = "Expense"
 
-    expense_type_id = fields.Many2one('pc.hr.expense.type', string='Tipo de gasto', required=True,track_visibility='onchange')
+    expense_type_id = fields.Many2one('pc.hr.expense.type', string='Tipo de gasto', required=True,tracking=True)
     show_without_upload_photo = fields.Boolean()
     without_upload_photo = fields.Boolean()
     unit_amount = fields.Float("Importe", compute='_compute_from_product_id_company_id', store=True, required=True, copy=True,
