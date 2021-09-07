@@ -14,10 +14,7 @@
                 <field name="invoice_origin" position="attributes">
                     <attribute name="invisible">False</attribute>
                 </field>
-
-<!--                  <xpath expr="//form[1]/sheet[1]/notebdook[1]/page[2]/field[@name='line_ids']/tree[1]/field[@name='credit']" position="after">-->
-<!--                    <field name="date_maturity"/>-->
-<!--                </xpath>-->
+                
             </field>
         </record>
 
