@@ -52,7 +52,14 @@
                         <span t-field="res_company.country_id.name"/>
                     </div>
                     <div class="col-6" name="partner_address">
-                        <span t-field="o.partner_id.parent_id.name"/><br/>
+                        <div t-if="o.partner_id.parent_id" class="mt16">
+                          <strong><span t-field="o.partner_id.parent_id.name"/></strong><br/>
+                        </div>
+                           <div t-else="" class="mt16">
+                               <strong><span t-field="o.partner_id.name"/></strong><br/>
+                            <br/>
+                            </div>
+
                         <span t-field="o.partner_id.street"/>
                         <span t-field="o.partner_id.street2"/><br/>
                         <span t-field="o.partner_id.zip"/>
