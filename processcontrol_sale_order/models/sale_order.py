@@ -50,7 +50,7 @@ class SaleOrder(models.Model):
     total_purchase_price = fields.Float(string='Total Purchase Price', compute='_compute_total_purchase_price',
                                         tracking=True)
     margin = fields.Monetary("Margin", compute='_compute_margin', store=True, tracking=True)
-    amount_total_option = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all_option', tracking=4)
+    amount_total_option = fields.Monetary(string='Total (opciones)', store=True, readonly=True, compute='_amount_all_option', tracking=4)
     empleado_responsable_id = fields.Many2one(comodel_name='res.users',string='Empleado responsable',tracking=True)
 
     @api.returns('self', lambda value: value.id)

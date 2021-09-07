@@ -13,4 +13,6 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    internal_type = fields.Selection(related='account_id.internal_type', string="Internal Type", store=True, readonly=True)
+    # Comento este field porque no se utiliza y está duplicado con 'account_internal_type' mostrando un warning
+    # TODO: Comprobar, ¿eliminar clase?
+    #internal_type = fields.Selection(related='account_id.internal_type', string="Internal Type", store=True, readonly=True)
