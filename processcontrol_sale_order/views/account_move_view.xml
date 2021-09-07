@@ -14,7 +14,7 @@
                 <field name="invoice_origin" position="attributes">
                     <attribute name="invisible">False</attribute>
                 </field>
-                
+
             </field>
         </record>
 
