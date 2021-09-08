@@ -116,7 +116,7 @@ class SaleOrder(models.Model):
                     for task in line.project_id.task_ids:
                         if task.timesheet_ids:
                             raise UserError('No se puede cancelar un pedido que tiene parte de horas asignado.')
-                    line.project_id.active = False
+                    #line.project_id.active = False
         return super(SaleOrder, self).action_cancel()
 
     def action_confirm(self):
