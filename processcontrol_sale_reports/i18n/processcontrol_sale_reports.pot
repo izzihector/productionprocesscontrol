@@ -26,11 +26,6 @@ msgid "Margin (Invoiced)"
 msgstr ""
 
 #. module: processcontrol_sale_reports
-#: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__margin_ordered
-msgid "Margin (Ordered)"
-msgstr ""
-
-#. module: processcontrol_sale_reports
 #: model:ir.model.fields,field_description:processcontrol_sale_reports.field_sale_report__qty_delivered_uor
 msgid "Qty Delivered (Reference)"
 msgstr ""
