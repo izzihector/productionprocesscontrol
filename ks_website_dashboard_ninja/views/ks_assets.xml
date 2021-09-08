@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ks_assets_frontend" inherit_id="web.assets_frontend" name="Auth Assets">
+        <xpath expr="." position="inside">
+
+            <!-- All CSS of dashboard ninja library-->
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/lib/css/Chart.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/lib/css/Chart.min.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/lib/css/gridstack.min.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/lib/css/spectrum.css"/>
+
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_gridstack.css"/>
+            <link type="text/scss" rel="stylesheet" href="/ks_dashboard_ninja/static/src/scss/ks_dn_gridstack.scss"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_item_theme.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_ninja.scss"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_ninja_item.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_ninja_pro.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_dashboard_options.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_icon_container_modal.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_toggle_icon.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_dashboard_ninja/static/src/css/ks_to_do_item.css"/>
+            <link type="text/css" rel="stylesheet" href="/ks_website_dashboard_ninja/static/src/css/main.css"/>
+
+            <!-- All js files of dasbhoard ninja library-->
+            <script type="text/javascript" src="/ks_dashboard_ninja/static/lib/js/jquery.ui.touch-punch.min.js"/>
+            <script type="text/javascript" src="/ks_dashboard_ninja/static/lib/js/Chart.bundle.min.js"/>
+            <script type="text/javascript" src="/ks_dashboard_ninja/static/lib/js/gridstack.min.js"/>
+            <script type="text/javascript" src="/ks_dashboard_ninja/static/lib/js/gridstack.jQueryUI.min.js"/>
+            <script type="text/javascript" src="/ks_dashboard_ninja/static/lib/js/chartjs-plugin-datalabels.js"/>
+            <script type="text/javascript" src="/ks_dashboard_ninja/static/lib/js/spectrum.js"/>
+
+            <script type="text/javascript" src="/ks_website_dashboard_ninja/static/src/js/ks_dashboard_filter_dialog.js"/>
+            <script type="text/javascript" src="/ks_website_dashboard_ninja/static/src/js/ks_dashboard.js"/>
+            <script type="text/javascript" src="/ks_website_dashboard_ninja/static/src/js/ks_dashboard_to_do_item.js"/>
+        </xpath>
+    </template>
+</odoo>
+
