@@ -33,7 +33,7 @@ odoo.define('knowsystem.kwowsystem_kanbancontroller', function (require) {
             "click .play_tour": "_onTourClick",
             "contextmenu .play_tour": "_onTourRightClick",
         }),
-        jsLibs: ['/knowsystem/static/lib/jstree/jstree.js'],
+        jsLibs: ['/knowsystem/static/lib/jstree/jstree.min.js'],
         cssLibs: ['/knowsystem/static/lib/jstree/themes/default/style.css'],
         custom_events: _.extend({}, KanbanController.prototype.custom_events, {select_record: '_articleSelected',}),
         /**
