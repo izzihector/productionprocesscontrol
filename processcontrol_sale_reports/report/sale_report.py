@@ -4,9 +4,6 @@ from odoo import fields, models
 class SaleReport(models.Model):
     _inherit = 'sale.report'
 
-    margin = None
-
-    margin_ordered = fields.Float('Margin (Ordered)', readonly=True)
     margin_delivered = fields.Float('Margin (Delivered)', readonly=True)
     margin_invoiced = fields.Float('Margin (Invoiced)', readonly=True)
 
@@ -16,14 +13,10 @@ class SaleReport(models.Model):
     qty_invoiced_uor = fields.Float('Qty Invoiced (Reference)', readonly=True)
 
     def _query(self, with_clause='', fields={}, groupby='', from_clause=''):
-        fields['margin_ordered'] = ", SUM(l.margin / CASE COALESCE(s.currency_rate, 0) WHEN 0 THEN 1.0 ELSE " \
-                                   "s.currency_rate END) AS margin_ordered\n"
-        fields['margin_delivered'] = ", SUM((l.price_unit * l.qty_delivered - l.purchase_price * l.qty_delivered) / " \
-                                     "CASE COALESCE(s.currency_rate, 0) WHEN 0 THEN 1.0 ELSE s.currency_rate END) AS " \
-                                     "margin_delivered\n"
-        fields['margin_invoiced'] = ", SUM((l.price_unit * l.qty_invoiced - l.purchase_price * l.qty_invoiced) / " \
-                                    "CASE COALESCE(s.currency_rate, 0) WHEN 0 THEN 1.0 ELSE s.currency_rate END) " \
-                                    "AS margin_invoiced\n"
+        fields['margin_delivered'] = ", SUM(l.margin_delivered / CASE COALESCE(s.currency_rate, 0) WHEN 0 THEN 1.0 " \
+                                     "ELSE s.currency_rate END) AS margin_delivered\n"
+        fields['margin_invoiced'] = ", SUM(l.margin_invoiced / CASE COALESCE(s.currency_rate, 0) WHEN 0 THEN 1.0 " \
+                                    "ELSE s.currency_rate END) AS margin_invoiced\n"
         fields['product_uom_qty_uor'] = ", CASE WHEN l.product_id IS NOT NULL THEN sum(product_uom_qty / u2.factor) " \
                                         "ELSE 0 END as product_uom_qty_uor\n"
         fields['qty_delivered_uor'] = ", CASE WHEN l.product_id IS NOT NULL THEN sum(qty_delivered / u2.factor) " \
@@ -32,6 +25,5 @@ class SaleReport(models.Model):
                                        "ELSE 0 END as qty_to_invoice_uor\n"
         fields['qty_invoiced_uor'] = ", CASE WHEN l.product_id IS NOT NULL THEN sum(qty_invoiced / u2.factor) " \
                                      "ELSE 0 END as qty_invoiced_uor\n"
-
 
         return super(SaleReport, self)._query(with_clause, fields, groupby, from_clause)
