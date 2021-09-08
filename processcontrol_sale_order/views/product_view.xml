@@ -12,6 +12,10 @@
                     <attribute name="domain">[]</attribute>
                     <attribute name="context">{}</attribute>
               </xpath>
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                    <attribute name="context">{}</attribute>
+              </xpath>
             </field>
         </record>
 
@@ -22,6 +26,10 @@
             <field name="priority">30</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='project_template_id']" position="attributes">
+                    <attribute name="domain">[]</attribute>
+                    <attribute name="context">{}</attribute>
+              </xpath>
+                <xpath expr="//field[@name='project_id']" position="attributes">
                     <attribute name="domain">[]</attribute>
                     <attribute name="context">{}</attribute>
               </xpath>
