@@ -27,30 +27,30 @@ class ProjectTask(models.Model):
         default='normal'
     )
 
-    @api.model
-    def create(self, vals):
-        res = super(ProjectTask, self).create(vals)
-        project_id = vals.get("project_id")
-        if project_id:
-            project = self.env['project.project'].browse(project_id)
-            if not project.active:
-                raise ValidationError(_("No se puede crear/editar el registro ya que el proyecto se encuentra archivado"))
-        return res
-
-    def write(self, values):
-        for record in self:
-            if 'project_id' in values:
-                project_id = values['project_id']
-            else:
-                project_id = record.project_id.id
-            if 'active' not in values:
-                if not record.active:
-                    raise ValidationError(_("No se puede crear/editar el registro ya que la tarea se encuentra archivada"))
-
-            project = self.env['project.project'].browse(project_id)
-            if not project.active:
-                raise ValidationError(_("No se puede crear/editar el registro ya que el proyecto se encuentra archivado"))
-        return super(ProjectTask, self).write(values)
+    # @api.model
+    # def create(self, vals):
+    #     res = super(ProjectTask, self).create(vals)
+    #     project_id = vals.get("project_id")
+    #     if project_id:
+    #         project = self.env['project.project'].browse(project_id)
+    #         if not project.active:
+    #             raise ValidationError(_("No se puede crear/editar el registro ya que el proyecto se encuentra archivado"))
+    #     return res
+    #
+    # def write(self, values):
+    #     for record in self:
+    #         if 'project_id' in values:
+    #             project_id = values['project_id']
+    #         else:
+    #             project_id = record.project_id.id
+    #         if 'active' not in values:
+    #             if not record.active:
+    #                 raise ValidationError(_("No se puede crear/editar el registro ya que la tarea se encuentra archivada"))
+    #
+    #         project = self.env['project.project'].browse(project_id)
+    #         if not project.active:
+    #             raise ValidationError(_("No se puede crear/editar el registro ya que el proyecto se encuentra archivado"))
+    #     return super(ProjectTask, self).write(values)
 
 
 class AccountAnalyticLine(models.Model):
