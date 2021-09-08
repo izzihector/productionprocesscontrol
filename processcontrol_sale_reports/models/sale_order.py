@@ -14,7 +14,7 @@ class SaleOrderLine(models.Model):
             taxes = line.tax_id.compute_all(
                 price,
                 line.order_id.currency_id,
-                line.line.qty_delivered,
+                line.qty_delivered,
                 product=line.product_id,
                 partner=line.order_id.partner_shipping_id
             )
@@ -28,7 +28,7 @@ class SaleOrderLine(models.Model):
             taxes = line.tax_id.compute_all(
                 price,
                 line.order_id.currency_id,
-                line.line.qty_invoiced,
+                line.qty_invoiced,
                 product=line.product_id,
                 partner=line.order_id.partner_shipping_id
             )
