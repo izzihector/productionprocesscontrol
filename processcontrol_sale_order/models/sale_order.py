@@ -32,7 +32,7 @@ class SaleOrder(models.Model):
             count = len(name) - 1
             invoices_ids=[]
             if len(name)> 1:
-                while count >0:
+                while count >= 0:
                     invoices = self.env['account.move'].search(
                         [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', '=', name[count].strip())])
                     if invoices:
