@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_analytic_line_inherit_process" model="ir.ui.view">
+            <field name="name">account.analytic.line.process</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="priority">32</field>
+            <field name="arch" type="xml">
+
+                <field name="name" position="after">
+                    <field name="cliente_id"/>
+                </field>
+
+
+            </field>
+        </record>
+
+
+        <record id="account_analytic_line_user_inherit_process" model="ir.ui.view">
+            <field name="name">account.analytic.line.user.process</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
+            <field name="priority">32</field>
+            <field name="arch" type="xml">
+
+                <field name="name" position="after">
+                    <field name="cliente_id"/>
+                </field>
+
+
+            </field>
+
+
+        </record>
+
+    </data>
+</odoo>
