@@ -90,3 +90,8 @@ class HelpdeskTicket(models.Model):
             content = ''
         self.message_post(body=content)
         return super(HelpdeskTicket, self).write(values)
+
+class AccountAnalyticLine(models.Model):
+    _inherit = 'account.analytic.line'
+
+    cliente_id = fields.Many2one('helpdesk_ticket_id.partner_id.parent_id','res.partner',string='Cliente del ticket',store=True)

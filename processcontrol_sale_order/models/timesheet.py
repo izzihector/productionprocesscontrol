@@ -14,4 +14,3 @@ class AccountAnalyticLine(models.Model):
                     raise ValidationError(_('Error. No tienes el permiso para poder eliminar una parte de hora'))
         return super(AccountAnalyticLine, self).unlink()
 
-    cliente_id = fields.Many2one('helpdesk_ticket_id.partner_id.parent_id','res.partner',string='Cliente del ticket',store=True)
