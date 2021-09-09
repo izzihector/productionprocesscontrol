@@ -81,6 +81,7 @@
         'security/ir.model.access.csv',
         'report/sale_report_templates.xml',
         'views/account_move_view.xml',
+        'views/account_analytic_line_view.xml'
     ]
     # only loaded in demonstration mode
     # 'demo': [
