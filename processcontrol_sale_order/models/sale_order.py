@@ -27,10 +27,25 @@ class SaleOrder(models.Model):
         # existing invoices. This is necessary since such a refund is not
         # directly linked to the SO.
         for order in self:
-            invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
-            #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
-            order.invoice_ids = invoices
-            order.invoice_count = len(invoices)
+            name= self.name
+            name= name.split(',')
+            count = len(name) - 1
+            invoices_ids=[]
+            if len(name)> 1:
+                while count >0:
+                    invoices = self.env['account.move'].search(
+                        [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', '=', name[count].strip())])
+                    if invoices:
+                        invoices_ids.append(invoices)
+                    count = count - 1
+                order.invoice_ids = invoices_ids
+                order.invoice_count=len(invoices)
+
+            else:
+                invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
+                #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
+                order.invoice_ids = invoices
+                order.invoice_count = len(invoices)
 
     @api.depends('sale_order_option_ids.price_subtotal')
     def _amount_all_option(self):
