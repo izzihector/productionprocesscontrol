@@ -7,31 +7,14 @@ class SaleOrderLine(models.Model):
     margin_delivered = fields.Float(compute='_compute_margin_delivered', store=True)
     margin_invoiced = fields.Float(compute='_compute_margin_invoiced', store=True)
 
-    @api.depends('price_unit', 'qty_delivered', 'purchase_price', 'product_uom_qty', 'discount', 'price_unit', 'tax_id')
+    @api.depends('price_subtotal', 'qty_delivered', 'purchase_price')
     def _compute_margin_delivered(self):
         for line in self:
-            price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            taxes = line.tax_id.compute_all(
-                price,
-                line.order_id.currency_id,
-                line.qty_delivered,
-                product=line.product_id,
-                partner=line.order_id.partner_shipping_id
-            )
-            line.margin_delivered = taxes['total_excluded'] * line.qty_delivered - \
-                                    (line.purchase_price * line.qty_delivered)
+            price = (line.price_subtotal / line.product_uom_qty) if line.product_uom_qty else 0
+            line.margin_delivered = price * line.qty_delivered - (line.purchase_price * line.qty_delivered)
 
-    @api.depends('price_unit', 'qty_invoiced', 'purchase_price', 'product_uom_qty', 'discount', 'price_unit', 'tax_id')
+    @api.depends('price_subtotal', 'qty_invoiced', 'purchase_price')
     def _compute_margin_invoiced(self):
         for line in self:
-            price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            taxes = line.tax_id.compute_all(
-                price,
-                line.order_id.currency_id,
-                line.qty_invoiced,
-                product=line.product_id,
-                partner=line.order_id.partner_shipping_id
-            )
-
-            line.margin_invoiced = taxes['total_excluded'] * line.qty_invoiced - \
-                                   (line.purchase_price * line.qty_invoiced)
+            price = (line.price_subtotal / line.product_uom_qty) if line.product_uom_qty else 0
+            line.margin_invoiced = price * line.qty_invoiced - (line.purchase_price * line.qty_invoiced)
