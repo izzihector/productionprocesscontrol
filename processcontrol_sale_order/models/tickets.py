@@ -94,4 +94,4 @@ class HelpdeskTicket(models.Model):
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
-    cliente_id = fields.Many2one('helpdesk_ticket_id.partner_id.parent_id','res.partner',string='Cliente del ticket',store=True)
+    cliente_id = fields.Many2one(related='helpdesk_ticket_id.partner_id.parent_id',string='Cliente del ticket',store=True)
