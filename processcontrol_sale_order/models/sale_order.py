@@ -32,17 +32,8 @@ class SaleOrder(models.Model):
             if not invoices:
                 invoices_ids = self.env['account.move'].search(
                     [('move_type', 'in', ('out_invoice', 'out_refund')),('invoice_origin','!=',False)])
-                for invoice in invoices_ids:
-                    invoice_origin = invoice.invoice_origin.split(', ')
-                    count = len(invoice_origin) - 1
-                    if len(invoice_origin) > 1:
-                        while count >= 0:
-                            invoice = self.env['account.move'].search(
-                                [('move_type', 'in', ('out_invoice', 'out_refund')),
-                                 ('invoice_origin', '=', invoice_origin[count])])
-                            if invoice:
-                                invoices += invoice
-                            count = count - 1
+                if invoices_ids:
+                    invoices= invoices_ids.filtered(lambda r: order.name in [origin.strip() for origin in r.origin.split(',')])
                 #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
             order.invoice_ids = invoices
             order.invoice_count = len(invoices)
