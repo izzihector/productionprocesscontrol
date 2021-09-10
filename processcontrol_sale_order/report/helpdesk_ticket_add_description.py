@@ -19,8 +19,8 @@ class HelpdeskTicketAddDescription(models.TransientModel):
             user_id = self.env['res.users'].browse(self.env.context.get('uid', False))
             today_datetime = datetime.today()
             if ticket_id.description:
-                ticket_id.description += '\n' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
-                    "%d/%m/%Y - %H:%M:%S") + '\n' + self.description
+                ticket_id.description += '\n' + '------- '+ user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
+                    "%d/%m/%Y - %H:%M:%S") + ' -------' + '\n' + self.description
             else:
-                ticket_id.description = '\n' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
-                    "%d/%m/%Y - %H:%M:%S") + '\n' + self.description
+                ticket_id.description = '\n' + '------- ' + user_id.name + ' - ' + (today_datetime + timedelta(hours=2)).strftime(
+                    "%d/%m/%Y - %H:%M:%S") + ' -------' + '\n' + self.description
