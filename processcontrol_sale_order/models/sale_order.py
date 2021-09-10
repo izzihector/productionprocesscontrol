@@ -113,17 +113,17 @@ class SaleOrder(models.Model):
             'context': ctx,
         }
 
-    def action_cancel(self):
-        """ If an order line have a project, check if any of the tasks of that project have a timesheet
-            if that so we raise an UserError else we archive the project """
-        for order in self:
-            for line in order.order_line:
-                if line.project_id:
-                    for task in line.project_id.task_ids:
-                        if task.timesheet_ids:
-                            raise UserError('No se puede cancelar un pedido que tiene parte de horas asignado.')
-                    #line.project_id.active = False
-        return super(SaleOrder, self).action_cancel()
+    # def action_cancel(self):
+    #     """ If an order line have a project, check if any of the tasks of that project have a timesheet
+    #         if that so we raise an UserError else we archive the project """
+    #     for order in self:
+    #         for line in order.order_line:
+    #             if line.project_id:
+    #                 for task in line.project_id.task_ids:
+    #                     if task.timesheet_ids:
+    #                         raise UserError('No se puede cancelar un pedido que tiene parte de horas asignado.')
+    #                 #line.project_id.active = False
+    #     return super(SaleOrder, self).action_cancel()
 
     def action_confirm(self):
         """ If the product of an order line is not active we raise an User Error"""
