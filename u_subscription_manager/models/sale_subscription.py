@@ -128,7 +128,7 @@ class SaleSubscriptionLine(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('display_type', self.default_get(['display_type'])['display_type']):
-                vals.update(product_id=False, price_unit=0, product_uom_qty=0,
+                vals.update(product_id=False, price_unit=0, quantity=0,
                             product_uom=False)
         return super(SaleSubscriptionLine, self).create(vals_list)
 
