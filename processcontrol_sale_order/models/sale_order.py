@@ -28,24 +28,15 @@ class SaleOrder(models.Model):
         # directly linked to the SO.
         for order in self:
             name= self.name
-            name= name.split(',')
-            count = len(name) - 1
-            invoices_ids=[]
+            name= name.split(' ')
             if len(name)> 1:
-                while count >= 0:
-                    invoices = self.env['account.move'].search(
-                        [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', '=', name[count].strip())])
-                    if invoices:
-                        invoices_ids.append(invoices)
-                    count = count - 1
-                order.invoice_ids = invoices_ids
-                order.invoice_count=len(invoices)
-
+                invoices = self.env['account.move'].search(
+                    [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', 'in', name)])
             else:
                 invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
                 #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
-                order.invoice_ids = invoices
-                order.invoice_count = len(invoices)
+            order.invoice_ids = invoices
+            order.invoice_count = len(invoices)
 
     @api.depends('sale_order_option_ids.price_subtotal')
     def _amount_all_option(self):
@@ -122,17 +113,17 @@ class SaleOrder(models.Model):
             'context': ctx,
         }
 
-    def action_cancel(self):
-        """ If an order line have a project, check if any of the tasks of that project have a timesheet
-            if that so we raise an UserError else we archive the project """
-        for order in self:
-            for line in order.order_line:
-                if line.project_id:
-                    for task in line.project_id.task_ids:
-                        if task.timesheet_ids:
-                            raise UserError('No se puede cancelar un pedido que tiene parte de horas asignado.')
-                    #line.project_id.active = False
-        return super(SaleOrder, self).action_cancel()
+    # def action_cancel(self):
+    #     """ If an order line have a project, check if any of the tasks of that project have a timesheet
+    #         if that so we raise an UserError else we archive the project """
+    #     for order in self:
+    #         for line in order.order_line:
+    #             if line.project_id:
+    #                 for task in line.project_id.task_ids:
+    #                     if task.timesheet_ids:
+    #                         raise UserError('No se puede cancelar un pedido que tiene parte de horas asignado.')
+    #                 #line.project_id.active = False
+    #     return super(SaleOrder, self).action_cancel()
 
     def action_confirm(self):
         """ If the product of an order line is not active we raise an User Error"""
