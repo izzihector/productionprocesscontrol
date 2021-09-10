@@ -5,7 +5,7 @@ from odoo import http, _
 from odoo.http import request
 from odoo.tools import groupby as groupbyelem
 from operator import itemgetter
-from odoo.osv.expression import OR
+from odoo.osv.expression import OR, AND
 from odoo.addons.portal.controllers.portal import pager as portal_pager, CustomerPortal
 import logging
 _logger = logging.getLogger(__name__)
@@ -13,20 +13,9 @@ _logger = logging.getLogger(__name__)
 
 class CustomerPortal(CustomerPortal):
 
-    def _prepare_home_portal_values(self, counters):
-        values = super()._prepare_home_portal_values(counters)
-        values['project_count'] = '(' + str(request.env['project.project'].search_count([])) + ')'
-        values['task_count'] = '(' + str(request.env['project.task'].search_count([])) + ')'
-        if request.env.user.partner_id:
-            values['ticket_count'] = '(' + str(request.env['helpdesk.ticket'].search_count(['|', ('message_partner_ids', 'child_of', [request.env.user.partner_id.commercial_partner_id.id]),
-             ('message_partner_ids', 'in', [request.env.user.partner_id.id])])) + ')'
-        else:
-            values['ticket_count'] = '(' + str(request.env['helpdesk.ticket'].search_count([])) + ')'
-        return values
-
     @http.route(['/my/tickets', '/my/tickets/page/<int:page>'], type='http', auth="user", website=True)
     def my_helpdesk_tickets(self, page=1, date_begin=None, date_end=None, sortby=None, filterby='all', search=None,
-                            groupby='none', search_in='content', **kw):
+                            groupby='none', following='false', search_in='content', **kw):
         values = self._prepare_portal_layout_values()
 
         searchbar_sortings = {
@@ -56,6 +45,11 @@ class CustomerPortal(CustomerPortal):
         searchbar_groupby = {
             'none': {'input': 'none', 'label': _('None')},
             'stage': {'input': 'stage_id', 'label': _('Stage')},
+        }
+
+        searchbar_following = {
+            'false': {'label': _('No')},
+            'true': {'label': _('Yes')},
         }
 
         # default sort by value
@@ -96,10 +90,6 @@ class CustomerPortal(CustomerPortal):
 
         if date_begin and date_end:
             domain += [('create_date', '>', date_begin), ('create_date', '<=', date_end)]
-        user = request.env.user
-        if request.env.user.partner_id:
-            domain += ['|',('message_partner_ids', 'child_of', [user.partner_id.commercial_partner_id.id]),
-            ('message_partner_ids', 'in', [user.partner_id.id])]
 
         # search
         if search and search_in:
@@ -107,8 +97,7 @@ class CustomerPortal(CustomerPortal):
             if search_in in ('id', 'all'):
                 search_domain = OR([search_domain, [('id', 'ilike', search)]])
             if search_in in ('content', 'all'):
-                search_domain = OR(
-                    [search_domain, ['|', ('name', 'ilike', search), ('description', 'ilike', search)]])
+                search_domain = OR([search_domain, ['|', ('name', 'ilike', search), ('description', 'ilike', search)]])
             if search_in in ('customer', 'all'):
                 search_domain = OR([search_domain, [('partner_id', 'ilike', search)]])
             if search_in in ('message', 'all'):
@@ -119,17 +108,19 @@ class CustomerPortal(CustomerPortal):
                 search_domain = OR([search_domain, [('stage_id', 'ilike', search)]])
             domain += search_domain
 
+        if following == 'true':
+            domain = AND([domain, [
+                '|',
+                ('message_partner_ids', 'child_of', [request.env.user.partner_id.commercial_partner_id.id]),
+                ('message_partner_ids', 'in', [request.env.user.partner_id.id])
+            ]])
+
         # pager
         tickets_count = len(request.env['helpdesk.ticket'].search(domain))
-        _logger.info(
-            '------------------------------------------------------------------------------------------------------------------------------------------')
-        _logger.info(tickets_count)
-        _logger.info(
-            '------------------------------------------------------------------------------------------------------------------------------------------')
         pager = portal_pager(
             url="/my/tickets",
             url_args={'date_begin': date_begin, 'date_end': date_end, 'sortby': sortby, 'search_in': search_in,
-                      'search': search},
+                      'search': search, 'groupby': groupby},
             total=tickets_count,
             page=page,
             step=self._items_per_page
@@ -155,10 +146,13 @@ class CustomerPortal(CustomerPortal):
             'searchbar_filters': searchbar_filters,
             'searchbar_inputs': searchbar_inputs,
             'searchbar_groupby': searchbar_groupby,
+            'searchbar_following': searchbar_following,
             'sortby': sortby,
             'groupby': groupby,
             'search_in': search_in,
             'search': search,
             'filterby': filterby,
+            'following': following
         })
         return request.render("helpdesk.portal_helpdesk_ticket", values)
+
