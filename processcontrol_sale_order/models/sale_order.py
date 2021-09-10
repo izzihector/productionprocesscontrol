@@ -39,7 +39,7 @@ class SaleOrder(models.Model):
                                 [('move_type', 'in', ('out_invoice', 'out_refund')),
                                  ('invoice_origin', '=', origin)])
                             if invoice:
-                                invoices.append(invoice)
+                                invoices += invoice
                 #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
             order.invoice_ids = invoices
             order.invoice_count = len(invoices)
