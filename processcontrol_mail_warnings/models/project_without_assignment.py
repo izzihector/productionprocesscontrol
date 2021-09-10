@@ -38,7 +38,7 @@ class Project(models.Model):
             project_without_assignment_more_than_seven_days_ids = project_project_obj.search([('user_id', '=', False)])
 
         if project_without_assignment_less_than_seven_days_ids:
-            users_to_send = 'carolina@processcontrol.odoo.com'
+            users_to_send = 'infodirectores@processcontrol.odoo.com'
             message_body = self.write_mail_body_project_less_than_seven_days(project_without_assignment_less_than_seven_days_ids)
             odoobot = "envios@processcontrol.es"
             mail = self.env['mail.mail']
@@ -51,7 +51,7 @@ class Project(models.Model):
             mail_out.send()
 
         if project_without_assignment_more_than_seven_days_ids:
-            users_to_send = 'carolina.fernandez@processcontrol.es'
+            users_to_send = 'infodirectores@processcontrol.odoo.com'
             message_body = self.write_mail_body_project_more_than_seven_days(project_without_assignment_more_than_seven_days_ids)
             odoobot = "envios@processcontrol.es"
             mail = self.env['mail.mail']
