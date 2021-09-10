@@ -27,14 +27,12 @@ class SaleOrder(models.Model):
         # existing invoices. This is necessary since such a refund is not
         # directly linked to the SO.
         for order in self:
-            name= self.name
-            name= name.split(' ')
-            if len(name)> 1:
-                invoices = self.env['account.move'].search(
-                    [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', 'in', name)])
-            else:
-                invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
-                #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
+            invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
+            if not invoices:
+                invoices_ids = self.env['account.move'].search(
+                    [('move_type', 'in', ('out_invoice', 'out_refund')),('invoice_origin','!=',False)])
+                if invoices_ids:
+                    invoices= invoices_ids.filtered(lambda r: order.name in [origin.strip() for origin in r.invoice_origin.split(',')])
             order.invoice_ids = invoices
             order.invoice_count = len(invoices)
 
