@@ -33,7 +33,7 @@ class SaleOrder(models.Model):
                 invoices_ids = self.env['account.move'].search(
                     [('move_type', 'in', ('out_invoice', 'out_refund')),('invoice_origin','!=',False)])
                 if invoices_ids:
-                    invoices= invoices_ids.filtered(lambda r: order.name in [origin.strip() for origin in r.origin.split(',')])
+                    invoices= invoices_ids.filtered(lambda r: order.name in [origin.strip() for origin in r.invoice_origin.split(',')])
                 #invoices = order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund'))
             order.invoice_ids = invoices
             order.invoice_count = len(invoices)
