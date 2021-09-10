@@ -20,6 +20,7 @@
     # always loaded
     'data': [
            'views/my_account_template.xml',
+            'views/portal_search.xml',
     ]
     # only loaded in demonstration mode
     # 'demo': [
