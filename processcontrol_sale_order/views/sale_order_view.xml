@@ -44,7 +44,10 @@
                 </xpath >
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='discount']" position = "attributes" >
                     <attribute name="attrs">{'readonly': [('state', '=', 'done')]}</attribute>
-                </xpath >
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='discount']" position = "after" >
+                   <field name="price_reduce_taxexcl" string="Precio Unitario con Dto"/>
+                </xpath>
                 <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='optional_products']/field[@name='sale_order_option_ids']/tree[1]/field[@name='discount']" position = "after" >
                     <field name="price_subtotal" />
                 </xpath >
