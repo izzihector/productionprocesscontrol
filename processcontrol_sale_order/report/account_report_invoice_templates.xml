@@ -100,7 +100,7 @@
                 </tbody>
             </table>
         </xpath>
-        <xpath expr="//div[@class='clearfix']" position="replace">
+        <xpath expr="//div[hasclass('clearfix')]" position="replace">
             <div class="clearfix">
                 <div id="total" class="row">
                     <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
@@ -166,7 +166,7 @@
                 </div>
             </div>
         </xpath>
-        <xpath expr="//div[@class='clearfix']" position="after">
+        <xpath expr="//div[hasclass('clearfix')]" position="after">
             <div class="page">
                 <div style="font-size:12px; width: 80%;"><!--border-color: black; border-width: 1px; border-style: solid;-->
                     <span>Forma de pago: </span>
