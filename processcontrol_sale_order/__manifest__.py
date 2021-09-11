@@ -28,20 +28,20 @@
        21. Error al crear una suscripcion
        22. PRECIO DE COSTE EN RED SOCIAL PRESUPUESTOS
        23. DUPLICAR PRESUPUESTO
-       23. CREACIÓN DE FACTURA DESDE EL PEDIDO DE VENTA
-       24. Modificar reporte de facturas
-       25. Editar actividades de otros compañeros
-       26. Pagos de Vencimiento en Facturas
-       27. Tickets: Agregar nuevo botón "Add description"
-       28. Nuevo grupo de seguridad: Eliminar parte de horas.
-       29. Restringir en el alta de productos las familias a informar
-       30. Quitar dominio en los diarios que figuran en los asientos contables
-       31. Campo comercial en la ficha de contactos como requerido
-       32. Importar Empleado Responsable
-       33. Cuando se crea oportunidad, fecha de cierre a 6 meses
-       34. El formato del reporte de la suscripcion debe ser igual al del pedido de venta
-       35. Formato de impresión del pedido de compra tiene que ser el mismo que el pedido de venta
-       36. Cambiar el formato de Solicitud de presupuesto en Compras
+       24. CREACIÓN DE FACTURA DESDE EL PEDIDO DE VENTA
+       25. Modificar reporte de facturas
+       26. Editar actividades de otros compañeros
+       27. Pagos de Vencimiento en Facturas
+       28. Tickets: Agregar nuevo botón "Add description"
+       29. Nuevo grupo de seguridad: Eliminar parte de horas.
+       30. Restringir en el alta de productos las familias a informar
+       31. Quitar dominio en los diarios que figuran en los asientos contables
+       32. Campo comercial en la ficha de contactos como requerido
+       33. Importar Empleado Responsable
+       34. Cuando se crea oportunidad, fecha de cierre a 6 meses
+       35. El formato del reporte de la suscripcion debe ser igual al del pedido de venta
+       36. Formato de impresión del pedido de compra tiene que ser el mismo que el pedido de venta
+       37. Cambiar el formato de Solicitud de presupuesto en Compras
     """,
 
     'author': "ProcessControl",
