@@ -48,10 +48,10 @@
             <field name="model">project.project</field>
             <field name="inherit_id" ref="project.view_project"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='partner_id']" position="after" >
-                    <field name="total_sale_hour" widget="timesheet_uom"  sum="Total horas vendidas"/>
-                    <field name="total_work_hour" widget="timesheet_uom"  sum="Total horas trabajadas"/>
-                    <field name="available_hour" widget="timesheet_uom"  sum="Total horas disponibles"/>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="total_sale_hour" widget="timesheet_uom" sum="Total horas vendidas"/>
+                    <field name="total_work_hour" widget="timesheet_uom" sum="Total horas trabajadas"/>
+                    <field name="available_hour" widget="timesheet_uom" sum="Total horas disponibles"/>
                 </xpath>
             </field>
         </record>
@@ -80,9 +80,10 @@
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     No projects found. Let's create one!
-                </p><p>
-                Projects regroup tasks on the same topic and each have their own dashboard.
-            </p>
+                </p>
+                <p>
+                    Projects regroup tasks on the same topic and each have their own dashboard.
+                </p>
             </field>
         </record>
 
@@ -104,18 +105,18 @@
                     <field name="available_hour" widget="timesheet_uom" readonly="True"/>
                 </xpath>
 
-                  <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
                     <page name="studio_page_n9GDa" string="Resolución">
-                         <group name="studio_group_n9GDa" string="En el siguiente apartado informaremos la solución que ha implantado el técnico en el cliente.">
-                        <field name="x_resolucion" widget="html"/>
-                    </group>
-                </page>
-                  </xpath>
-<!--                <xpath expr="//field[@name='user_id']" position="attributes">-->
-<!--                    <attribute name="domain">-->
-<!--                        []-->
-<!--                    </attribute>-->
-<!--                </xpath>-->
+                        <group name="studio_group_n9GDa" string="En el siguiente apartado informaremos la solución que ha implantado el técnico en el cliente.">
+                            <field name="x_resolucion" widget="html"/>
+                        </group>
+                    </page>
+                </xpath>
+                <!--                <xpath expr="//field[@name='user_id']" position="attributes">-->
+                <!--                    <attribute name="domain">-->
+                <!--                        []-->
+                <!--                    </attribute>-->
+                <!--                </xpath>-->
             </field>
         </record>
 
@@ -124,27 +125,45 @@
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_tree2"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='project_id']" position="after" >
-                    <field name="department_id"/>
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="department_id" optional="show"/>
                 </xpath>
                 <xpath expr="//field[@name='project_id']" position="replace">
-                <field name="parent_id"/>
-              </xpath>
+                    <field name="parent_id" optional="show"/>
+                </xpath>
 
-              <xpath expr="//field[@name='sequence']" position="after">
-                <field name="create_date"/>
-                  <field name="partner_id"/>
-              </xpath>
-              <xpath expr="//field[@name='planned_hours']" position="after">
-                <field name="effective_hours" string="Horas Imputadas" widget="float_time" sum="Horas dedicadas"/>
-                  <field name="x_total_horas_pendientes_padre_hijo" widget="float_time" sum="Horas Restantes" string="Horas Restantes"/>
-                <field name="activity_date_deadline" string="Fecha Inicio Actividad"/>
-                <xpath expr="//field[@name='date_deadline']" position="move"/>
-                  <field name="date_deadline" widget="date" string="Fecha límite"/>
-              </xpath>
-              <xpath expr="//field[@name='stage_id']" position="after">
-                <field name="tag_ids" widget="many2many_tags"/>
-              </xpath>
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="create_date"/>
+                    <field name="partner_id" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='planned_hours']" position="after">
+                    <field name="effective_hours" string="Horas Imputadas" widget="float_time" sum="Horas dedicadas" optional="show"/>
+                    <field name="x_total_horas_pendientes_padre_hijo" widget="float_time" sum="Horas Restantes" string="Horas Restantes" optional="show"/>
+                    <field name="activity_date_deadline" string="Fecha Inicio Actividad" optional="show"/>
+                    <xpath expr="//field[@name='date_deadline']" position="move"/>
+                    <field name="date_deadline" widget="date" string="Fecha límite" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="tag_ids" widget="many2many_tags" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='create_date']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='planned_hours']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='progress']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
             </field>
         </record>
 
@@ -153,7 +172,7 @@
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_search_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//filter[@name='group_create_date']" position="before" >
+                <xpath expr="//filter[@name='group_create_date']" position="before">
                     <filter string="Departamento" name="departament" context="{'group_by': 'department_id'}"/>
                     <filter string="Tarea padre" name="parent_task" context="{'group_by': 'parent_id'}"/>
                 </xpath>
