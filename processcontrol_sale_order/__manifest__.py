@@ -50,7 +50,22 @@
     'version': '14.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['account', 'base', 'sale_subscription', 'crm', 'product', 'project', 'sale', 'u_project_report','w_unoobi_block_sales_orders', 'helpdesk', 'u_groups_permissions', 'purchase','purchase_discount'],
+    'depends': [
+        'account',
+        'base',
+        'sale_subscription',
+        'crm',
+        'product',
+        'project',
+        'sale',
+        'u_project_report',
+        'w_unoobi_block_sales_orders',
+        'helpdesk',
+        'u_groups_permissions',
+        'purchase',
+        'purchase_discount',
+        'sale_timesheet'
+    ],
 
     # always loaded
     'data': [
