@@ -30,17 +30,6 @@
             <field name="target">new</field>
         </record>
 
-        <record id="project_task_so_line_invisible_process" model="ir.ui.view">
-			<field name="name">project.task.so.line.process</field>
-            <field name="model">project.task</field>
-            <field name="inherit_id" ref="sale_timesheet.project_task_view_form_inherit_sale_timesheet"/>
-            <field name="arch" type="xml">
-			     <xpath expr="//form[1]/sheet[1]/notebook[1]/page[not(@name)][1]/field[@name='timesheet_ids']/tree[1]/field[@name='so_line']" position="attributes">
-                     <attribute name="optional">show</attribute>
-                     <attribute name="invisible">1</attribute>
-                </xpath>
-            </field>
-        </record>
 
     </data>
 </odoo>
