@@ -30,5 +30,17 @@
             <field name="target">new</field>
         </record>
 
+
+        <record id="timesheet_view_tree_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree.hr_timesheet</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="sale_timesheet_enterprise.timesheet_view_tree_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='so_line']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
