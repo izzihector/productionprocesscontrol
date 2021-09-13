@@ -2,7 +2,7 @@
 <odoo>
     <template id="portal_searchbar" inherit_id="portal.portal_searchbar">
         <xpath expr="//form[@t-if='searchbar_inputs']" position="before">
-            <div t-if="searchbar_following" class="form-inline ml-lg-2">
+            <div t-if="searchbar_following" class="form-inline ml-lg-2" groups="helpdesk.group_helpdesk_user">
                 <span class="small mr-1 navbar-text">Siguiendo:</span>
                 <div class="btn-group">
                     <button id="portal_searchbar_following" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
