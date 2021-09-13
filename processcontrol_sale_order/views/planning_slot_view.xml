@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="processcontrol_planning_slot_form_inherited" model="ir.ui.view">
+            <field name="name">planning.slot.form</field>
+            <field name="model">planning.slot</field>
+            <field name="inherit_id" ref="project_forecast.planning_slot_view_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name="total_sale_hour" attrs="{'invisible':[('project_id','=',False)]}"/>
+                     <field name="total_work_hour" attrs="{'invisible':[('project_id','=',False)]}"/>
+                    <field name="available_hour" attrs="{'invisible':[('project_id','=',False)]}"/>
+              </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
