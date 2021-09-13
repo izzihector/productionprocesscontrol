@@ -7,5 +7,6 @@ from . import project
 from . import product_category
 from . import res_group
 from . import tickets
-#from . import timesheet
+from . import timesheet
 from . import account_move
+from . import planning_slot
