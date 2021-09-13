@@ -11,7 +11,7 @@
                             <a t-attf-href="/new/ticket/?{{ keep_query() }}" class="btn btn-primary" role="button">Nuevo ticket</a>
                         </div>
                         <div class="col-lg-4">
-                            <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" role="button" t-att-href="'/my/tickets/print_current_page?tickets='+str(grouped_tickets[0].ids)"><i class="fa fa-print"></i> Imprimir</a>
+                            <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" role="button" t-att-href="'/my/tickets/print?tickets='+str(grouped_tickets[0].ids)"><i class="fa fa-print"></i> Imprimir</a>
                         </div>
                     </div>
 

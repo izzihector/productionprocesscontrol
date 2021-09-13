@@ -10,17 +10,16 @@
     """,
 
     'author': "ProcessControl",
-    'website': "http://www.processcontrol.es",
+    'website': "https://www.processcontrol.es",
     'category': 'Website',
     'version': '14.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['website', 'portal'],
+    'depends': ['website'],
 
     # always loaded
     'data': [
-           'views/my_account_template.xml',
-            'views/portal_search.xml',
+        'views/my_account_template.xml'
     ]
     # only loaded in demonstration mode
     # 'demo': [
