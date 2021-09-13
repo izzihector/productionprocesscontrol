@@ -44,6 +44,14 @@
         </record>
 
 
+        <record id="act_hr_timesheet_line_view_pivot" model="ir.actions.act_window.view">
+            <field name="view_mode">pivot</field>
+            <field name="sequence">6</field>
+            <field name="act_window_id" ref="hr_timesheet.act_hr_timesheet_line"/>
+        </record>
+
+
+
 
     </data>
 </odoo>
