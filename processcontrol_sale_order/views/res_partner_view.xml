@@ -15,6 +15,11 @@
                 <xpath expr="//field[@name='user_id']" position="attributes">
                     <attribute name="required">True</attribute>
               </xpath>
+                <field name="vat" position="after">
+                      <field name="nro_sage"/>
+
+                </field>
+
 
             </field>
         </record>
