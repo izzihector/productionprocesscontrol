@@ -13,7 +13,7 @@ class AccountAnalyticLine(models.Model):
             employee_id = self.env['hr.employee'].search([('user_id', '=', user)], limit=1)
             if rec.is_timesheet:
                 if rec.employee_id.id != employee_id.id and not rec.env.user.has_group('processcontrol_sale_order.group_can_delete_timesheet'):
-                    raise ValidationError(_('Error. No se puede eliminar una parte de hora de otro empleadoi'))
+                    raise ValidationError(_('Error. No se puede eliminar una parte de hora de otro empleado'))
         return super(AccountAnalyticLine, self).unlink()
 
 
@@ -28,7 +28,7 @@ class AccountAnalyticLine(models.Model):
                         raise ValidationError(_('Error. No se puede crear una parte de hora para otro empleado'))
         return super(AccountAnalyticLine, self).create(values)
 
-    def write(self, vals):
+    def write(self, values):
         for rec in self:
             user = rec._uid
             employee_id = self.env['hr.employee'].search([('user_id', '=', user)], limit=1)
