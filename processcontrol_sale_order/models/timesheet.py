@@ -9,7 +9,7 @@ class AccountAnalyticLine(models.Model):
 
     def unlink(self):
         for rec in self:
-            user = rec.env.user
+            user = rec._uid
             employee_id = self.env['hr.employee'].search([('user_id', '=', user)], limit=1)
             if rec.is_timesheet:
                 if rec.employee_id.id != employee_id.id and not rec.env.user.has_group('processcontrol_sale_order.group_can_delete_timesheet'):
