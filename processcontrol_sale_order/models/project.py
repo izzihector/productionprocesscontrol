@@ -93,8 +93,8 @@ class Task(models.Model):
 
         if content == "Parte de Horas: <br/>":
             content = ''
-        if self:
-            self.message_post(body=content)
+        for record in self:
+            record.message_post(body=content)
         return super(Task, self).write(values)
 
     def _compute_total_sale_hour(self):

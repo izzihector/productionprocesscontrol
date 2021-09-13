@@ -16,4 +16,4 @@ class ResPartner(models.Model):
 
     nombre_fantasia= fields.Char(u'Nombre fantasía', help=u'Nombre fantasía', tracking=True)
     user_id = fields.Many2one('res.users', string='Comercial',domain=[('share','=',False)], tracking=True)
-
+    nro_sage = fields.Char(string=u'Nº Sage', tracking=True)
