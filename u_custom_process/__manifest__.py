@@ -11,7 +11,7 @@
 
     'author': 'UNOOBI ©',
 
-    "website" : "https://www.unoobi.com/",
+    "website": "https://www.unoobi.com/",
 
     'category': 'Uncategorized',
 
@@ -27,26 +27,26 @@
         'portal',
         'project',
         'processcontrol_sale_order',
-        'website'
-
-
+        'website',
     ],
 
-    'data': [  
+    'data': [
         # === SECURITY
         "security/ir.model.access.csv",
         # === VIEWS
-       # "views/helpdesk_views.xml",
+        # "views/helpdesk_views.xml",
         'views/assets.xml',
-       # 'views/sale_order.xml',
+        # 'views/sale_order.xml',
         'views/hr_departament.xml',
         'views/portal.xml',
         'views/project_portal_new_ticket_template.xml',
         'views/helpdesk_portal_templates.xml',
-        'views/project_portal_tasks.xml',      
-        'wizard/create_task_from_oportunity_view.xml',      
-        'views/res_config_settings_views.xml',      
+        'views/project_portal_tasks.xml',
+        'wizard/create_task_from_oportunity_view.xml',
+        'views/res_config_settings_views.xml',
         'views/crm_lead_views.xml',
-       # 'views/project_views.xml',
+        'views/portal_search.xml',
+        'views/portal_ticket.xml',
+        # 'views/project_views.xml',
     ],
 }

@@ -1,8 +1,3 @@
 # -*- encoding: utf-8 -*-
-###############################################################################
-#
-#    Module Writen to Odoo12, Open Source Management Solution
-#
-############################################################################
-
-from . import inherit_sale_order
+from . import sale_order
+from . import sale_order_line
