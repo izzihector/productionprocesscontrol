@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-
         <record id="inherit_sale_order_form_quote_1" model="ir.ui.view">
 			<field name="name">sale.order.form.sale.project</field>
             <field name="model">sale.order</field>
@@ -38,6 +37,5 @@
                     </field>
             </field>
         </record>
-
     </data>
 </odoo>
