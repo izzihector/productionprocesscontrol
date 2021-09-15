@@ -15,4 +15,4 @@ class AccountMoveLine(models.Model):
 
     # Comento este field porque no se utiliza y está duplicado con 'account_internal_type' mostrando un warning
     # TODO: Comprobar, ¿eliminar clase?
-    #internal_type = fields.Selection(related='account_id.internal_type', string="Internal Type", store=True, readonly=True)
+    user_type_id = fields.Many2one(related='account_id.user_type_id', string="Tipo de cuenta", store=True, readonly=True)
