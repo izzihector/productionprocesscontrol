@@ -104,9 +104,19 @@ class Task(models.Model):
             if task.project_id:
                 project_sol = sol_obj.search([('project_id', '=', task.project_id.id)])
                 for sol in project_sol:
+                    qty=float()
                     if sol.product_uom:
                         if 'hora' in sol.product_uom.name:
-                            total_sh += float(
+                            nombre= sol.product_uom.name.split(' ')
+                            if len(nombre) > 0:
+                                qty = float(nombre[0])
+                                if qty > 1:
+                                    total_sh += float(sol.qty_invoiced * qty)
+                                else:
+                                    total_sh += float(
+                                        sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.qty_invoiced
+                            else:
+                                total_sh += float(
                                 sol.product_uom.name.rsplit(' hora')[0].replace(',', '.')) * sol.qty_invoiced
                         else:
                             total_sh += sol.qty_invoiced

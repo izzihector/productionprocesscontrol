@@ -48,7 +48,6 @@ class PortalTicketsProcessHelpDesk(CustomerPortal):
     def portal_submit_ticket(self, departament_id=None, name='', description='', attachment=False):
         """
         Ruta para generar un nuevo ticket.
-        TODO: discriminamos departament_id pero luego siempre se crea en el mismo departamento. ¿es normal?
         :param departament_id:
         :param name:
         :param description:

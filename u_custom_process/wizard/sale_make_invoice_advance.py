@@ -13,7 +13,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
     def create_invoices(self):
         sale_orders = self.env['sale.order'].browse(self._context.get('active_ids', []))
         lines = sale_orders.mapped('order_line').filtered(
-            lambda l: l.display_type not in ['line_section', 'line_note'] and l.product_id.type != 'service' and l.purchase_price == 0
+            lambda l: l.display_type not in ['line_section', 'line_note'] and l.product_id.type != 'service' and l.purchase_price < 0.01
         )
         if lines:
             raise UserError(_("It has lines with zero cost."))
