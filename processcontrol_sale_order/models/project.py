@@ -109,7 +109,7 @@ class Task(models.Model):
                         if 'hora' in sol.product_uom.name:
                             nombre= sol.product_uom.name.split(' ')
                             if len(nombre) > 0:
-                                qty = float(nombre[0])
+                                qty = float(nombre[0].replace(',', '.'))
                                 if qty > 1:
                                     total_sh += float(sol.qty_invoiced * qty)
                                 else:
