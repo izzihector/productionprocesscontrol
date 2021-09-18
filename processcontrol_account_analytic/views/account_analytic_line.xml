@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_analytic_line_tree" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree.hr_timesheet</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='unit_amount']" position="after">
+                <field name="negative" invisible="1"/>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-bf">negative == True</attribute>
+                <attribute name="decoration-danger">negative == True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_modified" model="ir.ui.view">
+        <field name="name">Partes modificados (tree)</field>
+        <field name="model">account.analytic.line</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false"
+                  decoration-bf="negative == True or changes > 0"
+                  decoration-danger="negative == True"
+                  decoration-warning="changes > 0"
+            >
+                <field name="date"/>
+                <field name="employee_id"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="name" optional="1"/>
+                <field name="cliente_id" optional="1"/>
+                <field name="changes"/>
+                <field name="unit_amount" widget="timesheet_uom_timer"/>
+                <field name="negative" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_analytic_line_form_modified" model="ir.ui.view">
+        <field name="name">Partes modificados (form)</field>
+        <field name="model">account.analytic.line</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <header>
+                    <field name="need_check" invisible="1"/>
+                    <field name="changes" invisible="1"/>
+                    <button name="action_verify" type="object"
+                            string="Marcar como verificado" class="btn-primary"
+                            attrs="{'invisible': [('need_check', '=', False)]}"
+                            groups="hr_timesheet.group_hr_timesheet_approver"
+                    />
+                    <button name="action_clean" type="object"
+                            string="Eliminar historial" class="btn-scondary"
+                            attrs="{'invisible': [('changes', '=', 0)]}"
+                            groups="hr_timesheet.group_hr_timesheet_approver"
+                    />
+                </header>
+                <sheet>
+                    <field name="company_id" invisible="1"/>
+
+                    <group string="Datos generales">
+                        <field name="employee_id"/>
+                        <field name="project_id"/>
+                        <field name="task_id"/>
+                    </group>
+                    <group string="Detalle parte" col="3">
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="unit_amount" widget="timesheet_uom_timer"/>
+                        </group>
+                        <group>
+                            <field name="negative" readonly="0" class="p_negative_bool"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="account_analytic_line_form_modified_edit" model="ir.ui.view">
+        <field name="name">Partes modificados (form edición)</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="account_analytic_line_form_modified"/>
+        <field name="groups_id" eval="[(6, 0, [ref('hr_timesheet.group_hr_timesheet_approver')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="edit">true</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_timesheet_line_modified_search" model="ir.ui.view">
+        <field name="name">Partes modificados (search)</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="/search" position="inside">
+                <separator/>
+                <filter name="modified" string="Modificado" domain="[('changes', '>', 0)]"/>
+                <filter name="nonmodified" string="No modificado" domain="[('changes', '=', 0)]"/>
+                <filter name="negative" string="Horas sobrepasadas" domain="[('negative', '=', True)]"/>
+                <filter name="positive" string="Horas no sobrepasadas" domain="[('negative', '=', False)]"/>
+                <separator/>
+                <filter name="need_check" string="Por verificar" domain="[('need_check', '=', True)]"/>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="timesheet_action_modified" model="ir.actions.act_window">
+        <field name="name">Partes por verificar</field>
+        <field name="res_model">account.analytic.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hr_timesheet_line_modified_search"/>
+        <field name="view_id" ref="account_analytic_line_modified"/>
+        <field name="context">{'search_default_need_check': 1,'form_view_ref':'processcontrol_account_analytic.account_analytic_line_form_modified'}</field>
+    </record>
+
+    <menuitem id="timesheet_menu_activity_modified"
+              name="Partes por verificar"
+              parent="hr_timesheet.menu_hr_time_tracking"
+              action="timesheet_action_modified"
+              groups="hr_timesheet.group_hr_timesheet_approver"/>
+
+</odoo>

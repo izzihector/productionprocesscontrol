@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record model="ir.ui.view" id="view_task_form2_inherited">
+            <field name="name">project.task.form.inherited</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@id='timesheets_tab']/field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="after">
+                    <field name="negative" invisible="1" />
+                </xpath>
+                <xpath expr="//notebook/page[@id='timesheets_tab']/field[@name='timesheet_ids']/tree" position="attributes">
+                    <attribute name="decoration-bf">negative == True</attribute>
+                    <attribute name="decoration-danger">negative == True</attribute>
+                </xpath>
+            </field>
+        </record>
+</odoo>
