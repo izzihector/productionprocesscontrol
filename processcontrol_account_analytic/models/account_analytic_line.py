@@ -1,3 +1,5 @@
+import time
+
 from odoo import api, fields, models, SUPERUSER_ID
 
 
@@ -26,7 +28,6 @@ class AccountAnalyticLine(models.Model):
             record.update({'message_ids': [(2, _id, 0) for _id in ids]})
             record.message_post(body='Historial de cambios eliminado')
 
-
     @api.model_create_multi
     @api.returns('self', lambda value: value.id)
     def create(self, vals_list):
@@ -36,13 +37,19 @@ class AccountAnalyticLine(models.Model):
             res += super(AccountAnalyticLine, self).create([val])
         return res
 
+    def write(self, vals):
+        self._compute_negative(vals)
+        return super(AccountAnalyticLine, self).write(vals)
+
     def _compute_negative(self, values):
-        if values.get('is_timesheet'):
-            task = self.env['project.task'].browse([values['task_id']])
-            available = min(task.remaining_hours, task.available_hour)
-            if values['unit_amount'] > available:
-                values['negative'] = True
-                values['need_check'] = True
+        # Obtenemos los tiempos disponibles desde la tarea
+        task = self.env['project.task'].browse([values.get('task_id', self.task_id.id)])
+        available = min(task.remaining_hours, task.available_hour)
+
+        # Se marca como negativo si tiene tiempo y supera el disponible
+        if values.get('unit_amount') and available + self.unit_amount - values['unit_amount'] < 0:
+            values['negative'] = True
+            values['need_check'] = True
 
     @api.depends('message_ids')
     def _count_changes(self):
