@@ -7,3 +7,8 @@
 	path = OCA/bank-payment
 	url = git@github.com:OCA/bank-payment.git
 	branch = 14.0
+
+[submodule "OCA/l10n-spain"]
+	path = OCA/l10n-spain
+	url = git@github.com:OCA/l10n-spain.git
+	branch = 14.0
