@@ -53,7 +53,7 @@ class SaleOrder(models.Model):
             subscription_id = subscription_id[0]
             date_start = subscription_id.recurring_next_date - relativedelta(
                 months=1)
-            date_stop = date_start + relativedelta(
+            date_stop = subscription_id.recurring_next_date + relativedelta(
                 **{PERIODS[subscription_id.recurring_rule_type]: subscription_id.recurring_interval}) \
                         - relativedelta(
                 days=1)
