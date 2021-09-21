@@ -7,7 +7,9 @@
             <field name="inherit_id" ref="project_forecast.planning_slot_view_form"/>
             <field name="priority">30</field>
             <field name="arch" type="xml">
+
                 <xpath expr="//field[@name='project_id']" position="after">
+                     <field name="partner_id" attrs="{'invisible':[('project_id','=',False)]}"/>
                     <field name="total_sale_hour" attrs="{'invisible':[('project_id','=',False)]}"/>
                      <field name="total_work_hour" attrs="{'invisible':[('project_id','=',False)]}"/>
                     <field name="available_hour" attrs="{'invisible':[('project_id','=',False)]}"/>
