@@ -67,4 +67,7 @@ class AccountPaymentLine(models.Model):
             if self.partner_id:
                 if self.mandate_partner_id.id != self.partner_id.id:
                     raise UserError(_(u"No coincide la empresa del mandato con la empresa de la línea del pago %s") % self.name)
+
+
+
         return res

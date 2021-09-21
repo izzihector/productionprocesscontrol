@@ -27,12 +27,6 @@
     <record id="account_payment_line_tree" model="ir.ui.view">
         <field name="name">account_banking_mandate.account.payment.line.tree</field>
         <field name="model">account.payment.line</field>
-
-
-        <xpath expr="//tree" position="attributes">
-            <attribute name="decoration-danger">partner_id != mandate_partner_id</attribute>
-           <attribute name="decoration-success">partner_id == mandate_partner_id</attribute>
-        </xpath>
         <field
             name="inherit_id"
             ref="account_payment_order.account_payment_line_tree"
@@ -47,5 +41,4 @@
             </field>
         </field>
     </record>
-
 </odoo>
