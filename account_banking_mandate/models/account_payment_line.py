@@ -26,10 +26,9 @@ class AccountPaymentLine(models.Model):
 
     @api.onchange('partner_id','mandate_partner_id','mandate_required')
     def onchange_partner(self):
-        for rec in self:
-            if rec.mandate_required:
-                if rec.partner_id != rec.mandate_partner_id:
-                    rec.different_partner = True
+        if self.mandate_required:
+            if self.partner_id != self.mandate_partner_id:
+                self.different_partner = True
 
     @api.constrains("mandate_id", "partner_bank_id")
     def _check_mandate_bank_link(self):
