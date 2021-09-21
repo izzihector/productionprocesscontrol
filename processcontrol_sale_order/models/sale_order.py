@@ -14,6 +14,11 @@ class SaleOrder(models.Model):
         if operator == 'in' and value:
             invoice_ids = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
             if invoice_ids:
+                for invoice in invoice_ids:
+                    invoice_refund_ids = self.env['account.move'].search(
+                        [('move_type', '=', 'out_refund'), ('invoice_origin', '=', invoice.name)])
+                    if invoice_refund_ids:
+                        invoice_ids += invoice_refund_ids
                 return [('id', 'in', invoice_ids.ids)]
             else:
                 return [('id', 'in', invoice_ids)]
