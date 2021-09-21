@@ -47,31 +47,5 @@
             </field>
         </field>
     </record>
-
-    <record id="account_payment_order_inherited_form" model="ir.ui.view">
-        <field name="name">account.payment.order.inherited.form</field>
-        <field name="model">account.payment.order</field>
-        <field name="inherit_id" ref="account_payment_order.account_payment_order_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='payment_line_ids']" position="replace">
-                <field name="payment_line_ids"
-                                context="{'default_payment_type': payment_type}">
-                                <tree>
-                                    <field name="partner_id"/>
-                                    <field name="communication"/>
-                                    <field name="partner_bank_id"/>
-                                    <field name="mandate_id"/>
-                                    <field name="mandate_partner_id"/>
-                                    <field name="ml_maturity_date"/>
-                                    <field name="date"/>
-                                    <field name="amount_currency"/>
-                                    <field name="currency_id"/>
-                                    <field name="name"/>
-                                    <field name="different_partner" invisible="True"/>
-                                </tree>
-                             </field>
-
-            </xpath>
-        </field>
-        </record>
+    
 </odoo>
