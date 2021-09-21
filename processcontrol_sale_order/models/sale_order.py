@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
 
     def _search_invoice_ids(self, operator, value):
         invoice_ids=[]
-        if operator == 'in':
+        if operator == 'in' and value:
             invoice_ids = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
             if invoice_ids:
                 for invoice in invoice_ids:
@@ -38,6 +38,12 @@ class SaleOrder(models.Model):
                     [('move_type', 'in', ('out_invoice', 'out_refund')),('invoice_origin','!=',False)])
                 if invoices_ids:
                     invoices= invoices_ids.filtered(lambda r: order.name in [origin.strip() for origin in r.invoice_origin.split(',')])
+            for invoice in invoices:
+                invoice_refund_ids = self.env['account.move'].search(
+                    [('move_type', '=', 'out_refund'), ('invoice_origin', '=', invoice.name)])
+                if invoice_refund_ids:
+                    invoices += invoice_refund_ids
+
             order.invoice_ids = invoices
             order.invoice_count = len(invoices)
 
