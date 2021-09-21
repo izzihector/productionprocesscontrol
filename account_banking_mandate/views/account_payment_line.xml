@@ -56,7 +56,7 @@
             <xpath expr="//field[@name='payment_line_ids']" position="replace">
                 <field name="payment_line_ids"
                                 context="{'default_payment_type': payment_type}">
-                                <tree colors="green:different_partner=='False';red:different_partner=='True'">
+                                <tree>
                                     <field name="partner_id"/>
                                     <field name="communication"/>
                                     <field name="partner_bank_id"/>
