@@ -8,10 +8,6 @@
                 <xpath expr="//notebook/page[@id='timesheets_tab']/field[@name='timesheet_ids']/tree/field[@name='unit_amount']" position="after">
                     <field name="negative" invisible="1" />
                 </xpath>
-                <xpath expr="//notebook/page[@id='timesheets_tab']/field[@name='timesheet_ids']/tree" position="attributes">
-                    <attribute name="decoration-bf">negative == True</attribute>
-                    <attribute name="decoration-danger">negative == True</attribute>
-                </xpath>
             </field>
         </record>
 </odoo>

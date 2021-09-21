@@ -10,10 +10,6 @@
             <xpath expr="//field[@name='unit_amount']" position="after">
                 <field name="negative" invisible="1"/>
             </xpath>
-            <xpath expr="//tree" position="attributes">
-                <attribute name="decoration-bf">negative == True</attribute>
-                <attribute name="decoration-danger">negative == True</attribute>
-            </xpath>
         </field>
     </record>
 
