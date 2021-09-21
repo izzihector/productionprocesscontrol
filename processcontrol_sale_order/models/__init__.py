@@ -10,3 +10,4 @@ from . import tickets
 from . import timesheet
 from . import account_move
 from . import planning_slot
+from . import sale_report

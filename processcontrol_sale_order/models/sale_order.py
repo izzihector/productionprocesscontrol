@@ -202,3 +202,5 @@ class SaleOrderLine(models.Model):
                     'user_id': self.order_id.user_id.id,
                 })
         return super(SaleOrderLine, self)._timesheet_create_task(project)
+
+
