@@ -20,6 +20,8 @@ class AccountPaymentLine(models.Model):
         related="order_id.payment_method_id.mandate_required", readonly=True
     )
 
+    mandate_partner_id = fields.Many2one(related='mandate_id.partner_id',string='Empresa del mandato',readonly=True,store=True)
+
     @api.constrains("mandate_id", "partner_bank_id")
     def _check_mandate_bank_link(self):
         for pline in self:
@@ -61,4 +63,11 @@ class AccountPaymentLine(models.Model):
         res = super().draft2open_payment_line_check()
         if self.mandate_required and not self.mandate_id:
             raise UserError(_("Missing Mandate on payment line %s") % self.name)
+        if self.mandate_required:
+            if self.partner_id:
+                if self.mandate_partner_id.id != self.partner_id.id:
+                    raise UserError(_(u"No coincide la empresa del mandato con la empresa de la línea del pago %s") % self.name)
+
+
+
         return res
