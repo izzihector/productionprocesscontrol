@@ -20,6 +20,7 @@
                     attrs="{'invisible': [('mandate_required', '=', False)], 'required': [('mandate_required', '=', True)]}"
                     context="{'default_partner_bank_id': partner_bank_id}"
                 />
+                <field name="mandate_partner_id" attrs="{'invisible': [('mandate_id', '=', False)]}"/>
             </field>
         </field>
     </record>
@@ -36,6 +37,7 @@
                     name="mandate_id"
                     invisible="context.get('default_payment_type') != 'inbound'"
                 />
+                <field name="mandate_partner_id" attrs="{'invisible': [('mandate_id', '=', False)]}"/>
             </field>
         </field>
     </record>
