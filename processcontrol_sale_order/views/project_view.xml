@@ -73,7 +73,7 @@
             <field name="name">Projects</field>
             <field name="res_model">project.project</field>
             <field name="domain">[]</field>
-            <field name="view_mode">kanban,form,tree,pivot</field>
+            <field name="view_mode">tree,form,kanban,pivot</field>
             <field name="view_id" ref="project.view_project_kanban"/>
             <field name="search_view_id" ref="project.view_project_project_filter"/>
             <field name="target">main</field>
