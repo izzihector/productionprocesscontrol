@@ -31,7 +31,7 @@ class PCImportEmpleadoResponsable(models.TransientModel):
         self.dont_found = False
         if not self.archive:
             sale_orders = self.env['sale.order'].search([('user_id','!=',False)])
-            teams= self.env['crm.team'].search([])
+            teams= self.env['crm.team'].search([]) 
             for sale in sale_orders:
                 if sale.user_id not in sale.team_id.member_ids:
                     for team in teams:
