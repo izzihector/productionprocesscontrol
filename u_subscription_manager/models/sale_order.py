@@ -1,29 +1,21 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-from odoo import api, models, fields
+from odoo import models, fields, _
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-
-class SaleOrderType(models.Model):
-    _name = 'sale.order.type'
-    _description = 'sale.order.type'
-
-    name = fields.Char(
-        'Name'
-    )
-    code = fields.Char(
-        'Code'
-    )
-    order_id = fields.Many2one(
-        'sale.order',
-        'Order'
-    )
+from odoo.addons.sale_subscription.models.sale_subscription import PERIODS
+from odoo.tools import format_date
 
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
+
+    sale_order_type_id = fields.Many2one('sale.order.type', 'Type')
+
+    sub_template_id = fields.Many2one('sale.subscription.template', 'Subscription template')
+
+    sub_start = fields.Date()
+    sub_end = fields.Date()
 
     def update_existing_subscriptions(self):
         """
@@ -40,8 +32,7 @@ class SaleOrder(models.Model):
     def _prepare_subscription_data(self, template):
         res = super(SaleOrder, self)._prepare_subscription_data(template)
 
-        periods = {'daily': 'days', 'weekly': 'weeks', 'monthly': 'months', 'yearly': 'years'}
-        invoicing_period = relativedelta(**{periods[template.recurring_rule_type]: template.recurring_interval})
+        invoicing_period = relativedelta(**{PERIODS[template.recurring_rule_type]: template.recurring_interval})
 
         if template.recurring_rule_type == 'monthly':
             first_day = datetime.today().replace(day=1)
@@ -49,40 +40,26 @@ class SaleOrder(models.Model):
             res['recurring_next_date'] = recurring_next_date
         return res
 
-    sale_order_type_id = fields.Many2one(
-        'sale.order.type',
-        'Type'
-    )
+    def _prepare_invoice(self):
+        res = super()._prepare_invoice()
+        subscription_id = self.mapped('order_line.subscription_id')
+        if subscription_id:
+            sub = subscription_id[0]
 
+            lang = self.partner_invoice_id.lang
+            if lang:
+                self = self.with_context(lang=lang)
 
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
-
-    #@api.multi
-    def _timesheet_service_generation(self):
-        res = super(SaleOrderLine, self)._timesheet_service_generation()
-        for line in self:
-            if line.project_id:
-                subscription_line_id = self.env['sale.subscription.line'].\
-                    search([('order_line_id', '=', line.id)])
-                if subscription_line_id:
-                    subscription_line_id.project_id = line.project_id.id
-
-    def _prepare_subscription_line_data(self):
-        res = super(SaleOrderLine, self)._prepare_subscription_line_data()
-        for index, line in enumerate(res):
-            line[2].update({
-                'order_line_id': self[index].id,
-                'cost': self[index].purchase_price
-            })
+            invoicing_period = relativedelta(**{PERIODS[sub.recurring_rule_type]: sub.recurring_interval})
+            recurring_next_invoice = fields.Date.from_string(sub.recurring_next_date)
+            recurring_last_invoice = recurring_next_invoice - invoicing_period
+            section_line = [(0, 0, {
+                'name': _("Invoicing period: %s - %s") % (
+                    format_date(self.env, recurring_last_invoice),
+                    format_date(self.env, recurring_next_invoice - relativedelta(days=1))
+                ),
+                'display_type': 'line_section',
+                'sequence': 0
+            })]
+            res['invoice_line_ids'] = section_line
         return res
-
-    sale_order_type = fields.Many2one(
-        'sale.order.type',
-        'Type'
-    )
-
-    def _timesheet_create_task_prepare_values(self, project):
-        record= super(SaleOrderLine, self)._timesheet_create_task_prepare_values(project)
-        record['sales_hours']= record['planned_hours']
-        return record
