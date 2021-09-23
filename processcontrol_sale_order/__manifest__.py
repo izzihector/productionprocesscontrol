@@ -65,8 +65,7 @@
         'purchase',
         'purchase_discount',
         'sale_timesheet',
-        'project_forecast',
-        'website_sale'
+        'project_forecast'
     ],
 
     # always loaded
