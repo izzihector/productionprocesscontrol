@@ -9,10 +9,19 @@ from datetime import date
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    total_purchase_price = fields.Float(string='Total Purchase Price', compute='_compute_total_purchase_price',
+                                        tracking=True, store=True)
+    margin = fields.Monetary("Margin", compute='_compute_margin', store=True, tracking=True)
+    amount_total_option = fields.Monetary(string='Total (opciones)', store=True, readonly=True,
+                                          compute='_amount_all_option', tracking=4)
+    empleado_responsable_id = fields.Many2one(comodel_name='res.users', string='Empleado responsable', tracking=True)
+
     def _search_invoice_ids(self, operator, value):
-        invoice_ids=[]
         if operator == 'in' and value:
-            invoice_ids = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',self.name)])
+            invoice_ids = self.env['account.move'].search([
+                ('move_type', 'in', ('out_invoice', 'out_refund')),
+                ('invoice_origin', '=', self.name)
+            ])
             if invoice_ids:
                 for invoice in invoice_ids:
                     invoice_refund_ids = self.env['account.move'].search(
@@ -22,8 +31,8 @@ class SaleOrder(models.Model):
                 return [('id', 'in', invoice_ids.ids)]
             else:
                 return [('id', 'in', invoice_ids)]
-        return ['&', ('order_line.invoice_lines.move_id.move_type', 'in',('out_invoice', 'out_refund')), ('order_line.invoice_lines.move_id', operator, value)]
-
+        return ['&', ('order_line.invoice_lines.move_id.move_type', 'in', ('out_invoice', 'out_refund')),
+                ('order_line.invoice_lines.move_id', operator, value)]
 
     @api.depends('order_line.invoice_lines')
     def _get_invoiced(self):
@@ -32,12 +41,14 @@ class SaleOrder(models.Model):
         # existing invoices. This is necessary since such a refund is not
         # directly linked to the SO.
         for order in self:
-            invoices = self.env['account.move'].search([('move_type','in',('out_invoice', 'out_refund')),('invoice_origin','=',order.name)])
+            invoices = self.env['account.move'].search(
+                [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', '=', order.name)])
             if not invoices:
                 invoices_ids = self.env['account.move'].search(
-                    [('move_type', 'in', ('out_invoice', 'out_refund')),('invoice_origin','!=',False)])
+                    [('move_type', 'in', ('out_invoice', 'out_refund')), ('invoice_origin', '!=', False)])
                 if invoices_ids:
-                    invoices= invoices_ids.filtered(lambda r: order.name in [origin.strip() for origin in r.invoice_origin.split(',')])
+                    invoices = invoices_ids.filtered(
+                        lambda r: order.name in [origin.strip() for origin in r.invoice_origin.split(',')])
             for invoice in invoices:
                 invoice_refund_ids = self.env['account.move'].search(
                     [('move_type', '=', 'out_refund'), ('invoice_origin', '=', invoice.name)])
@@ -59,14 +70,8 @@ class SaleOrder(models.Model):
 
     @api.depends('order_line')
     def _compute_total_purchase_price(self):
-        for subscription in self:
-            subscription.total_purchase_price = sum(x.purchase_price for x in self.order_line)
-
-    total_purchase_price = fields.Float(string='Total Purchase Price', compute='_compute_total_purchase_price',
-                                        tracking=True)
-    margin = fields.Monetary("Margin", compute='_compute_margin', store=True, tracking=True)
-    amount_total_option = fields.Monetary(string='Total (opciones)', store=True, readonly=True, compute='_amount_all_option', tracking=4)
-    empleado_responsable_id = fields.Many2one(comodel_name='res.users',string='Empleado responsable',tracking=True)
+        for order in self:
+            order.total_purchase_price = sum(order.order_line.mapped('purchase_price'))
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
@@ -79,11 +84,13 @@ class SaleOrder(models.Model):
         template_id = False
 
         if force_confirmation_template or (self.state == 'sale' and not self.env.context.get('proforma', False)):
-            template_id = int(self.env['ir.config_parameter'].sudo().get_param('processcontrol_sale_order.default_confirmation_template'))
+            template_id = int(self.env['ir.config_parameter'].sudo().get_param(
+                'processcontrol_sale_order.default_confirmation_template'))
             template_id = self.env['mail.template'].search([('id', '=', template_id)]).id
             if not template_id:
-                template_id = self.env['ir.model.data'].xmlid_to_res_id('processcontrol_sale_order.mail_template_sale_confirmation',
-                                                                        raise_if_not_found=False)
+                template_id = self.env['ir.model.data'].xmlid_to_res_id(
+                    'processcontrol_sale_order.mail_template_sale_confirmation',
+                    raise_if_not_found=False)
         if not template_id:
             template_id = self.env['ir.model.data'].xmlid_to_res_id('processcontrol_sale_order.email_template_edi_sale',
                                                                     raise_if_not_found=False)
@@ -91,7 +98,7 @@ class SaleOrder(models.Model):
         return template_id
 
     def action_quotation_send(self):
-        ''' Opens a wizard to compose an email, with relevant mail template loaded by default '''
+        """Opens a wizard to compose an email, with relevant mail template loaded by default"""
         self.ensure_one()
         template_id = self._find_mail_template()
         lang = self.env.context.get('lang')
@@ -139,24 +146,25 @@ class SaleOrder(models.Model):
         for order in self:
             for line in order.order_line:
                 if line.product_id and not line.product_id.active:
-                    raise UserError('No se puede confirmar el presupuesto porque el producto %s se encuentra archivado.' % line.product_id.name)
+                    raise UserError('No se puede confirmar el presupuesto porque el producto %s se '
+                                    'encuentra archivado.' % line.product_id.name)
         return super(SaleOrder, self).action_confirm()
 
 
 class SaleOrderOption(models.Model):
     _inherit = "sale.order.option"
 
-    @api.depends('quantity', 'discount', 'price_unit') # , 'tax_id' ver si es necesario agregar campo impuesto
+    price_subtotal = fields.Monetary(compute='_compute_amount', string='Subtotal', readonly=True, store=True)
+    currency_id = fields.Many2one(related='order_id.currency_id', depends=['order_id.currency_id'], store=True,
+                                  string='Currency', readonly=True)
+
+    @api.depends('quantity', 'discount', 'price_unit')  # , 'tax_id' ver si es necesario agregar campo impuesto
     def _compute_amount(self):
         for line in self:
             price = line.price_unit * line.quantity * (1 - (line.discount or 0.0) / 100.0)
             line.update({
                 'price_subtotal': price,
             })
-
-    price_subtotal = fields.Monetary(compute='_compute_amount', string='Subtotal', readonly=True, store=True)
-    currency_id = fields.Many2one(related='order_id.currency_id', depends=['order_id.currency_id'], store=True,
-                                  string='Currency', readonly=True)
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
@@ -169,8 +177,8 @@ class SaleAdvancePaymentInv(models.TransientModel):
         for order in sale_orders:
             for line in order.order_line:
                 if line.product_id and not line.product_id.active:
-                    raise UserError(
-                        'No se puede crear la factura porque el producto %s del pedido de venta %s se encuentra archivado.' % (line.product_id.name, order.name))
+                    raise UserError('No se puede crear la factura porque el producto %s del pedido de venta %s '
+                                    'se encuentra archivado.' % (line.product_id.name, order.name))
         return super().create_invoices()
 
     def _prepare_invoice_values(self, order, name, amount, so_line):
@@ -183,7 +191,10 @@ class SaleOrderLine(models.Model):
 
     def _timesheet_create_task(self, project):
         """Generate an activity if the new project has a task named 'Planificar proyecto'"""
-        a_planificar = self.env['project.task'].search([('name', '=', 'Planificar proyecto'), ('project_id', '=', project.id)], limit=1)
+        a_planificar = self.env['project.task'].search([
+            ('name', '=', 'Planificar proyecto'),
+            ('project_id', '=', project.id)
+        ], limit=1)
         if a_planificar:
             to_do_activity = self.env['mail.activity.type'].search([('name', '=', 'To Do')], limit=1).id
             res_model_id = self.env['ir.model'].sudo().search([('model', '=', a_planificar._name)], limit=1).id
@@ -202,5 +213,3 @@ class SaleOrderLine(models.Model):
                     'user_id': self.order_id.user_id.id,
                 })
         return super(SaleOrderLine, self)._timesheet_create_task(project)
-
-
