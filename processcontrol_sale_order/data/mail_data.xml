@@ -252,5 +252,11 @@
                 </t>
             </xpath>
         </template>
+
+            <template id="message_notification_email_without_branding" inherit_id="mail.message_notification_email">
+                <xpath expr="//p[@style='color: #555555; margin-top:32px;']" position="replace">
+                    <p/>
+                </xpath>
+            </template>
     </data>
 </odoo>
