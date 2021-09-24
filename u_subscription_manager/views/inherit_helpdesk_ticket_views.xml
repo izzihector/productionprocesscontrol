@@ -44,7 +44,7 @@
             </field>
 
                 <field name="stage_id" position="after">
-                       <field name="total_hours_spent"/>
+                       <field name="total_hours_spent" sum="Total"/>
                 </field>
 
             </field>
