@@ -16,7 +16,7 @@
           </xpath>
           <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[1]/span" position="replace">
             <span>
-              <font style="color: rgb(57, 132, 198);">Date</font>
+              <font style="color: rgb(57, 132, 198);">Fecha</font>
             </span>
           </xpath>
           <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[4]" position="attributes">
@@ -131,15 +131,21 @@
             <span></span>
           </xpath>
           <xpath expr="/t/t/t/div/div[5]" position="after">
-            <div class="row">
-              <div class="col-3">
-                <span>
-                  <strong>CLIENTE:</strong>
-                  <br/>
-                </span>
-                <span t-field="docs.cliente_id.name"/>
-              </div>
-            </div>
+              <t t-if="docs.cliente_id">
+                    <div class="row">
+                      <div class="col-3">
+                        <span>
+                            <p><strong>CLIENTE: </strong></p>
+                          <span t-field="docs[0].cliente_id.name"/>
+                          <br/>
+                        </span>
+
+                      </div>
+                        <div class="col-3"/>
+                      <div class="col-3"/>
+                      <div class="col-3"/>
+                    </div>
+              </t>
           </xpath>
             <xpath expr="/t[1]/t[1]/t[1]/div[1]/div[5]/div[1]" position="replace"/>
 
