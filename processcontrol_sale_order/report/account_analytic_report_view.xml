@@ -137,7 +137,7 @@
                   <strong>CLIENTE:</strong>
                   <br/>
                 </span>
-                <span t-field="cliente_id.name"/>
+                <span t-field="docs.cliente_id.name"/>
               </div>
             </div>
           </xpath>
