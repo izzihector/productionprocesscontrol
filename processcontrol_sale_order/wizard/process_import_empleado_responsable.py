@@ -6,6 +6,7 @@ from xlrd import open_workbook
 from odoo.exceptions import ValidationError, UserError
 import io
 import base64
+from datetime import datetime
 
 
 class PCImportEmpleadoResponsable(models.TransientModel):
