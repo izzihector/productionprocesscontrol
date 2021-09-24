@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_system_center_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.system.center</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="System Center" string="System Center" data-key="processcontrol_systemcenter_integration">
+                        <h2>Conexión con System Center</h2>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="text-muted">
+                                Introduzca la URL del WS de produccion
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label for="key_produccion" class="col-lg-3 o_light_label"/>
+                                    <field name="key_produccion" class="col-lg-3 o_light_label" widget="url"/>
+                                </div>
+                            </div>
+                            <div class="text-muted">
+                                Introduzca usuario
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label for="user" class="col-lg-3 o_light_label"/>
+                                    <field name="user" class="col-lg-3 o_light_label"/>
+                                </div>
+                            </div>
+
+                            <div class="text-muted">
+                                Introduzca la Contraseña
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16 row">
+                                    <label for="password" class="col-lg-3 o_light_label"/>
+                                    <field name="password" class="col-lg-3 o_light_label" widget="password"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <h2>Relación de Productos Odoo/Código en SC</h2>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <br/>
+                            <span >Debe establecer la relacion entre los productos con los códigos de SC</span>
+                            <button name="%(processcontrol_systemcenter_integration.action_product_configuration)d" icon="fa-arrow-right" type="action" string="Configurar relación productos/códigos SC" class="btn-link"/>
+                        </div>
+                    </div>
+
+
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

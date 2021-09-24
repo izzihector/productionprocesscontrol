@@ -8,8 +8,8 @@ from odoo.exceptions import ValidationError
 class SystemCenterProductConfiguration(models.Model):
     _name = 'product.configuration.system.center'
 
-    product_id = fields.Many2one(comodel_name='product.product',string='Producto Odoo')
-    code = fields.Char(string=u'Código en SC')
+    product_id = fields.Many2one(comodel_name='product.product',string='Producto Odoo',required=True)
+    code = fields.Char(string=u'Código en SC',required=True)
 
     _sql_constraints = [
         ('code_product_uniq', 'unique(code,product_id)',u'Ya existe ese código y producto configurado')

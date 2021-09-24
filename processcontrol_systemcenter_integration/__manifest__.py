@@ -21,6 +21,7 @@
         'views/configuration_view.xml',
         'views/subscription_system_center_view.xml',
         'views/menu_view.xml',
+        'views/res_config_setting_view.xml',
         'security/ir.model.access.csv'
         
         

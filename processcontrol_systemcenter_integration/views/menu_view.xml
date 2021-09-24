@@ -14,7 +14,7 @@
                   name="System Center"
                   groups="base.group_user"
                   parent="sale_subscription.menu_sale_subscription_root"
-                  sequence="4"/>
+                  sequence="8"/>
 
 
 
