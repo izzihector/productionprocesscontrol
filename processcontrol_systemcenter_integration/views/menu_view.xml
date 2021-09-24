@@ -6,7 +6,7 @@
                   name="Relacion Productos ODOO/System Center"
                   action="processcontrol_systemcenter_integration.action_product_configuration"
                   groups="base.group_user"
-                  parent="account.action_product_configuration"
+                  parent="sale_subscription.menu_sale_subscription_config"
                   sequence="35"/>
 
 
