@@ -6,6 +6,7 @@ from xlrd import open_workbook
 from odoo.exceptions import ValidationError, UserError
 import io
 import base64
+import datetime
 
 
 class PCImportEmpleadoResponsable(models.TransientModel):
@@ -33,11 +34,12 @@ class PCImportEmpleadoResponsable(models.TransientModel):
         if not self.archive:
             sale_orders = self.env['sale.order'].search([('user_id','!=',False)])
             teams= self.env['crm.team'].search([])
+            agosto = datetime.datetime(2021, 9, 1)
             for sale in sale_orders:
                 if sale.user_id not in sale.team_id.member_ids:
                     for team in teams:
                         if sale.user_id in team.member_ids:
-                            if (sale.user_id.id == 407 and sale.create_date <= '2021-08-31') or sale.user_id.id != 407:
+                            if (sale.user_id.id == 407 and sale.date_order < agosto) or sale.user_id.id != 407:
                                 sale.team_id = team.id
                                 count_so+=1
             if count_so >0:
@@ -48,7 +50,7 @@ class PCImportEmpleadoResponsable(models.TransientModel):
                 if oportunity.user_id not in oportunity.team_id.member_ids:
                     for team in teams:
                         if oportunity.user_id in team.member_ids:
-                            if (oportunity.user_id.id == 407 and oportunity.create_date <= '2021-08-31') or oportunity.user_id.id != 407:
+                            if (oportunity.user_id.id == 407 and oportunity.create_date < agosto) or oportunity.user_id.id != 407:
                                 oportunity.team_id = team.id
                                 count_so+=1
             if count_so >0:
@@ -59,7 +61,7 @@ class PCImportEmpleadoResponsable(models.TransientModel):
                 if suscription.user_id not in suscription.team_id.member_ids:
                     for team in teams:
                         if suscription.user_id in team.member_ids:
-                            if (suscription.user_id.id == 407 and suscription.create_date <= '2021-08-31') or suscription.user_id.id != 407:
+                            if (suscription.user_id.id == 407 and suscription.create_date < agosto) or suscription.user_id.id != 407:
                                     suscription.team_id = team.id
                                     count_so+=1
             if count_so >0:

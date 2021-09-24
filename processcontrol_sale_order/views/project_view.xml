@@ -73,8 +73,8 @@
             <field name="name">Projects</field>
             <field name="res_model">project.project</field>
             <field name="domain">[]</field>
-            <field name="view_mode">kanban,form,tree,pivot</field>
-            <field name="view_id" ref="project.view_project_kanban"/>
+            <field name="view_mode">tree,form,kanban,pivot</field>
+            <field name="view_id" ref="project.view_project"/>
             <field name="search_view_id" ref="project.view_project_project_filter"/>
             <field name="target">main</field>
             <field name="help" type="html">
@@ -198,6 +198,8 @@
            <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
             <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity,map,gantt</field>
         </record>
+
+
 
 
     </data>
