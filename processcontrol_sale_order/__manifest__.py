@@ -91,6 +91,7 @@
         'report/account_report_invoice_templates.xml',
         'report/sale_subscription_report.xml',
         'report/sale_subscription_report_template.xml',
+        'report/account_analytic_report_view.xml',
         'views/project_view.xml',
         'views/sale_subscription_view.xml',
         'views/sale_order_view.xml',

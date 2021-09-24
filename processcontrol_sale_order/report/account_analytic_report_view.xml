@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <template id="account_analytic_report_process" inherit_id="hr_timesheet.report_timesheet">
+          <xpath expr="/t/t/t/div/div[2]/div/h2/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Detalle del parte de horas</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div" position="attributes">
+            <attribute name="style" separator=";" add="color:#3984C6"/>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[1]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Date</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[1]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Fecha</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[4]" position="attributes">
+            <attribute name="style" separator=";" add="color:#3984C6"/>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[5]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Time</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[5]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Time</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[3]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Descripción</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[3]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Descripción</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[2]/span" position="replace">
+            <span>Responsable</span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[5]/span/font" position="replace">
+            <font style="color: rgb(57, 132, 198);">Tiempo</font>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[2]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Responsable</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/thead/tr/th[2]/span" position="replace">
+            <span>
+              <font style="color: rgb(57, 132, 198);">Responsable</font>
+            </span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/tbody/tr[2]/td[4]/strong" position="replace">
+            <strong>TOTAL</strong>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/tbody/tr[2]/td[4]/strong" position="replace">
+            <strong>
+              <font style="color: rgb(57, 132, 198);">TOTAL</font>
+            </strong>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div/table/tbody/tr[2]/td[4]/strong" position="replace">
+            <strong>
+              <font style="color: rgb(57, 132, 198);">TOTAL</font>
+            </strong>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div" position="attributes">
+            <attribute name="class" separator=" " add="o_bold"/>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div" position="attributes">
+            <attribute name="class" separator=" " remove="o_bold"/>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[3]/div" position="attributes">
+            <attribute name="style" separator=";" add="color:#3984C6" remove="color:#3984C6"/>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[1]" position="after">
+            <div class="row">
+              <div class="col">
+                <span>New Text Block</span>
+              </div>
+            </div>
+          </xpath>
+          <xpath expr="/t[1]/t[1]/t[1]/div[1]/div[2]/div[1]" position="replace"/>
+          <xpath expr="/t/t/t/div/div[2]" position="after">
+            <div class="row">
+              <div class="col-3">
+                <span>
+                  <strong># Reuniones:</strong>
+                  <br/>
+                </span>
+                <span t-field="user.meeting_count"/>
+              </div>
+              <div class="col-3"/>
+              <div class="col-3"/>
+              <div class="col-3"/>
+            </div>
+          </xpath>
+          <xpath expr="/t[1]/t[1]/t[1]/div[1]/div[3]/div[1]" position="replace"/>
+          <xpath expr="/t/t/t/div/div[3]/div[3]" position="inside">
+            <span t-field="user.city"/>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[4]" position="after">
+            <div class="row">
+              <div class="col-3">
+                <span>
+                  <strong>Calle:</strong>
+                  <br/>
+                </span>
+                <span t-field="user.street"/>
+              </div>
+              <div class="col-3"/>
+              <div class="col-3"/>
+              <div class="col-3"/>
+            </div>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[5]" position="after">
+            <div class="row">
+              <div class="col">
+                <span>New Text Block</span>
+              </div>
+            </div>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[6]/div/span" position="replace">
+            <span></span>
+          </xpath>
+          <xpath expr="/t/t/t/div/div[5]" position="after">
+                    <div class="row">
+                      <div class="col-3">
+                            <t t-if="docs.cliente_id">
+                        <span>
+                            <strong>CLIENTE: </strong>
+                          <br/>
+                        </span>
+                                <span t-field="docs[0].cliente_id.name"/>
+                            </t>
+
+                      </div>
+                        <div class="col-3"/>
+                      <div class="col-3"/>
+                      <div class="col-3"/>
+                    </div>
+
+          </xpath>
+            <xpath expr="/t[1]/t[1]/t[1]/div[1]/div[5]/div[1]" position="replace"/>
+
+
+       </template>
+
+</odoo>
