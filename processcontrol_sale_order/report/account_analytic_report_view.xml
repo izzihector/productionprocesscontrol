@@ -131,21 +131,22 @@
             <span></span>
           </xpath>
           <xpath expr="/t/t/t/div/div[5]" position="after">
-              <t t-if="docs.cliente_id">
                     <div class="row">
                       <div class="col-3">
+                            <t t-if="docs.cliente_id">
                         <span>
-                            <p><strong>CLIENTE: </strong></p>
-                          <span t-field="docs[0].cliente_id.name"/>
+                            <strong>CLIENTE: </strong>
                           <br/>
                         </span>
+                                <span t-field="docs[0].cliente_id.name"/>
+                            </t>
 
                       </div>
                         <div class="col-3"/>
                       <div class="col-3"/>
                       <div class="col-3"/>
                     </div>
-              </t>
+
           </xpath>
             <xpath expr="/t[1]/t[1]/t[1]/div[1]/div[5]/div[1]" position="replace"/>
 
