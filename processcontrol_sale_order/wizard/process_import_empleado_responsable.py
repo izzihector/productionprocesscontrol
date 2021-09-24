@@ -39,7 +39,7 @@ class PCImportEmpleadoResponsable(models.TransientModel):
                 if sale.user_id not in sale.team_id.member_ids:
                     for team in teams:
                         if sale.user_id in team.member_ids:
-                            if (sale.user_id.id == 407 and sale.create_date < agosto) or sale.user_id.id != 407:
+                            if (sale.user_id.id == 407 and sale.date_order < agosto) or sale.user_id.id != 407:
                                 sale.team_id = team.id
                                 count_so+=1
             if count_so >0:
