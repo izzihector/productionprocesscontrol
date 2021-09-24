@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<data>
+
+    <record id="view_suscription_line_sc_tree" model="ir.ui.view">
+        <field name="name">suscription.line.system.center.tree</field>
+        <field name="model">suscription.line.system.center</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='draft'" decoration-info="state=='done'">
+                  <field name="date"/>
+                <field name="partner_id"/>
+                <field name="nro_sage"/>
+                <field name="suscription_id"/>
+                <field name="suscription_line_id"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="quantity_to_update"/>
+                <field name="state"/>
+
+            </tree>
+        </field>
+    </record>
+
+        <record id="view_suscription_line_sc_done_tree" model="ir.ui.view">
+        <field name="name">suscription.line.system.center.tree</field>
+        <field name="model">suscription.line.system.center</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state=='draft'" decoration-info="state=='done'">
+                <field name="date"/>
+                <field name="partner_id"/>
+                <field name="nro_sage"/>
+                <field name="suscription_id"/>
+                <field name="suscription_line_id"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="quantity_to_update"/>
+                <field name="state"/>
+                <field name="approved_by_id"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_suscription_line_sc_search" model="ir.ui.view">
+        <field name="name">suscription.line.system.center.search</field>
+        <field name="model">suscription.line.system.center</field>
+        <field name="arch" type="xml">
+            <search string="Payments">
+                <field name="partner_id" />
+                 <field name="nro_sage"/>
+                <field name="suscription_id"/>
+                <separator/>
+                <filter string="Pendientes" domain="[('state','=','draft')]" name='state_draft'/>
+                <filter string="Validadas" domain="[('state','=','done')]" name='state_done'/>
+                <separator/>
+                <filter name="partner_id" string="Empresa" domain="[]" context="{'group_by': 'partner_id'}"/>
+                  <filter name="date" string="Fecha" domain="[]" context="{'group_by': 'date'}"/>
+                <filter name="approved_by_id" string="Aprobado por" domain="[]" context="{'group_by':'approved_by_id'}"/>
+                <filter name="state" string="State" domain="[]" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+
+
+        <record id="action_suscription_line_system_center" model="ir.actions.act_window">
+        <field name="name">Pendientes</field>
+        <field name="res_model">suscription.line.system.center</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+            <field name="search_view_id" ref="view_suscription_line_sc_search"/>
+            <field name="view_id" ref="view_suscription_line_sc_tree"/>
+            <field name="domain">[('state','=','draft')]</field>
+    </record>
+
+    <record id="action_suscription_line_system_center_done" model="ir.actions.act_window">
+        <field name="name">Validadas</field>
+        <field name="res_model">suscription.line.system.center</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+            <field name="search_view_id" ref="view_suscription_line_sc_search"/>
+            <field name="view_id" ref="view_suscription_line_sc_done_tree"/>
+            <field name="domain">[('state','=','done')]</field>
+    </record>
+
+
+    </data>
+</odoo>

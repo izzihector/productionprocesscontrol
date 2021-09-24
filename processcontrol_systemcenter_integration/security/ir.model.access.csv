@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_suscription_line_system_center,System Center,model_suscription_line_system_center,,1,1,1,1
+access_product_configuration_system_center,Product Configuration System Center,model_product_configuration_system_center,,1,1,1,1

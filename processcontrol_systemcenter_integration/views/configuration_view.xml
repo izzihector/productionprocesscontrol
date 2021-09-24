@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+    <record id="action_product_configuration" model="ir.actions.act_window">
+        <field name="name">Relacion Productos ODOO/System Center</field>
+        <field name="res_model">product.configuration.system.center</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    </data>
+</odoo>
